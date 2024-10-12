@@ -1,0 +1,987 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/touxiang.png">
+  <link rel="icon" href="/img/touxiang.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Naveen">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Axie Infinity 深度解析 引言 Axie Infinity 是由越南团队 Sky Mavis 开发的一款基于区块链的数字宠物养成和战斗游戏。玩家可以在游戏中收集、饲养、繁殖和交易名为 Axie 的数字宠物。作为一种 “边玩边赚”（Play to Earn）的游戏模式，Axie Infinity 在 2021 年取得了爆炸性的增长。 在 2021 年 10 月，Axie Infinity">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Axie Infinity 深度解析">
+<meta property="og:url" content="http://navafee.github.io./axie/index.html">
+<meta property="og:site_name" content="Naveen&#39;s Blog">
+<meta property="og:description" content="Axie Infinity 深度解析 引言 Axie Infinity 是由越南团队 Sky Mavis 开发的一款基于区块链的数字宠物养成和战斗游戏。玩家可以在游戏中收集、饲养、繁殖和交易名为 Axie 的数字宠物。作为一种 “边玩边赚”（Play to Earn）的游戏模式，Axie Infinity 在 2021 年取得了爆炸性的增长。 在 2021 年 10 月，Axie Infinity">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-10-12T08:37:17.000Z">
+<meta property="article:modified_time" content="2024-10-12T08:38:29.683Z">
+<meta property="article:author" content="Naveen">
+<meta property="article:tag" content="Web3">
+<meta property="article:tag" content="DeFi">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Axie Infinity 深度解析 - Naveen&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Naveen</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Axie Infinity 深度解析"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-10-12 16:37" pubdate>
+          2023年10月12日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Axie Infinity 深度解析</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="axie-infinity-深度解析">Axie Infinity 深度解析</h1>
+<h2 id="引言">引言</h2>
+<p><strong>Axie Infinity</strong> 是由越南团队 <strong>Sky
+Mavis</strong>
+开发的一款基于区块链的数字宠物养成和战斗游戏。玩家可以在游戏中收集、饲养、繁殖和交易名为
+<strong>Axie</strong> 的数字宠物。作为一种
+<strong>“边玩边赚”</strong>（Play to Earn）的游戏模式，Axie Infinity 在
+2021 年取得了爆炸性的增长。</p>
+<p>在 2021 年 10 月，Axie Infinity 完成了由
+<strong>a16z、Paradigm、FTX</strong> 等多家知名风投机构领投的
+<strong>1.6 亿美元 B 轮融资</strong>，估值达 <strong>30
+亿美元</strong>。本文将深入探讨 Axie Infinity
+的经济模型、代币机制、项目发展时间线，以及其在区块链游戏生态中的重要地位。</p>
+<h2 id="一经济模型">一、经济模型</h2>
+<p>Axie Infinity 的生态系统由 <strong>玩家</strong>、<strong>Axie
+NFT</strong>、以及原生代币 <strong>AXS</strong> 和 <strong>SLP</strong>
+组成。</p>
+<h3 id="玩家">1. 玩家</h3>
+<ul>
+<li><strong>参与门槛</strong>：新玩家需要购买 <strong>3 只 Axie
+宠物</strong>，才能开始游戏。</li>
+<li><strong>游戏玩法</strong>：玩家可以通过 <strong>冒险模式</strong> 和
+<strong>竞技场对战</strong> 来获得游戏代币。</li>
+<li><strong>收益</strong>：通过战斗、完成每日任务等方式，玩家可以获得
+<strong>SLP（Smooth Love Potion）</strong> 代币。</li>
+</ul>
+<h3 id="axie-nft">2. Axie NFT</h3>
+<ul>
+<li><p><strong>获取方式</strong>：</p>
+<ul>
+<li><strong>购买</strong>：在 Axie 官方市场上使用 <strong>ETH</strong>
+购买。</li>
+<li><strong>繁殖</strong>：拥有至少 <strong>2 只 Axie</strong>，消耗
+<strong>SLP</strong> 和 <strong>AXS</strong> 代币进行繁殖。</li>
+<li><strong>赠送</strong>：玩家之间可以相互赠送 Axie。</li>
+</ul></li>
+<li><p><strong>交易手续费</strong>：每笔交易需支付
+<strong>4.25%</strong> 的手续费，进入
+<strong>社区金库</strong>。</p></li>
+<li><p><strong>繁殖机制</strong>：</p>
+<ul>
+<li>每只 Axie 最多可以繁殖 <strong>7 次</strong>。</li>
+<li>随着繁殖次数的增加，所需的 <strong>SLP</strong> 成本也会提高。</li>
+</ul></li>
+</ul>
+<h3 id="slp-代币">3. SLP 代币</h3>
+<ul>
+<li><strong>性质</strong>：游戏内的功能型代币，无供应上限。</li>
+<li><strong>用途</strong>：繁殖新的 Axie 必须消耗一定数量的
+<strong>SLP</strong>。</li>
+<li><strong>获取方式</strong>：
+<ul>
+<li><strong>PVE 冒险模式</strong>：每天最多可获得 <strong>50
+SLP</strong>。</li>
+<li><strong>PVP 竞技场</strong>：根据玩家排名和胜率获取。</li>
+<li><strong>每日任务</strong>：完成指定任务可获得 <strong>25
+SLP</strong>。</li>
+</ul></li>
+</ul>
+<h3 id="axs-代币">4. AXS 代币</h3>
+<ul>
+<li><strong>全称</strong>：Axie Infinity Shards</li>
+<li><strong>性质</strong>：治理代币，持有者有权参与社区治理和决策。</li>
+<li><strong>用途</strong>：
+<ul>
+<li><strong>治理投票</strong>：持有者可以对游戏发展方向进行投票。</li>
+<li><strong>质押奖励</strong>：质押 AXS 可获得更多的 AXS 作为奖励。</li>
+<li><strong>繁殖消耗</strong>：繁殖 Axie 时需要消耗一定数量的 AXS。</li>
+</ul></li>
+</ul>
+<h2 id="二axs-代币分配">二、AXS 代币分配</h2>
+<ul>
+<li><strong>总供应量</strong>：270,000,000 枚 AXS</li>
+<li><strong>当前流通量</strong>：约 120,000,000 枚（流通率约 45%）</li>
+</ul>
+<h3 id="分配详情">分配详情</h3>
+<table>
+<thead>
+<tr>
+<th>分配类别</th>
+<th>数量（枚）</th>
+<th>占比</th>
+<th>解锁周期</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>质押奖励</td>
+<td>78,300,000</td>
+<td>29%</td>
+<td>5.5 年内解锁</td>
+</tr>
+<tr>
+<td>团队持有</td>
+<td>56,700,000</td>
+<td>21%</td>
+<td>4.5 年内解锁</td>
+</tr>
+<tr>
+<td>Play to Earn 奖励</td>
+<td>54,000,000</td>
+<td>20%</td>
+<td>4.5 年内解锁</td>
+</tr>
+<tr>
+<td>公开销售</td>
+<td>29,700,000</td>
+<td>11%</td>
+<td>已解锁</td>
+</tr>
+<tr>
+<td>生态系统基金</td>
+<td>21,600,000</td>
+<td>8%</td>
+<td>用于社区基金和空投</td>
+</tr>
+<tr>
+<td>顾问</td>
+<td>18,900,000</td>
+<td>7%</td>
+<td>4.5 年内解锁</td>
+</tr>
+<tr>
+<td>私募销售</td>
+<td>10,800,000</td>
+<td>4%</td>
+<td>2022 年底解锁</td>
+</tr>
+</tbody>
+</table>
+<h3 id="说明">说明</h3>
+<ul>
+<li><strong>质押奖励（29%）</strong>：激励玩家质押
+AXS，获得投票权和代币奖励。</li>
+<li><strong>团队持有（21%）</strong>：激励核心开发团队，锁仓 4.5
+年。</li>
+<li><strong>Play to Earn
+奖励（20%）</strong>：用于奖励玩家的游戏活动，如赛季排位赛、土地玩法等。</li>
+<li><strong>公开销售（11%）</strong>：通过交易平台（如币安
+Launchpad）公开出售。</li>
+<li><strong>生态系统基金（8%）</strong>：用于社区发展和空投活动。</li>
+<li><strong>顾问（7%）</strong>：奖励战略顾问，帮助 Axie Infinity
+的未来发展。</li>
+<li><strong>私募销售（4%）</strong>：2020 年中私募，募集 86.4
+万美元，折扣价购买 AXS，解锁期至 2022 年底。</li>
+</ul>
+<h2 id="三项目时间线复盘">三、项目时间线复盘</h2>
+<p>根据官方白皮书和历史资料，Axie Infinity 的重要发展节点如下：</p>
+<ul>
+<li><strong>2017 年 12 月</strong>：项目概念和想法形成，开始开发。</li>
+<li><strong>2018 年 2 月</strong>：Origin Axie 预售开始，筹集了
+<strong>900 ETH</strong>。</li>
+<li><strong>2018 年 3 月</strong>：内部 Axie NFT 市场发布。</li>
+<li><strong>2018 年 5 月</strong>：繁殖功能上线，玩家可以繁殖
+Axie。</li>
+<li><strong>2018 年 10
+月</strong>：空闲战斗游戏发布，初步的战斗机制。</li>
+<li><strong>2019 年 1 月</strong>：土地销售开始，筹集了 <strong>3,200
+ETH</strong>。</li>
+<li><strong>2019 年 12 月</strong>：社区 Alpha
+版本的卡牌对战游戏发布。</li>
+<li><strong>2020 年 5 月</strong>：Mavis Hub
+发布，提供游戏的桌面客户端。</li>
+<li><strong>2020 年 6 月</strong>：Axie Infinity
+加入育碧（Ubisoft）企业家实验室。</li>
+<li><strong>2020 年 10 月</strong>：AXS 代币在币安 Launchpad 上线。</li>
+<li><strong>2021 年 2 月</strong>：专用侧链 <strong>Ronin</strong>
+主网上线，缓解以太坊网络的拥堵和高 Gas 费。</li>
+<li><strong>2021 年 4 月</strong>：Axie Infinity 迁移到 Ronin
+链，提升游戏性能。</li>
+<li><strong>2021 年 9 月</strong>：AXS 启动代币质押功能。</li>
+<li><strong>2021 年 11 月</strong>：在 Ronin 上推出原生去中心化交易所
+<strong>Katana</strong>。</li>
+<li><strong>2022 年</strong>：计划启动 AXS
+生态系统，推出移动端版本和土地游戏等。</li>
+</ul>
+<h2 id="四axie-infinity-的爆发">四、Axie Infinity 的爆发</h2>
+<h3 id="收入增长分析">1. 收入增长分析</h3>
+<p>根据 <strong>Token Terminal</strong> 的数据显示，Axie Infinity
+的协议收入在 2021 年经历了爆炸式增长。</p>
+<ul>
+<li><strong>2021 年 1 月</strong>：总收入约 <strong>10
+万美元</strong>。</li>
+<li><strong>2021 年 4 月</strong>：总收入约 <strong>67
+万美元</strong>。</li>
+<li><strong>2021 年 5 月</strong>：总收入猛增至 <strong>300
+万美元</strong>。</li>
+<li><strong>2021 年 6 月</strong>：总收入达到 <strong>1,200
+万美元</strong>。</li>
+<li><strong>2021 年 7 月</strong>：总收入突破 <strong>2
+亿美元</strong>。</li>
+<li><strong>2021 年 8 月</strong>：总收入达到 <strong>3.6
+亿美元</strong>，达到历史巅峰。</li>
+</ul>
+<p><em>（图示：Axie Infinity 协议收入增长曲线）</em></p>
+<h3 id="爆发因素分析">2. 爆发因素分析</h3>
+<ul>
+<li><p><strong>Ronin 侧链的上线（2021 年 4 月）</strong>：</p>
+<ul>
+<li><strong>解决高 Gas
+费问题</strong>：以太坊网络的拥堵和高昂的交易费用阻碍了玩家的参与。</li>
+<li><strong>提升用户体验</strong>：Ronin
+提供了快速、低成本的交易，降低了玩家的进入门槛。</li>
+</ul></li>
+<li><p><strong>NFT 热潮的兴起（2021 年 7 月）</strong>：</p>
+<ul>
+<li><strong>无聊猿（BAYC）等项目的爆火</strong>：吸引了大量关注，明星效应推动了
+NFT 概念的普及。</li>
+<li><strong>新增用户涌入</strong>：NFT 概念的火爆为 Axie Infinity
+带来了大量新用户。</li>
+</ul></li>
+<li><p><strong>资本的青睐</strong>：</p>
+<ul>
+<li><strong>投资者寻求新机会</strong>：在加密货币市场波动和矿业清退的背景下，链游成为新的投资热点。</li>
+<li><strong>回本周期明确</strong>：游戏内收益模型清晰，吸引了资金的进入。</li>
+</ul></li>
+</ul>
+<h2 id="五axie-infinity-的生态影响">五、Axie Infinity 的生态影响</h2>
+<h3 id="play-to-earn-模式的成功">1. Play to Earn 模式的成功</h3>
+<ul>
+<li><strong>经济激励</strong>：玩家可以通过游戏获得实际收益，激发了全球玩家的兴趣，特别是在东南亚等新兴市场。</li>
+<li><strong>社区驱动</strong>：大量的玩家社区、自组织的公会和学徒制，促进了游戏的传播和生态的繁荣。</li>
+</ul>
+<h3 id="nft-与游戏的结合">2. NFT 与游戏的结合</h3>
+<ul>
+<li><strong>资产所有权</strong>：玩家真正拥有游戏内的资产（Axie、土地等），可以自由交易和增值。</li>
+<li><strong>创新模式</strong>：为其他游戏和 NFT
+项目提供了成功的范例，推动了 GameFi 的发展。</li>
+</ul>
+<h3 id="经济模型的可持续性">3. 经济模型的可持续性</h3>
+<ul>
+<li><strong>代币经济</strong>：通过 AXS 和 SLP
+的双代币模型，维持了游戏内的经济循环。</li>
+<li><strong>社区金库</strong>：手续费进入社区金库，未来将由 AXS
+持有者治理，促进生态的自我发展。</li>
+</ul>
+<h2 id="六风险与挑战">六、风险与挑战</h2>
+<h3 id="经济模型的可持续性-1">1. 经济模型的可持续性</h3>
+<ul>
+<li><strong>通胀压力</strong>：SLP
+代币没有供应上限，可能面临通胀和价格下跌的风险。</li>
+<li><strong>玩家流失</strong>：如果新玩家的增长放缓，游戏内的收益可能无法持续，影响玩家留存。</li>
+</ul>
+<h3 id="竞争压力">2. 竞争压力</h3>
+<ul>
+<li><strong>新兴链游的崛起</strong>：越来越多的区块链游戏进入市场，竞争加剧。</li>
+<li><strong>创新需求</strong>：Axie Infinity
+需要持续推出新玩法和内容，保持玩家的兴趣。</li>
+</ul>
+<h3 id="监管风险">3. 监管风险</h3>
+<ul>
+<li><strong>政策不确定性</strong>：各国对加密资产和 NFT
+的监管政策可能影响游戏的发展。</li>
+</ul>
+<h2 id="七未来展望">七、未来展望</h2>
+<ul>
+<li><strong>移动端的推广</strong>：计划在安卓和 iOS
+平台上线，扩大用户群体。</li>
+<li><strong>土地游戏的开发</strong>：丰富游戏内容，提供更多的玩法和收益途径。</li>
+<li><strong>AXS
+生态系统的建设</strong>：加强社区治理，推动生态的长期发展。</li>
+</ul>
+<h2 id="八结论">八、结论</h2>
+<p>Axie Infinity 作为区块链游戏的领军者，成功地将
+<strong>游戏、NFT、加密货币</strong> 结合在一起，创造了一个
+<strong>“边玩边赚”</strong>
+的新模式。其爆发式增长得益于团队的技术实力、创新的经济模型、以及对市场机会的把握。然而，未来仍面临着经济模型的可持续性、竞争和监管等挑战。</p>
+<p>对于投资者和玩家而言，深入了解 Axie Infinity
+的机制和风险，有助于做出更明智的决策。无论如何，Axie Infinity
+已经在区块链游戏的历史上留下了浓墨重彩的一笔，值得持续关注。</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://axieinfinity.com/">Axie Infinity 官方网站</a></li>
+<li><a target="_blank" rel="noopener" href="https://whitepaper.axieinfinity.com/">Axie Infinity
+白皮书</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.skymavis.com/">Sky Mavis 官方博客</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://tokenterminal.com/terminal/projects/axie-infinity">Token
+Terminal - Axie Infinity 数据</a></li>
+<li><a target="_blank" rel="noopener" href="https://support.roninchain.com/hc/en-us">Ronin
+网络介绍</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://axie.substack.com/p/axie-infinity-community-treasury">Axie
+Infinity 社区金库</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web3/" class="category-chain-item">Web3</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Web3/DeFi/" class="category-chain-item">DeFi</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Web3/" class="print-no-link">#Web3</a>
+      
+        <a href="/tags/DeFi/" class="print-no-link">#DeFi</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Axie Infinity 深度解析</div>
+      <div>http://navafee.github.io./axie/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Naveen</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年10月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/lyra/" title="Lyra 深度解析：去中心化期权 AMM 协议">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Lyra 深度解析：去中心化期权 AMM 协议</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/gains/" title="深度解析 Gains Network：去中心化的多元合成资产交易平台">
+                        <span class="hidden-mobile">深度解析 Gains Network：去中心化的多元合成资产交易平台</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

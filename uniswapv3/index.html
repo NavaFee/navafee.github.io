@@ -1,0 +1,969 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/touxiang.png">
+  <link rel="icon" href="/img/touxiang.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Naveen">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Uniswap V3 深度解析 引言 Uniswap 是以太坊上最知名的去中心化交易协议之一，其核心是基于自动做市商（AMM）的模型。Uniswap V3 是其最新版本，针对 V2 版本进行了重大升级，旨在提高资本效率、降低交易滑点、并提供更灵活的流动性管理。本文将深入探讨 Uniswap V3 的核心升级、数学模型、手续费机制、操作流程，以及其在 DeFi 生态系统中的重要作用。 一、核心升级：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Uniswap V3 深度解析">
+<meta property="og:url" content="http://navafee.github.io./uniswapv3/index.html">
+<meta property="og:site_name" content="Naveen&#39;s Blog">
+<meta property="og:description" content="Uniswap V3 深度解析 引言 Uniswap 是以太坊上最知名的去中心化交易协议之一，其核心是基于自动做市商（AMM）的模型。Uniswap V3 是其最新版本，针对 V2 版本进行了重大升级，旨在提高资本效率、降低交易滑点、并提供更灵活的流动性管理。本文将深入探讨 Uniswap V3 的核心升级、数学模型、手续费机制、操作流程，以及其在 DeFi 生态系统中的重要作用。 一、核心升级：">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-05T08:54:29.000Z">
+<meta property="article:modified_time" content="2024-10-12T09:19:46.583Z">
+<meta property="article:author" content="Naveen">
+<meta property="article:tag" content="Web3">
+<meta property="article:tag" content="DeFi">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Uniswap V3 深度解析 - Naveen&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Naveen</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Uniswap V3 深度解析"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-05 16:54" pubdate>
+          2023年3月5日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Uniswap V3 深度解析</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="uniswap-v3-深度解析">Uniswap V3 深度解析</h1>
+<h2 id="引言">引言</h2>
+<p>Uniswap
+是以太坊上最知名的去中心化交易协议之一，其核心是基于自动做市商（AMM）的模型。Uniswap
+V3 是其最新版本，针对 V2
+版本进行了重大升级，旨在提高资本效率、降低交易滑点、并提供更灵活的流动性管理。本文将深入探讨
+Uniswap V3 的核心升级、数学模型、手续费机制、操作流程，以及其在 DeFi
+生态系统中的重要作用。</p>
+<h2
+id="一核心升级从恒定乘积到集中流动性">一、核心升级：从恒定乘积到集中流动性</h2>
+<h3 id="恒定乘积模型的局限性">1. 恒定乘积模型的局限性</h3>
+<p>Uniswap V1 和 V2 使用的是恒定乘积公式：</p>
+<p><span class="math display">\[
+x \times y = k
+\]</span></p>
+<p>其中：</p>
+<ul>
+<li>( x ) 和 ( y ) 分别代表池中两种代币的数量。</li>
+<li>( k ) 是常数，代表池中总的流动性。</li>
+</ul>
+<p>这种模型的优点是简单直观，但存在资本效率低下的问题。流动性被分布在整个价格曲线上，而大部分交易只发生在某个特定的价格范围内，导致大量的资金被闲置。</p>
+<h3 id="集中流动性concentrated-liquidity">2. 集中流动性（Concentrated
+Liquidity）</h3>
+<p>Uniswap V3
+引入了集中流动性机制，允许流动性提供者（LP）在特定的价格范围内提供流动性。这意味着
+LP 可以将资金集中在最有可能发生交易的价格区间，提高资本效率。</p>
+<h4 id="流动性刻度tick">流动性刻度（Tick）</h4>
+<ul>
+<li><p><strong>价格刻度（Tick）</strong>：Uniswap V3
+将价格范围划分为一系列离散的价格刻度，每个刻度对应一个特定的价格。</p></li>
+<li><p><strong>Tick 索引（i）</strong>：每个刻度都有一个整数索引 ( i
+)，价格可以表示为：</p>
+<p><span class="math display">\[
+P = 1.0001^i
+\]</span></p></li>
+<li><p><strong>等比数列</strong>：价格刻度按照等比数列排列，公比为
+1.0001，这使得每个价格点之间的差距约为
+0.01%，提供了精细的价格选择。</p></li>
+</ul>
+<h3 id="流动性计算与分段">3. 流动性计算与分段</h3>
+<h4 id="总流动性">总流动性</h4>
+<p>在实际交易过程中，一个交易可能会跨越多个流动性区间。Uniswap V3
+合约需要维护每个用户提供的流动性价格边界，当价格到达边界时，需要在总流动性上增加或移除对应的流动性大小。</p>
+<h4 id="分段计算">分段计算</h4>
+<ul>
+<li><strong>价格区间</strong>：交易被分解为多个价格区间，每个区间对应一个流动性刻度。</li>
+<li><strong>计算方法</strong>：合约根据每个区间的流动性和价格变化，逐段计算交易结果。</li>
+</ul>
+<h3 id="数学模型的优化">4. 数学模型的优化</h3>
+<h4 id="流动性参数-l">流动性参数 ( L )</h4>
+<ul>
+<li><strong>定义</strong>：Uniswap V3 引入了流动性参数 ( L
+)，代表在特定价格范围内的流动性大小。</li>
+<li><strong>优势</strong>：通过存储 ( L ) 而非 ( k
+)，减少了计算过程中的开方运算，降低了溢出的可能性。</li>
+</ul>
+<h4 id="价格表示">价格表示</h4>
+<ul>
+<li><p><strong>平方根价格 (
+)</strong>：为了减少计算复杂度，合约直接存储价格的平方根值 (
+)。</p></li>
+<li><p><strong>计算公式</strong>：</p>
+<ul>
+<li><p><strong>交易过程中</strong>：</p>
+<p><span class="math display">\[
+\Delta x = L \left( \frac{1}{\sqrt{P_{\text{new}}}} -
+\frac{1}{\sqrt{P_{\text{old}}}} \right)
+\]</span></p>
+<p><span class="math display">\[
+\Delta y = L \left( \sqrt{P_{\text{new}}} - \sqrt{P_{\text{old}}}
+\right)
+\]</span></p></li>
+</ul></li>
+</ul>
+<h2 id="二价格精度与-tick-管理">二、价格精度与 Tick 管理</h2>
+<h3 id="问题与解决方案">1. 问题与解决方案</h3>
+<h4 id="问题">问题</h4>
+<ul>
+<li><strong>存储空间</strong>：如果每个可能的价格都需要单独存储状态，会导致合约的存储空间需求过大。</li>
+<li><strong>计算复杂度</strong>：价格变化被切分为许多小范围，需要逐一计算，增加了
+gas 消耗和计算精度问题。</li>
+</ul>
+<h4 id="解决方案">解决方案</h4>
+<ul>
+<li><strong>价格刻度离散化</strong>：将价格范围分割为有限个离散的价格点（Tick）。</li>
+<li><strong>Tick 索引</strong>：通过整数索引 ( i ) 表示每个
+Tick，减少了存储需求。</li>
+</ul>
+<h3 id="tick-间距与手续费等级">2. Tick 间距与手续费等级</h3>
+<h4 id="tick-间距tick-spacing">Tick 间距（Tick Spacing）</h4>
+<ul>
+<li><strong>定义</strong>：为了控制 Tick 的数量，Uniswap V3 引入了 Tick
+间距，即每个实际使用的 Tick 之间跳过一定数量的 Tick。</li>
+<li><strong>作用</strong>：减少计算的复杂度，控制 gas 消耗。</li>
+</ul>
+<h4 id="手续费等级">手续费等级</h4>
+<ul>
+<li><p><strong>不同费率</strong>：Uniswap V3 提供了多种手续费等级（如
+0.05%、0.3%、1%），适用于不同类型的交易对。</p></li>
+<li><p><strong>Tick 间距与费率的关系</strong>：</p>
+<ul>
+<li><strong>低波动性资产</strong>：如稳定币对，使用较小的 Tick
+间距和较低的手续费（如 0.05%）。</li>
+<li><strong>高波动性资产</strong>：如新兴代币对，使用较大的 Tick
+间距和较高的手续费（如 1%）。</li>
+</ul></li>
+</ul>
+<h2 id="三操作流程">三、操作流程</h2>
+<h3 id="创建交易池">1. 创建交易池</h3>
+<h4 id="调用合约">调用合约</h4>
+<ul>
+<li><strong>合约地址</strong>：使用 Nonfungible Position Manager
+合约。</li>
+<li><strong>方法</strong>：<code>createAndInitializePoolIfNecessary</code></li>
+</ul>
+<h4 id="参数">参数</h4>
+<ul>
+<li><strong>Token A 和 Token B
+的地址</strong>：需要创建池的两个代币。</li>
+<li><strong>手续费费率</strong>：选择适合的费率等级。</li>
+<li><strong>初始价格 ( )</strong>：以 Token0 计价的 Token1
+价格的平方根。</li>
+</ul>
+<h4 id="返回值">返回值</h4>
+<ul>
+<li><strong>Pool 地址</strong>：成功创建后，返回新池的合约地址。</li>
+</ul>
+<h3 id="提供流动性">2. 提供流动性</h3>
+<h4 id="交互合约">交互合约</h4>
+<ul>
+<li><strong>合约</strong>：Nonfungible Position Manager 合约。</li>
+</ul>
+<h4 id="参数-1">参数</h4>
+<ul>
+<li><strong>Token0 和 Token1 的地址</strong>。</li>
+<li><strong>手续费费率</strong>。</li>
+<li><strong>流动性拥有者的地址</strong>。</li>
+<li><strong>价格范围的下限和上限</strong>：以 Tick
+索引表示，需要提前计算对应的价格。</li>
+<li><strong>流动性数量 ( L )</strong>：根据提供的代币数量计算。</li>
+<li><strong>Token0 和 Token1 的最大提供数量</strong>。</li>
+</ul>
+<h4 id="流程">流程</h4>
+<ol type="1">
+<li><strong>计算价格对应的 Tick 索引</strong>：在链下根据价格计算 Tick
+索引。</li>
+<li><strong>确定流动性数量 ( L )</strong>：根据代币数量和价格范围计算 (
+L )。</li>
+<li><strong>调用合约方法</strong>：提供参数，调用 <code>mint</code>
+方法。</li>
+<li><strong>获取 NFT 代币</strong>：Uniswap V3 使用 ERC-721 标准的 NFT
+代币代表 LP 的头寸。</li>
+</ol>
+<h4 id="注意事项">注意事项</h4>
+<ul>
+<li><strong>避免坏账</strong>：添加流动性时，使用向上取整，确保用户提供足够的代币；移除流动性时，使用向下取整，防止多给用户代币。</li>
+<li><strong>手续费计算</strong>：根据流动性和交易量，LP
+可以获得对应的手续费收入。</li>
+</ul>
+<h3 id="交易过程">3. 交易过程</h3>
+<h4 id="交易路径">交易路径</h4>
+<ul>
+<li><strong>直接交易</strong>：例如
+ETH/DAI，可以直接在对应的交易池完成。</li>
+<li><strong>多跳交易</strong>：例如 ETH → USDC →
+DAI，需要经过多个交易池。</li>
+</ul>
+<h4 id="前端计算">前端计算</h4>
+<ul>
+<li><strong>路径选择</strong>：Uniswap
+的前端会实时计算最优交易路径，提供给用户选择。</li>
+<li><strong>参数传递</strong>：将最优路径作为参数传递给合约调用。</li>
+</ul>
+<h4 id="交易执行">交易执行</h4>
+<ul>
+<li><strong>交易输入代币</strong>：用户指定输入的代币和数量。</li>
+<li><strong>价格更新</strong>：交易会导致价格 ( )
+的变化，需要更新相关的流动性状态。</li>
+<li><strong>跨越 Tick</strong>：如果交易量较大，可能会跨越多个
+Tick，需要分段计算。</li>
+</ul>
+<h2 id="四手续费机制">四、手续费机制</h2>
+<h3 id="不同费率等级">1. 不同费率等级</h3>
+<ul>
+<li><strong>0.05%</strong>：适用于稳定币交易对，价格波动小，需要精细的价格刻度。</li>
+<li><strong>0.3%</strong>：适用于大多数主流代币交易对，平衡了手续费收入和价格波动。</li>
+<li><strong>1%</strong>：适用于波动性较大的交易对，提供更高的手续费收入。</li>
+</ul>
+<h3 id="手续费的累积与分配">2. 手续费的累积与分配</h3>
+<ul>
+<li><strong>手续费累积</strong>：每个 Tick
+范围内的交易手续费会累积在对应的流动性中。</li>
+<li><strong>手续费提取</strong>：LP
+可以根据其提供的流动性比例，提取累计的手续费收入。</li>
+</ul>
+<h2 id="五示例计算">五、示例计算</h2>
+<h3 id="流动性计算">1. 流动性计算</h3>
+<h4 id="在价格范围内提供流动性">在价格范围内提供流动性</h4>
+<ul>
+<li><p><strong>公式</strong>：</p>
+<ul>
+<li><p><strong>当当前价格 ( P_c ) 在价格范围内 ( [P_a, P_b] )
+时</strong>：</p>
+<p><span class="math display">\[
+L = \frac{\text{提供的 Token0 数量}}{(\frac{1}{\sqrt{P_a}} -
+\frac{1}{\sqrt{P_b}})}
+\]</span></p>
+<p><span class="math display">\[
+L = \frac{\text{提供的 Token1 数量}}{(\sqrt{P_b} - \sqrt{P_a})}
+\]</span></p></li>
+</ul></li>
+</ul>
+<h3 id="交易计算">2. 交易计算</h3>
+<h4 id="购买-token1-的情况">购买 Token1 的情况</h4>
+<ul>
+<li><p><strong>公式</strong>：</p>
+<p><span class="math display">\[
+\Delta y = L \left( \sqrt{P_{\text{new}}} - \sqrt{P_{\text{old}}}
+\right)
+\]</span></p></li>
+<li><p><strong>价格更新</strong>：</p>
+<ul>
+<li>交易导致 ( ) 上升，需要根据交易量和流动性计算新的价格。</li>
+</ul></li>
+</ul>
+<h2 id="六uniswap-v3-的优势">六、Uniswap V3 的优势</h2>
+<h3 id="提高资本效率">1. 提高资本效率</h3>
+<ul>
+<li><strong>集中流动性</strong>：允许 LP
+将资金集中在特定价格范围，提高了资金利用率。</li>
+<li><strong>更低的滑点</strong>：由于流动性集中，交易者在常用价格范围内的交易滑点更低。</li>
+</ul>
+<h3 id="提供更灵活的流动性管理">2. 提供更灵活的流动性管理</h3>
+<ul>
+<li><strong>自定义价格范围</strong>：LP
+可以根据市场预期，选择合适的价格范围。</li>
+<li><strong>多样化的手续费等级</strong>：满足不同交易对的需求。</li>
+</ul>
+<h3 id="减少无常损失">3. 减少无常损失</h3>
+<ul>
+<li><strong>价格范围控制</strong>：LP
+可以避开极端价格波动，降低无常损失的风险。</li>
+</ul>
+<h2 id="七风险与注意事项">七、风险与注意事项</h2>
+<ul>
+<li><strong>无常损失</strong>：在价格剧烈波动时，LP
+仍可能面临无常损失。</li>
+<li><strong>管理复杂度</strong>：需要 LP
+更积极地管理其流动性头寸，调整价格范围。</li>
+<li><strong>Gas 费用</strong>：复杂的交易可能导致较高的 Gas 消耗。</li>
+</ul>
+<h2 id="八结论">八、结论</h2>
+<p>Uniswap V3
+通过引入集中流动性、价格刻度和多样化的手续费等级，显著提升了协议的资本效率和灵活性。这使得
+Uniswap 在 DeFi
+生态系统中继续保持领先地位。然而，对于流动性提供者来说，需要更深入地理解协议机制，积极管理头寸，以最大化收益并降低风险。</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://uniswap.org/docs/v3/">Uniswap V3 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://uniswap.org/whitepaper-v3.pdf">Uniswap V3
+白皮书</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Uniswap/v3-core">Uniswap V3 GitHub
+代码库</a></li>
+<li><a target="_blank" rel="noopener" href="https://uniswap.org/blog/uniswap-v3-math-primer/">Uniswap
+V3 数学解析</a></li>
+<li><a target="_blank" rel="noopener" href="https://ethereum.org/developers/">以太坊开发者文档</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web3/" class="category-chain-item">Web3</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Web3/DeFi/" class="category-chain-item">DeFi</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Web3/" class="print-no-link">#Web3</a>
+      
+        <a href="/tags/DeFi/" class="print-no-link">#DeFi</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Uniswap V3 深度解析</div>
+      <div>http://navafee.github.io./uniswapv3/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Naveen</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/defi/" title="DeFi 项目分享">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">DeFi 项目分享</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/frax/" title="frax">
+                        <span class="hidden-mobile">frax</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

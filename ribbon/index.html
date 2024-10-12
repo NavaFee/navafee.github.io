@@ -1,0 +1,993 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/touxiang.png">
+  <link rel="icon" href="/img/touxiang.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Naveen">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Ribbon Finance 深度解析：Theta Vaults 架构 引言 Ribbon Finance 是一个建立在以太坊上的去中心化金融（DeFi）协议，旨在通过结构化的产品为用户提供更高的收益。其核心产品之一是 Theta Vaults，这是一种自动化的欧式期权销售策略。用户可以简单地存入资产，Vault 将自动运行特定的期权策略，通过卖出期权并收取溢价来赚取收益。 本文将深入探讨 Rib">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ribbon Finance 深度解析：Theta Vaults 架构">
+<meta property="og:url" content="http://navafee.github.io./ribbon/index.html">
+<meta property="og:site_name" content="Naveen&#39;s Blog">
+<meta property="og:description" content="Ribbon Finance 深度解析：Theta Vaults 架构 引言 Ribbon Finance 是一个建立在以太坊上的去中心化金融（DeFi）协议，旨在通过结构化的产品为用户提供更高的收益。其核心产品之一是 Theta Vaults，这是一种自动化的欧式期权销售策略。用户可以简单地存入资产，Vault 将自动运行特定的期权策略，通过卖出期权并收取溢价来赚取收益。 本文将深入探讨 Rib">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://navafee.github.io./img/ribbon/image.png">
+<meta property="article:published_time" content="2024-03-12T08:18:24.000Z">
+<meta property="article:modified_time" content="2024-10-12T08:34:31.915Z">
+<meta property="article:author" content="Naveen">
+<meta property="article:tag" content="Web3">
+<meta property="article:tag" content="DeFi">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://navafee.github.io./img/ribbon/image.png">
+  
+  
+  
+  <title>Ribbon Finance 深度解析：Theta Vaults 架构 - Naveen&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Naveen</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Ribbon Finance 深度解析：Theta Vaults 架构"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-12 16:18" pubdate>
+          2024年3月12日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Ribbon Finance 深度解析：Theta Vaults 架构</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="ribbon-finance-深度解析theta-vaults-架构">Ribbon Finance
+深度解析：Theta Vaults 架构</h1>
+<h2 id="引言">引言</h2>
+<p><strong>Ribbon Finance</strong>
+是一个建立在以太坊上的去中心化金融（DeFi）协议，旨在通过结构化的产品为用户提供更高的收益。其核心产品之一是
+<strong>Theta
+Vaults</strong>，这是一种自动化的欧式期权销售策略。用户可以简单地存入资产，Vault
+将自动运行特定的期权策略，通过卖出期权并收取溢价来赚取收益。</p>
+<p>本文将深入探讨 Ribbon 的 Theta Vaults
+架构，包括其工作原理、期权策略、拍卖机制、风险概况、费用结构，以及整体的运作流程。</p>
+<h2 id="一theta-vault-简介">一、Theta Vault 简介</h2>
+<h3 id="什么是-theta-vault">1. 什么是 Theta Vault？</h3>
+<p>Theta Vault 是一种
+<strong>自动化的欧式期权销售策略</strong>，旨在通过每周卖出货币期权并收取溢价来赚取收益。Vault
+的名称源于将资产存入保险库（Vault）并从中获得收益的概念。</p>
+<h3 id="核心特点">2. 核心特点</h3>
+<ul>
+<li><strong>自动化策略</strong>：用户只需存款，Vault
+将自动运行特定的期权策略，无需用户手动操作。</li>
+<li><strong>成本分摊</strong>：Vault 将所有存款人的 Gas
+成本分摊，降低了个人参与的成本。</li>
+<li><strong>暂停与恢复功能</strong>：用户可以选择何时参与或暂停每周的策略，灵活管理资产。</li>
+</ul>
+<h3 id="vault-类型">3. Vault 类型</h3>
+<p>当前主要有两种 Vault 类型：</p>
+<ol type="1">
+<li><strong>Covered Call Selling（备兑看涨期权销售）</strong>：Vault
+对所持有的资产发行 <strong>虚值（OTM）</strong> 的看涨期权。</li>
+<li><strong>Put Selling（卖出看跌期权）</strong>：Vault
+对存入的抵押品发行 <strong>虚值（OTM）</strong> 的看跌期权。</li>
+</ol>
+<h2 id="二行权价选择与到期日">二、行权价选择与到期日</h2>
+<h3 id="行权价的选择">1. 行权价的选择</h3>
+<ul>
+<li><strong>算法决定</strong>：行权价在期权拍卖前的最后一分钟由算法选择，目标是固定在
+<strong>10 Delta</strong>，即期权的 Delta 值为 10%。</li>
+<li><strong>关键因素</strong>：波动性是行权价选择的关键因素，而非现货价格。</li>
+<li><strong>模型基础</strong>：基于 Black-Scholes
+模型，并进行了适当的调整。</li>
+</ul>
+<h3 id="波动率的获取">2. 波动率的获取</h3>
+<ul>
+<li><strong>历史波动率</strong>：来自 Uniswap
+等去中心化交易所的数据。</li>
+<li><strong>隐含波动率</strong>：对于 ETH/BTC 等主要资产，使用 Deribit
+的 10 Delta 隐含波动率。对于其他资产，使用自定义算法。</li>
+</ul>
+<h3 id="到期日">3. 到期日</h3>
+<ul>
+<li><strong>每周到期</strong>：Vault 出售 <strong>每周到期</strong>
+的期权，能够更频繁地调整策略和复利收益。</li>
+<li><strong>欧式期权</strong>：期权只能在到期时行权，增加了策略的可控性。</li>
+</ul>
+<h2 id="三options-架构">三、Options 架构</h2>
+<h3 id="opyn-otoken">1. Opyn oToken</h3>
+<ul>
+<li><strong>定义</strong>：oToken 是 Opyn 协议发行的 ERC-20
+标准的期权代币。</li>
+<li><strong>特点</strong>：每个 oToken
+代表一个特定执行价和到期日的期权合约。</li>
+<li><strong>权利</strong>：持有 oToken
+的用户有权在到期时以执行价格兑换一定数量的标的资产。</li>
+</ul>
+<h3 id="vault-如何运行期权策略">2. Vault 如何运行期权策略</h3>
+<ul>
+<li><p><strong>铸造并卖出期权</strong>：</p>
+<ul>
+<li>Vault 使用用户存入的资金作为抵押品，锁定在 Opyn 协议中。</li>
+<li>铸造相应数量的 oToken（即卖出期权）。</li>
+<li>将 oToken 在市场上出售，收取期权溢价。</li>
+</ul></li>
+<li><p><strong>抵押品管理</strong>：</p>
+<ul>
+<li>抵押品在期权到期前被锁定，确保有足够的资产应对潜在的行权。</li>
+<li>到期后，根据期权是否被行权，解锁相应的抵押品。</li>
+</ul></li>
+</ul>
+<h3 id="期权的结算">3. 期权的结算</h3>
+<ul>
+<li><strong>现金结算</strong>：Opyn 期权是现金结算的，如果期权在到期时
+<strong>价内（ITM）</strong>，Vault
+将根据行权价与市场价的差额，以现金形式支付给期权持有人。</li>
+<li><strong>自动行权</strong>：ITM
+的期权在到期时会被自动行权，简化了结算过程。</li>
+</ul>
+<h2 id="四拍卖机制">四、拍卖机制</h2>
+<h3 id="paradigm-拍卖">1. Paradigm 拍卖</h3>
+<ul>
+<li><strong>转变原因</strong>：Ribbon 最初使用 Gnosis
+进行公开拍卖，但由于其结构性限制（如结算价格偏低），转而与
+<strong>Paradigm</strong> 合作。</li>
+<li><strong>拍卖特点</strong>：
+<ul>
+<li><strong>盲拍</strong>：投标人无法看到其他人的报价，减少了博弈行为。</li>
+<li><strong>全有或全无</strong>：有助于创造更激烈的价格竞争，提高溢价收入。</li>
+</ul></li>
+</ul>
+<h3 id="拍卖流程">2. 拍卖流程</h3>
+<ul>
+<li><strong>拍卖前准备</strong>：
+<ul>
+<li>Vault 铸造 oToken，准备好待售的期权合约。</li>
+</ul></li>
+<li><strong>投标过程</strong>：
+<ul>
+<li>注册用户可以参与拍卖，提交购买 oToken 的报价。</li>
+</ul></li>
+<li><strong>结算</strong>：
+<ul>
+<li>拍卖结束后，根据报价和数量，确定最终的成交价格和数量。</li>
+<li>未售出的 oToken 将被销毁，抵押品解锁。</li>
+</ul></li>
+</ul>
+<h3 id="拍卖费用">3. 拍卖费用</h3>
+<ul>
+<li><strong>费用结构</strong>：Ribbon 完成的名义交易量的 <strong>4
+个基点（bps）</strong> 作为费用支付给 Paradigm。</li>
+</ul>
+<h2 id="五风险概况">五、风险概况</h2>
+<h3 id="主要风险">1. 主要风险</h3>
+<ul>
+<li><strong>期权被行权风险</strong>：
+<ul>
+<li>如果 Vault 出售的看涨期权在到期时
+<strong>价内（ITM）</strong>，意味着标的资产价格高于执行价，Vault
+需要支付差额。</li>
+<li>对于看跌期权，如果标的资产价格低于执行价，也会面临损失。</li>
+</ul></li>
+</ul>
+<h3 id="风险管理">2. 风险管理</h3>
+<ul>
+<li><strong>虚值期权</strong>：Vault 出售 OTM
+期权，降低了被行权的概率。</li>
+<li><strong>定期调整</strong>：每周调整策略，根据市场变化重新设定行权价和到期日。</li>
+<li><strong>多样化</strong>：提供不同类型的
+Vault，满足不同风险偏好的用户需求。</li>
+</ul>
+<h2 id="六费用结构">六、费用结构</h2>
+<h3 id="管理费">1. 管理费</h3>
+<ul>
+<li><strong>年化 2% 的管理费</strong>：基于 Vault
+管理的总资产（AUM），按周计算并收取。</li>
+</ul>
+<h3 id="绩效费">2. 绩效费</h3>
+<ul>
+<li><strong>10%
+的绩效费</strong>：基于每周策略所赚取的期权溢价收入，按周计算并收取。</li>
+</ul>
+<h3 id="收费原则">3. 收费原则</h3>
+<ul>
+<li><strong>有利可图时收费</strong>：只有当每周策略盈利时，才收取绩效费和管理费。</li>
+<li><strong>亏损时不收费</strong>：如果策略无利可图，则不收取任何费用。</li>
+</ul>
+<h3 id="费用计算示例">4. 费用计算示例</h3>
+<ul>
+<li><p><strong>假设</strong>：</p>
+<ul>
+<li>Vault 管理的资产：100 ETH</li>
+<li>本周赚取的期权溢价：1 ETH</li>
+</ul></li>
+<li><p><strong>管理费</strong>：</p>
+<ul>
+<li>周管理费 = ( ) ETH ≈ 0.0385 ETH</li>
+</ul></li>
+<li><p><strong>绩效费</strong>：</p>
+<ul>
+<li>绩效费 = 10% × 1 ETH = 0.1 ETH</li>
+</ul></li>
+</ul>
+<h2 id="七vault-整体流程">七、Vault 整体流程</h2>
+<h3 id="流程图">流程图</h3>
+<p><img src="../img/ribbon/image.png" srcset="/img/loading.gif" lazyload /></p>
+<ol type="1">
+<li><p><strong>用户存款</strong></p>
+<ul>
+<li>用户将 <strong>100 ETH</strong> 存入 <strong>T-ETH-C（ETH
+看涨期权）</strong> Vault。</li>
+</ul></li>
+<li><p><strong>策略启动（周五 8 AM UTC）</strong></p>
+<ul>
+<li>Vault 关闭前一周的策略。</li>
+<li>使用存款铸造 <strong>100 个 oToken</strong>，对应的 <strong>100
+ETH</strong> 被锁定在 Opyn 协议中一周。</li>
+</ul></li>
+<li><p><strong>拍卖期权</strong></p>
+<ul>
+<li>Vault 将 100 个 oToken 在 <strong>Paradigm</strong>
+平台上进行拍卖。</li>
+<li>投标人以 ETH 支付期权溢价，假设共收取 <strong>1 ETH</strong>
+的溢价。</li>
+<li>未售出的 oToken 将被销毁，对应的抵押品解锁。</li>
+</ul></li>
+<li><p><strong>期权到期（下周五 8 AM UTC）</strong></p>
+<ul>
+<li><strong>情况一：期权 OTM 到期</strong>
+<ul>
+<li>期权未被行权，Vault 收回原始的 <strong>100 ETH</strong>
+抵押品。</li>
+</ul></li>
+<li><strong>情况二：期权 ITM 到期</strong>
+<ul>
+<li>Vault 需要支付差额，可能收回少于 100 ETH 的抵押品。</li>
+</ul></li>
+</ul></li>
+<li><p><strong>策略重复</strong></p>
+<ul>
+<li>假设期权 OTM 到期，Vault 现在持有 <strong>101 ETH</strong>（100 ETH
+原始资产 + 1 ETH 溢价）。</li>
+<li>Vault 重复步骤 2，以 <strong>101 ETH</strong>
+继续下一周的策略。</li>
+</ul></li>
+</ol>
+<h2 id="八数学模型与收益计算">八、数学模型与收益计算</h2>
+<h3 id="期权溢价的计算">1. 期权溢价的计算</h3>
+<ul>
+<li><p><strong>基于 Black-Scholes 模型</strong>：</p>
+<ul>
+<li><p>期权溢价 ( C ) 计算公式：</p>
+<p><span class="math display">\[
+C = S_0 N(d_1) - Ke^{-rT} N(d_2)
+\]</span></p>
+<p>其中：</p>
+<ul>
+<li>( S_0 )：当前标的资产价格</li>
+<li>( K )：行权价</li>
+<li>( T )：到期时间（以年计）</li>
+<li>( r )：无风险利率</li>
+<li>( N(d) )：标准正态分布函数</li>
+</ul></li>
+</ul></li>
+<li><p><strong>Delta 为 10%</strong>：</p>
+<ul>
+<li>( = N(d_1) )，设置 ( = 0.1 )，反解行权价 ( K )。</li>
+</ul></li>
+</ul>
+<h3 id="收益计算">2. 收益计算</h3>
+<ul>
+<li><p><strong>总收益</strong>：</p>
+<p><span class="math display">\[
+\text{总收益} = \text{期权溢价} - \text{可能的行权损失} - \text{费用}
+\]</span></p></li>
+<li><p><strong>每周复利</strong>：</p>
+<ul>
+<li>由于策略是每周执行，收益可以进行复利计算，提高年化收益率。</li>
+</ul></li>
+</ul>
+<h3 id="风险敞口">3. 风险敞口</h3>
+<ul>
+<li><strong>最大损失</strong>：
+<ul>
+<li>对于看涨期权，最大损失为标的资产价格无限上涨时的损失，但由于出售的是
+OTM 期权，且有抵押品限制，实际风险可控。</li>
+</ul></li>
+<li><strong>盈亏平衡点</strong>：
+<ul>
+<li>期权的行权价 + 收取的期权溢价。</li>
+</ul></li>
+</ul>
+<h2 id="九优势与特点">九、优势与特点</h2>
+<ul>
+<li><strong>自动化策略</strong>：用户无需手动管理期权交易，降低了参与门槛。</li>
+<li><strong>分摊成本</strong>：Gas
+费用在所有用户之间分摊，降低了个人成本。</li>
+<li><strong>灵活性</strong>：用户可以随时选择参与或退出策略。</li>
+<li><strong>收益潜力</strong>：通过每周复利和策略调整，有机会获得高于市场平均水平的收益。</li>
+</ul>
+<h2 id="十风险与注意事项">十、风险与注意事项</h2>
+<ul>
+<li><strong>市场风险</strong>：标的资产价格剧烈波动可能导致期权被行权，导致损失。</li>
+<li><strong>智能合约风险</strong>：涉及多个合约交互，可能存在技术漏洞。</li>
+<li><strong>流动性风险</strong>：在极端市场情况下，期权的流动性可能不足，影响策略执行。</li>
+</ul>
+<h2 id="结论">结论</h2>
+<p>Ribbon Finance 的 Theta Vaults
+为用户提供了一种自动化、高收益潜力的投资工具。通过结构化的期权策略、专业的拍卖机制和风险管理，用户可以在降低操作复杂度的同时，获得稳定的收益。然而，任何投资都伴随着风险，建议用户在参与之前，充分了解策略的原理和潜在风险，谨慎决策。</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://ribbon.finance/">Ribbon Finance 官方网站</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.ribbon.finance/">Ribbon Finance 文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.opyn.co/">Opyn 官方网站</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.paradigm.co/">Paradigm 拍卖平台</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model">Black-Scholes
+期权定价模型</a></li>
+<li><a target="_blank" rel="noopener" href="https://ethereum.org/developers/">以太坊开发者文档</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://consensys.github.io/smart-contract-best-practices/">DeFi
+安全最佳实践</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web3/" class="category-chain-item">Web3</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Web3/DeFi/" class="category-chain-item">DeFi</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Web3/" class="print-no-link">#Web3</a>
+      
+        <a href="/tags/DeFi/" class="print-no-link">#DeFi</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Ribbon Finance 深度解析：Theta Vaults 架构</div>
+      <div>http://navafee.github.io./ribbon/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Naveen</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年3月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/perpetualv2/" title="perpetualv2">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">perpetualv2</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/depin/" title="Solana 上的 DePIN 项目">
+                        <span class="hidden-mobile">Solana 上的 DePIN 项目</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

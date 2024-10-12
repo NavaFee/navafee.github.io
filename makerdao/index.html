@@ -1,0 +1,878 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/touxiang.png">
+  <link rel="icon" href="/img/touxiang.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Naveen">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="MakerDAO 深度解析 引言 MakerDAO 是以太坊区块链上首个去中心化自治组织（DAO），其主要产品是稳定币 DAI。DAI 是一种与美元软锚定的稳定币，由超额抵押的数字资产支持。本文将深入探讨 MakerDAO 的工作原理、核心机制、智能合约实现，以及其在去中心化金融（DeFi）生态系统中的重要作用。 MakerDAO 的工作原理 稳定币 DAI DAI 是一种去中心化的、价格稳定的加">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MakerDAO 深度解析">
+<meta property="og:url" content="http://navafee.github.io./makerdao/index.html">
+<meta property="og:site_name" content="Naveen&#39;s Blog">
+<meta property="og:description" content="MakerDAO 深度解析 引言 MakerDAO 是以太坊区块链上首个去中心化自治组织（DAO），其主要产品是稳定币 DAI。DAI 是一种与美元软锚定的稳定币，由超额抵押的数字资产支持。本文将深入探讨 MakerDAO 的工作原理、核心机制、智能合约实现，以及其在去中心化金融（DeFi）生态系统中的重要作用。 MakerDAO 的工作原理 稳定币 DAI DAI 是一种去中心化的、价格稳定的加">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-01-12T05:11:54.000Z">
+<meta property="article:modified_time" content="2024-10-12T06:11:50.062Z">
+<meta property="article:author" content="Naveen">
+<meta property="article:tag" content="Web3">
+<meta property="article:tag" content="DeFi">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>MakerDAO 深度解析 - Naveen&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Naveen</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="MakerDAO 深度解析"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-12 13:11" pubdate>
+          2023年1月12日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">MakerDAO 深度解析</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="makerdao-深度解析">MakerDAO 深度解析</h1>
+<h2 id="引言">引言</h2>
+<p>MakerDAO
+是以太坊区块链上首个去中心化自治组织（DAO），其主要产品是稳定币 DAI。DAI
+是一种与美元软锚定的稳定币，由超额抵押的数字资产支持。本文将深入探讨
+MakerDAO
+的工作原理、核心机制、智能合约实现，以及其在去中心化金融（DeFi）生态系统中的重要作用。</p>
+<h2 id="makerdao-的工作原理">MakerDAO 的工作原理</h2>
+<h3 id="稳定币-dai">稳定币 DAI</h3>
+<p>DAI 是一种去中心化的、价格稳定的加密货币，旨在保持与美元的 1:1
+价值。与中心化稳定币（如 USDT、USDC）不同，DAI
+不由任何中心化机构发行，而是通过超额抵押的方式，由用户生成。</p>
+<h3 id="抵押债仓vaults">抵押债仓（Vaults）</h3>
+<p>用户可以将支持的数字资产（如 ETH、BAT 等）存入 Maker Vaults，生成新的
+DAI。Vaults 原本被称为抵押债仓（CDPs）。</p>
+<h4 id="操作流程">操作流程</h4>
+<ol type="1">
+<li><strong>存入抵押品</strong>：用户将一定数量的数字资产存入
+Vault。</li>
+<li><strong>生成
+DAI</strong>：根据抵押品的价值和抵押率，用户可以生成相应数量的
+DAI。</li>
+<li><strong>偿还债务</strong>：用户需要在未来偿还生成的
+DAI，以及一定的稳定费用。</li>
+<li><strong>取回抵押品</strong>：在偿还债务后，用户可以取回抵押的资产。</li>
+</ol>
+<h3 id="超额抵押">超额抵押</h3>
+<p>为了抵御市场波动，MakerDAO 要求抵押品的价值必须高于生成的 DAI
+的价值。例如，若最低抵押率为 150%，用户需要至少抵押价值 $150 的
+ETH，才能生成 $100 的 DAI。</p>
+<h3 id="清算机制">清算机制</h3>
+<p>当抵押率低于最低要求时，Vault 将被清算。清算过程如下：</p>
+<ol type="1">
+<li><strong>触发清算</strong>：当抵押率低于最低要求，清算机器人会触发清算。</li>
+<li><strong>拍卖抵押品</strong>：抵押品被拍卖，以偿还债务和罚金。</li>
+<li><strong>偿还债务</strong>：拍卖所得用于偿还生成的 DAI。</li>
+<li><strong>剩余返还</strong>：如果有剩余资金，将返还给用户。</li>
+</ol>
+<h2 id="数学模型">数学模型</h2>
+<h3 id="抵押率计算">抵押率计算</h3>
+<p>抵押率（Collateralization Ratio, CR）计算公式为：</p>
+<p><span class="math display">\[
+CR = \frac{V_{collateral}}{V_{debt}} \times 100\%
+\]</span></p>
+<p>其中：</p>
+<ul>
+<li>( V_{collateral} ) 是抵押品的价值。</li>
+<li>( V_{debt} ) 是生成的 DAI 数量。</li>
+</ul>
+<h3 id="最大可生成的-dai-数量">最大可生成的 DAI 数量</h3>
+<p>最大可生成的 DAI 数量（ ( D_{max} ) ）计算为：</p>
+<p><span class="math display">\[
+D_{max} = \frac{V_{collateral}}{R_{min}}
+\]</span></p>
+<p>其中：</p>
+<ul>
+<li>( R_{min} ) 是最低抵押率。</li>
+</ul>
+<h3 id="清算价格">清算价格</h3>
+<p>清算价格（ ( P_{liquidation} ) ）是触发清算的抵押品价格：</p>
+<p><span class="math display">\[
+P_{liquidation} = P_{initial} \times \frac{R_{min}}{CR_{initial}}
+\]</span></p>
+<p>其中：</p>
+<ul>
+<li>( P_{initial} ) 是抵押品的初始价格。</li>
+<li>( CR_{initial} ) 是初始抵押率。</li>
+</ul>
+<h2 id="智能合约与代码示例">智能合约与代码示例</h2>
+<p>以下是一个使用 Solidity 与 MakerDAO
+进行交互的简单示例，展示如何在智能合约中生成和偿还 DAI。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs solidity">pragma solidity ^0.6.6;<br><br>interface DaiJoin &#123;<br>    function join(address usr, uint wad) external;<br>    function exit(address usr, uint wad) external;<br>&#125;<br><br>interface Vat &#123;<br>    function hope(address usr) external;<br>&#125;<br><br>interface GemJoin &#123;<br>    function join(address usr, uint wad) external payable;<br>&#125;<br><br>contract MakerDaoExample &#123;<br>    DaiJoin constant daiJoin = DaiJoin(0x5...); // DaiJoin 合约地址<br>    Vat constant vat = Vat(0x5...); // Vat 合约地址<br>    GemJoin constant ethJoin = GemJoin(0x5...); // ETH-A GemJoin 合约地址<br><br>    function openVaultAndGenerateDai(uint daiAmount) external payable &#123;<br>        // 将 ETH 存入 GemJoin<br>        ethJoin.join&#123;value: msg.value&#125;(address(this), msg.value);<br><br>        // 授权 Vat 合约<br>        vat.hope(address(daiJoin));<br><br>        // 调用 Vat 合约生成 DAI<br>        // 省略具体代码，需与 MakerDAO 合约详细交互<br><br>        // 将生成的 DAI 发送给用户<br>        daiJoin.exit(msg.sender, daiAmount);<br>    &#125;<br><br>    // 偿还 DAI 并取回抵押品的函数略<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>注意</strong>：上述代码仅为示例，实际操作中需要与 MakerDAO
+合约的更多细节进行交互，建议参考官方文档。</p>
+<h3 id="部署与测试">部署与测试</h3>
+<ol type="1">
+<li><strong>设置合约地址</strong>：将示例代码中的合约地址替换为实际的
+MakerDAO 合约地址。</li>
+<li><strong>编译合约</strong>：使用 Solidity 0.6.6 版本进行编译。</li>
+<li><strong>部署合约</strong>：在测试网或主网上部署合约。</li>
+<li><strong>交互测试</strong>：调用 <code>openVaultAndGenerateDai</code>
+函数，测试生成 DAI。</li>
+</ol>
+<h2 id="makerdao-的治理机制">MakerDAO 的治理机制</h2>
+<h3 id="mkr-代币">MKR 代币</h3>
+<p>MKR 是 MakerDAO
+的治理代币，持有者可以参与协议的治理，包括调整抵押率、稳定费用、添加新抵押品等。</p>
+<h3 id="治理投票">治理投票</h3>
+<p>持有 MKR
+的用户可以通过投票来决定协议的参数调整。治理投票分为执行投票和信号投票。</p>
+<ul>
+<li><strong>执行投票</strong>：对具体的协议变更进行投票，一旦通过，立即生效。</li>
+<li><strong>信号投票</strong>：用于收集社区对某些提案的意见，不具备立即执行的效果。</li>
+</ul>
+<h2 id="dai-的稳定机制">DAI 的稳定机制</h2>
+<h3 id="稳定费用">稳定费用</h3>
+<p>当用户生成 DAI 时，需要支付稳定费用（年化），以激励或抑制 DAI
+的供应。</p>
+<h3 id="dsrdai-savings-rate">DSR（DAI Savings Rate）</h3>
+<p>DAI 持有者可以将 DAI 存入 DSR 合约，获得利息收益。DSR 的调整可以影响
+DAI 的需求，从而稳定其价格。</p>
+<h3 id="目标价格调整">目标价格调整</h3>
+<p>MakerDAO 可以通过调整参数，影响 DAI
+的供应和需求，使其价格回归目标。</p>
+<h2 id="实际应用案例">实际应用案例</h2>
+<h3 id="使用-dai-进行支付">使用 DAI 进行支付</h3>
+<p>DAI
+作为稳定币，可以用于日常支付、跨境交易等，避免了加密货币价格波动的风险。</p>
+<h3 id="参与-defi-协议">参与 DeFi 协议</h3>
+<p>DAI 是 DeFi
+生态系统中的重要资产，可以用于借贷、交易、流动性挖矿等。</p>
+<h3 id="风险对冲">风险对冲</h3>
+<p>投资者可以通过生成 DAI，对冲数字资产价格下跌的风险。</p>
+<h2 id="风险与挑战">风险与挑战</h2>
+<h3 id="清算风险">清算风险</h3>
+<p>市场剧烈波动可能导致大量 Vault 被清算，用户需要密切关注抵押率。</p>
+<h3 id="智能合约风险">智能合约风险</h3>
+<p>尽管 MakerDAO 合约经过审计，但仍存在智能合约漏洞的可能性。</p>
+<h3 id="依赖抵押品">依赖抵押品</h3>
+<p>DAI 的稳定性依赖于抵押品的价值，当抵押品价格大幅下跌时，可能影响 DAI
+的稳定性。</p>
+<h2 id="表格makerdao-与其他稳定币的比较">表格：MakerDAO
+与其他稳定币的比较</h2>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>DAI（MakerDAO）</th>
+<th>USDT</th>
+<th>USDC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>稳定机制</td>
+<td>超额抵押</td>
+<td>法币储备</td>
+<td>法币储备</td>
+</tr>
+<tr>
+<td>去中心化程度</td>
+<td>高</td>
+<td>低</td>
+<td>低</td>
+</tr>
+<tr>
+<td>透明度</td>
+<td>高</td>
+<td>低</td>
+<td>中</td>
+</tr>
+<tr>
+<td>抵押品类型</td>
+<td>数字资产</td>
+<td>法币</td>
+<td>法币</td>
+</tr>
+<tr>
+<td>审计情况</td>
+<td>代码开源、社区审计</td>
+<td>第三方审计</td>
+<td>第三方审计</td>
+</tr>
+</tbody>
+</table>
+<h2 id="结论">结论</h2>
+<p>MakerDAO 通过创新的超额抵押和治理机制，实现了去中心化稳定币 DAI
+的发行和管理。作为 DeFi 生态系统的基石，理解 MakerDAO
+的工作原理和风险，对于投资者和开发者而言都至关重要。</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.makerdao.com/">MakerDAO 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://forum.makerdao.com/">MakerDAO 社区论坛</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.soliditylang.org">Solidity 文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://ethereum.org/developers/">以太坊开发者文档</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web3/" class="category-chain-item">Web3</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Web3/DeFi/" class="category-chain-item">DeFi</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Web3/" class="print-no-link">#Web3</a>
+      
+        <a href="/tags/DeFi/" class="print-no-link">#DeFi</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>MakerDAO 深度解析</div>
+      <div>http://navafee.github.io./makerdao/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Naveen</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年1月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/aave/" title="AAVE 深度解析">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">AAVE 深度解析</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/uniswapv2/" title="Uniswap V2 深度解析">
+                        <span class="hidden-mobile">Uniswap V2 深度解析</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,987 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/touxiang.png">
+  <link rel="icon" href="/img/touxiang.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Naveen">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Compound 深度解析 引言 Compound 是以太坊上的去中心化借贷协议，允许用户存入加密资产赚取利息，或抵押加密资产以借入其他资产。Compound 通过算法调节借贷利率，旨在为用户提供高效、安全的资金市场。本文将深入探讨 Compound 的工作原理、核心机制、智能合约实现，以及其在去中心化金融（DeFi）生态系统中的重要作用。 1. 供应资产（Supplying Assets） cT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Compound 深度解析">
+<meta property="og:url" content="http://navafee.github.io./compound/index.html">
+<meta property="og:site_name" content="Naveen&#39;s Blog">
+<meta property="og:description" content="Compound 深度解析 引言 Compound 是以太坊上的去中心化借贷协议，允许用户存入加密资产赚取利息，或抵押加密资产以借入其他资产。Compound 通过算法调节借贷利率，旨在为用户提供高效、安全的资金市场。本文将深入探讨 Compound 的工作原理、核心机制、智能合约实现，以及其在去中心化金融（DeFi）生态系统中的重要作用。 1. 供应资产（Supplying Assets） cT">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-01-13T11:29:29.000Z">
+<meta property="article:modified_time" content="2024-10-12T06:56:56.393Z">
+<meta property="article:author" content="Naveen">
+<meta property="article:tag" content="Web3">
+<meta property="article:tag" content="DeFi">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Compound 深度解析 - Naveen&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Naveen</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Compound 深度解析"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-13 19:29" pubdate>
+          2023年1月13日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Compound 深度解析</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="compound-深度解析">Compound 深度解析</h1>
+<h2 id="引言">引言</h2>
+<p><a target="_blank" rel="noopener" href="https://compound.finance/">Compound</a>
+是以太坊上的去中心化借贷协议，允许用户存入加密资产赚取利息，或抵押加密资产以借入其他资产。Compound
+通过算法调节借贷利率，旨在为用户提供高效、安全的资金市场。本文将深入探讨
+Compound
+的工作原理、核心机制、智能合约实现，以及其在去中心化金融（DeFi）生态系统中的重要作用。</p>
+<h2 id="供应资产supplying-assets">1. 供应资产（Supplying Assets）</h2>
+<h3 id="ctoken-概述">cToken 概述</h3>
+<p>当用户向 Compound 协议存入资产时，会收到对应的 ERC-20 代币，即
+<strong>cToken</strong>，例如存入 ETH 会收到 cETH。cToken 代表用户在
+Compound 协议中的存款及其产生的利息。持有 cToken
+相当于在银行存款，随着时间的推移，用户的 cToken
+可以兑换为更多的基础资产，收益来自借款人的利息支付。</p>
+<h3 id="供应资产的流程">供应资产的流程</h3>
+<ol type="1">
+<li><strong>存入资产</strong>：用户将支持的 ERC-20 代币存入 Compound
+协议。</li>
+<li><strong>获得 cToken</strong>：协议按当前的兑换率铸造
+cToken，发送给用户。</li>
+<li><strong>赚取利息</strong>：随着时间的推移，cToken
+与基础资产的兑换率增加，用户可赎回更多的基础资产。</li>
+</ol>
+<h2 id="借入资产borrowing-assets">2. 借入资产（Borrowing Assets）</h2>
+<h3 id="抵押价值collateral-value">2.1 抵押价值（Collateral Value）</h3>
+<ul>
+<li><strong>抵押品</strong>：用户需要存入一定价值的资产作为抵押品，才能借入其他资产。</li>
+<li><strong>抵押因子（Collateral
+Factor）</strong>：每种资产都有一个抵押因子，范围在 0% 到 90%
+之间，表示该资产价值中可用于借款的比例。流动性越高、波动性越低的资产，其抵押因子越高。</li>
+</ul>
+<h4 id="计算借款能力">计算借款能力</h4>
+<p><span class="math display">\[
+\text{Borrowing\ Capacity} = \sum (\text{Supply}_i \times
+\text{Collateral\ Factor}_i)
+\]</span></p>
+<ul>
+<li><strong>借款限制</strong>：用户不能借出超过其借款能力的资产。</li>
+<li><strong>账户操作限制</strong>：若借款达到借款能力上限，用户将无法进一步借款、转账或赎回抵押品，以防止借款超出限制。</li>
+</ul>
+<h3 id="风险与清算risk-liquidation">2.2 风险与清算（Risk &amp;
+Liquidation）</h3>
+<h4 id="清算触发条件">清算触发条件</h4>
+<ul>
+<li>当用户的 <strong>借款余额</strong> 超过其
+<strong>总抵押价值</strong>（即 <strong>借贷价值比 LTV &gt;
+1</strong>）时，会触发清算。</li>
+</ul>
+<h4 id="清算折扣liquidation-discount">清算折扣（Liquidation
+Discount）</h4>
+<ul>
+<li>清算人可以以市场价格减去一定折扣的价格购买借款人的抵押品。</li>
+<li><strong>激励机制</strong>：折扣激励清算人参与，降低借款人的风险敞口。</li>
+</ul>
+<h4 id="清算比例close-factor">清算比例（Close Factor）</h4>
+<ul>
+<li><strong>定义</strong>：在一次清算中，借款人借入资产中可被清算的最大比例，范围为
+0% 到 50%。</li>
+<li><strong>持续清算</strong>：清算过程可以被多次调用，直到借款人的借款余额低于清算阈值。</li>
+</ul>
+<h4 id="清算流程">清算流程</h4>
+<ol type="1">
+<li><strong>发现风险账户</strong>：任何持有借入资产的以太坊地址都可以发起清算。</li>
+<li><strong>调用清算函数</strong>：清算人偿还借款人的部分债务。</li>
+<li><strong>获得抵押品</strong>：清算人按照折扣价获得借款人的抵押品。</li>
+</ol>
+<h3 id="利率模型interest-rate-model">2.3 利率模型（Interest Rate
+Model）</h3>
+<h4 id="利用率utilization-ratio-u">利用率（Utilization Ratio, U）</h4>
+<ul>
+<li>表示特定市场的资金利用情况：</li>
+</ul>
+<p><span class="math display">\[
+U = \frac{\text{Total\ Borrows}}{\text{Total\ Cash} + \text{Total\
+Borrows} - \text{Reserves}}
+\]</span></p>
+<ul>
+<li><strong>Total Cash</strong>：市场中未借出的资金。</li>
+<li><strong>Total Borrows</strong>：市场中已借出的资金总额。</li>
+<li><strong>Reserves</strong>：协议的储备金。</li>
+</ul>
+<h4 id="利率计算">利率计算</h4>
+<ul>
+<li><strong>借款利率（Borrowing Interest Rate）</strong>：</li>
+</ul>
+<p><span class="math display">\[
+\text{Borrow\ Rate} = \text{Base\ Rate} + U \times \text{Multiplier}
+\]</span></p>
+<ul>
+<li><strong>存款利率（Supply Interest Rate）</strong>：</li>
+</ul>
+<p><span class="math display">\[
+\text{Supply\ Rate} = \text{Borrow\ Rate} \times U \times (1 -
+\text{Reserve\ Factor})
+\]</span></p>
+<ul>
+<li><strong>参数解释</strong>：
+<ul>
+<li><strong>Base Rate</strong>：基础利率，通常为一个固定值。</li>
+<li><strong>Multiplier</strong>：利率增量，与市场利用率成正比。</li>
+<li><strong>Reserve Factor</strong>：储备因子，协议保留的利息比例。</li>
+</ul></li>
+</ul>
+<h4 id="利率模型示例">利率模型示例</h4>
+<p>假设某市场的基础利率为 2%，利率增量为 20%，储备因子为 10%：</p>
+<ul>
+<li><p>当利用率 U = 50% 时：</p>
+<ul>
+<li><p><strong>Borrow Rate</strong>：</p>
+<p><span class="math display">\[
+\text{Borrow\ Rate} = 2\% + 50\% \times 20\% = 12\%
+\]</span></p></li>
+<li><p><strong>Supply Rate</strong>：</p>
+<p><span class="math display">\[
+\text{Supply\ Rate} = 12\% \times 50\% \times (1 - 10\%) = 5.4\%
+\]</span></p></li>
+</ul></li>
+</ul>
+<h2 id="实现细节implementation">3. 实现细节（Implementation）</h2>
+<h3 id="ctoken-合约">3.1 cToken 合约</h3>
+<ul>
+<li><strong>功能</strong>：每个资产都有对应的 cToken
+合约，负责管理存款、取款、借款、还款等功能。</li>
+<li><strong>兑换率</strong>：cToken
+与基础资产的兑换率会随着市场利率变化和时间推移而增长。</li>
+</ul>
+<h4 id="ctoken-关键函数">cToken 关键函数</h4>
+<ul>
+<li><strong>mint(uint256
+mintAmount)</strong>：用户存入基础资产，获得相应数量的 cToken。</li>
+<li><strong>redeem(uint256 redeemTokens)</strong>：用户赎回
+cToken，获得基础资产。</li>
+<li><strong>borrow(uint256
+borrowAmount)</strong>：用户借入基础资产，增加借款余额。</li>
+<li><strong>repayBorrow(uint256
+repayAmount)</strong>：用户偿还借款，减少借款余额。</li>
+</ul>
+<h3 id="利息计算机制">3.2 利息计算机制</h3>
+<h4 id="利率指数interest-rate-index">利率指数（Interest Rate
+Index）</h4>
+<ul>
+<li>每个市场都有一个利率指数，用于计算借款人和存款人的利息。</li>
+<li>利率指数会在每次交易发生时更新，按照区块时间计算复利。</li>
+</ul>
+<h4 id="借款利息的计算">借款利息的计算</h4>
+<ul>
+<li><p><strong>新的利率指数</strong>：</p>
+<p><span class="math display">\[
+\text{BorrowIndex}_{new} = \text{BorrowIndex}_{old} +
+\text{BorrowIndex}_{old} \times \text{BorrowRate} \times \Delta t
+\]</span></p></li>
+<li><p><strong>更新总借款余额</strong>：</p>
+<p><span class="math display">\[
+\text{TotalBorrows}_{new} = \text{TotalBorrows}_{old} + \text{Interest\
+Accrued}
+\]</span></p></li>
+<li><p><strong>储备金</strong>：</p>
+<p>部分利息会按照 <strong>Reserve Factor</strong> 留作协议的储备金：</p>
+<p><span class="math display">\[
+\text{Reserves}_{new} = \text{Reserves}_{old} + \text{Interest\ Accrued}
+\times \text{Reserve\ Factor}
+\]</span></p></li>
+</ul>
+<h4 id="存款利息的计算">存款利息的计算</h4>
+<ul>
+<li>存款人的收益来自借款人支付的利息，按照资金利用率和储备因子计算。</li>
+</ul>
+<h3 id="借款流程">3.3 借款流程</h3>
+<ol type="1">
+<li><strong>检查借款能力</strong>：验证用户的借款不会超过其借款能力。</li>
+<li><strong>更新借款余额</strong>：增加用户的借款余额。</li>
+<li><strong>转移资产</strong>：将借入的资产转给用户。</li>
+<li><strong>更新市场状态</strong>：调整市场的现金余额、总借款等指标。</li>
+</ol>
+<h4 id="借款人利息计算">借款人利息计算</h4>
+<ul>
+<li><p>借款人的借款余额会随着利率和时间增加，计算方式与利率指数相关：</p>
+<p><span class="math display">\[
+\text{BorrowBalance}_{new} = \text{BorrowBalance}_{old} \times
+\frac{\text{BorrowIndex}_{new}}{\text{BorrowIndex}_{old}}
+\]</span></p></li>
+</ul>
+<h3 id="清算流程-1">3.4 清算流程</h3>
+<ul>
+<li><strong>触发条件</strong>：用户的借款余额超过其借款能力（抵押品价值下降或借款资产价值上升）。</li>
+<li><strong>清算人操作</strong>：
+<ol type="1">
+<li><strong>调用清算函数</strong>：<code>liquidateBorrow(address borrower, uint repayAmount, address cTokenCollateral)</code></li>
+<li><strong>偿还债务</strong>：清算人用自己的资产偿还借款人的部分债务（受
+<strong>Close Factor</strong> 限制）。</li>
+<li><strong>获取抵押品</strong>：清算人按折扣价获得借款人的抵押品。</li>
+</ol></li>
+</ul>
+<h3 id="价格预言机price-feeds">3.5 价格预言机（Price Feeds）</h3>
+<ul>
+<li><strong>作用</strong>：提供每种支持资产的实时价格，用于计算借款能力和抵押要求。</li>
+<li><strong>实现</strong>：Compound 使用 <strong>Open Price
+Feed</strong>，聚合多个来源的价格数据，确保价格的准确性和抗操纵性。</li>
+</ul>
+<h3 id="comptroller-合约">3.6 Comptroller 合约</h3>
+<ul>
+<li><strong>角色</strong>：协议的风险管理和策略层，负责验证用户操作的合规性。</li>
+<li><strong>功能</strong>：
+<ul>
+<li><strong>市场支持</strong>：通过
+<code>supportMarket(address cToken)</code> 函数，添加新的支持资产。</li>
+<li><strong>抵押因子设置</strong>：调整资产的抵押因子。</li>
+<li><strong>风险检查</strong>：在用户进行操作前，验证账户的健康程度，确保操作不会导致超额借款或违约。</li>
+</ul></li>
+</ul>
+<h2 id="智能合约与代码示例">智能合约与代码示例</h2>
+<h3 id="存款与借款示例">存款与借款示例</h3>
+<p>以下是一个使用 Solidity 与 Compound
+协议交互的简单示例，展示如何存款和借款。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs solidity">pragma solidity ^0.6.0;<br><br>interface CErc20 &#123;<br>    function mint(uint256 mintAmount) external returns (uint256);<br>    function redeem(uint256 redeemTokens) external returns (uint256);<br>    function borrow(uint256 borrowAmount) external returns (uint256);<br>    function repayBorrow(uint256 repayAmount) external returns (uint256);<br>&#125;<br><br>interface Comptroller &#123;<br>    function enterMarkets(address[] calldata cTokens) external returns (uint256[] memory);<br>&#125;<br><br>contract CompoundExample &#123;<br>    CErc20 public cDAI = CErc20(0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643); // cDAI 合约地址<br>    CErc20 public cUSDC = CErc20(0x39AA39c021dfbaE8faC545936693aC917d5E7563); // cUSDC 合约地址<br>    Comptroller public comptroller = Comptroller(0x3d9819210A31b4961b30EF54bE2aeD79B9c9Cd3B); // Comptroller 合约地址<br><br>    function supplyDAI(uint256 amount) external &#123;<br>        // 需要先批准 cDAI 合约转移用户的 DAI<br>        // DAI 合约地址：0x6B175474E89094C44Da98b954EedeAC495271d0F<br><br>        // 存入 DAI，获得 cDAI<br>        uint256 result = cDAI.mint(amount);<br>        require(result == 0, &quot;cDAI mint failed&quot;);<br>    &#125;<br><br>    function borrowUSDC(uint256 amount) external &#123;<br>        // 进入市场，允许使用 cDAI 作为抵押品<br>        address;<br>        markets[0] = address(cDAI);<br>        uint256[] memory errors = comptroller.enterMarkets(markets);<br>        require(errors[0] == 0, &quot;Comptroller enter market failed&quot;);<br><br>        // 借入 USDC<br>        uint256 result = cUSDC.borrow(amount);<br>        require(result == 0, &quot;cUSDC borrow failed&quot;);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>注意</strong>：上述代码仅为示例，实际操作中需要处理代币授权、安全性等问题。</p>
+<h3 id="清算示例">清算示例</h3>
+<p>清算人可以调用 <code>liquidateBorrow</code>
+函数进行清算，以下是示例代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs solidity">pragma solidity ^0.6.0;<br><br>interface CErc20 &#123;<br>    function liquidateBorrow(address borrower, uint256 repayAmount, address cTokenCollateral) external returns (uint256);<br>&#125;<br><br>contract CompoundLiquidator &#123;<br>    CErc20 public cUSDC = CErc20(0x39AA39c021dfbaE8faC545936693aC917d5E7563); // 借款资产 cUSDC<br><br>    function liquidate(address borrower, uint256 repayAmount, address cTokenCollateral) external &#123;<br>        // 需要先批准 cUSDC 合约转移清算人的 USDC<br><br>        // 执行清算<br>        uint256 result = cUSDC.liquidateBorrow(borrower, repayAmount, cTokenCollateral);<br>        require(result == 0, &quot;Liquidation failed&quot;);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="风险与注意事项">风险与注意事项</h2>
+<ul>
+<li><strong>市场风险</strong>：加密资产价格波动可能导致抵押品价值下降，增加清算风险。</li>
+<li><strong>智能合约风险</strong>：尽管 Compound
+合约经过审计，但仍可能存在未知漏洞。</li>
+<li><strong>利率风险</strong>：市场利率可能波动，影响借款成本和存款收益。</li>
+<li><strong>清算风险</strong>：在市场剧烈波动时，可能发生迅速清算，导致损失。</li>
+</ul>
+<h2
+id="表格常见资产的抵押因子与利率">表格：常见资产的抵押因子与利率</h2>
+<table>
+<thead>
+<tr>
+<th>资产</th>
+<th>抵押因子（%）</th>
+<th>借款利率（年化）</th>
+<th>存款利率（年化）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DAI</td>
+<td>75</td>
+<td>5%</td>
+<td>3%</td>
+</tr>
+<tr>
+<td>USDC</td>
+<td>85</td>
+<td>4%</td>
+<td>2.5%</td>
+</tr>
+<tr>
+<td>ETH</td>
+<td>75</td>
+<td>3%</td>
+<td>0.5%</td>
+</tr>
+<tr>
+<td>WBTC</td>
+<td>60</td>
+<td>6%</td>
+<td>1%</td>
+</tr>
+</tbody>
+</table>
+<p><em>注：利率为示例值，实际利率请参考 Compound 官方网站。</em></p>
+<h2 id="结论">结论</h2>
+<p>Compound 作为 DeFi
+领域的重要借贷协议，为用户提供了高效的资金利用和收益机会。其创新的
+cToken
+模型、灵活的利率机制和完善的风险管理，使得用户可以在去中心化的环境中安全地借贷和存款。然而，用户在参与时应充分了解其机制和潜在风险，谨慎操作。</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://compound.finance/">Compound 官方网站</a></li>
+<li><a target="_blank" rel="noopener" href="https://compound.finance/docs">Compound 开发者文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://compound.finance/docs/prices">Open Price Feed
+预言机</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/compound-finance">Compound GitHub
+代码库</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.soliditylang.org">Solidity 文档</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://consensys.github.io/smart-contract-best-practices/">DeFi
+安全最佳实践</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web3/" class="category-chain-item">Web3</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Web3/DeFi/" class="category-chain-item">DeFi</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Web3/" class="print-no-link">#Web3</a>
+      
+        <a href="/tags/DeFi/" class="print-no-link">#DeFi</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Compound 深度解析</div>
+      <div>http://navafee.github.io./compound/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Naveen</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年1月13日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/ust-luna/" title="UST 与 LUNA 深度解析">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">UST 与 LUNA 深度解析</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/aave/" title="AAVE 深度解析">
+                        <span class="hidden-mobile">AAVE 深度解析</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

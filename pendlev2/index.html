@@ -1,0 +1,1007 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/touxiang.png">
+  <link rel="icon" href="/img/touxiang.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Naveen">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="深入解析 Pendle Finance：解锁 DeFi 收益的新方式 引言 Pendle Finance 是一个专注于去中心化金融（DeFi）收益交易的平台，旨在通过收益代币化和收益交易，为用户提供全新的收益策略和机会。通过将收益生成型代币（Yield-Bearing Tokens）分解为本金代币（Principal Tokens，PT）和收益代币（Yield Tokens，YT），Pendle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入解析 Pendle Finance V2：解锁 DeFi 收益的新方式">
+<meta property="og:url" content="http://navafee.github.io./pendlev2/index.html">
+<meta property="og:site_name" content="Naveen&#39;s Blog">
+<meta property="og:description" content="深入解析 Pendle Finance：解锁 DeFi 收益的新方式 引言 Pendle Finance 是一个专注于去中心化金融（DeFi）收益交易的平台，旨在通过收益代币化和收益交易，为用户提供全新的收益策略和机会。通过将收益生成型代币（Yield-Bearing Tokens）分解为本金代币（Principal Tokens，PT）和收益代币（Yield Tokens，YT），Pendle">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://navafee.github.io./pendlev2/image.png">
+<meta property="og:image" content="http://navafee.github.io./pendlev2/image-1.png">
+<meta property="og:image" content="http://navafee.github.io./pendlev2/image-4.png">
+<meta property="og:image" content="http://navafee.github.io./pendlev2/image-5.png">
+<meta property="og:image" content="http://navafee.github.io./pendlev2/image-2.png">
+<meta property="og:image" content="http://navafee.github.io./pendlev2/image-3.png">
+<meta property="article:published_time" content="2024-05-11T10:05:20.000Z">
+<meta property="article:modified_time" content="2024-10-12T10:23:52.460Z">
+<meta property="article:author" content="Naveen">
+<meta property="article:tag" content="Web3">
+<meta property="article:tag" content="DeFi">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://navafee.github.io./pendlev2/image.png">
+  
+  
+  
+  <title>深入解析 Pendle Finance V2：解锁 DeFi 收益的新方式 - Naveen&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Naveen</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="深入解析 Pendle Finance V2：解锁 DeFi 收益的新方式"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-05-11 18:05" pubdate>
+          2024年5月11日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">深入解析 Pendle Finance V2：解锁 DeFi 收益的新方式</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="深入解析-pendle-finance解锁-defi-收益的新方式">深入解析 Pendle
+Finance：解锁 DeFi 收益的新方式</h1>
+<h2 id="引言">引言</h2>
+<p><strong>Pendle Finance</strong>
+是一个专注于去中心化金融（DeFi）收益交易的平台，旨在通过收益代币化和收益交易，为用户提供全新的收益策略和机会。通过将收益生成型代币（Yield-Bearing
+Tokens）分解为本金代币（Principal Tokens，PT）和收益代币（Yield
+Tokens，YT），Pendle
+解锁了这些资产的流动性，并为用户提供了多样化的收益策略。</p>
+<p>本文将深入探讨 Pendle
+的关键概念、核心机制，以及如何利用其平台实现被动收益和主动收益交易。</p>
+<hr />
+<h2 id="一pendle-的两个关键概念">一、Pendle 的两个关键概念</h2>
+<h3 id="收益代币化yield-tokenization">1. 收益代币化（Yield
+Tokenization）</h3>
+<p>Pendle 通过将收益生成型代币（如
+<strong>stETH</strong>、<strong>GLP</strong>、<strong>JitoSOL</strong>、LP
+Tokens 等）进行代币化，将其分解为：</p>
+<ul>
+<li><strong>本金代币（PT）</strong>：代表在到期日赎回标的资产的权利。</li>
+<li><strong>收益代币（YT）</strong>：代表在到期日之前获取标的资产产生的收益的权利。</li>
+</ul>
+<p>这种代币化方式允许用户在不影响原始资产收益的情况下，灵活地进行交易和策略部署。</p>
+<h3 id="收益交易yield-trading">2. 收益交易（Yield Trading）</h3>
+<p>Pendle 创建了一个 DeFi 收益交易市场，用户可以通过 Pendle 的 AMM
+池交易 PT 和
+YT。这样，用户可以针对不同的市场预期和风险偏好，选择适合的收益策略，包括固定收益和收益杠杆。</p>
+<hr />
+<h2 id="二两种收益策略">二、两种收益策略</h2>
+<h3 id="被动收益策略passive-earning">1. 被动收益策略（Passive
+Earning）</h3>
+<h4 id="固定收益">（1）固定收益</h4>
+<ul>
+<li><strong>机制</strong>：通过购买
+PT，用户可以在到期日以固定的价格赎回标的资产，获得固定收益。</li>
+<li><strong>应用</strong>：适合希望获得稳定收益的用户，类似于传统金融中的零息债券。</li>
+</ul>
+<h4 id="资产增值">（2）资产增值</h4>
+<ul>
+<li><strong>机制</strong>：利用已有的收益生成型资产，在 Pendle
+上进行质押，获得额外的收益。</li>
+<li><strong>应用</strong>：在持有资产的同时，获得额外的无风险收益。</li>
+</ul>
+<h3 id="收益交易策略yield-trading">2. 收益交易策略（Yield Trading）</h3>
+<h4 id="做多收益long-yield">（1）做多收益（Long Yield）</h4>
+<ul>
+<li><strong>机制</strong>：通过购买
+YT，用户可以获得标的资产在到期日前产生的收益，且无需担心清算或预言机风险。</li>
+<li><strong>应用</strong>：适合对标的资产收益看涨的用户，利用杠杆效应放大收益。</li>
+</ul>
+<h4 id="策略组合">（2）策略组合</h4>
+<ul>
+<li><strong>机制</strong>：用户可以混合使用被动和主动策略，执行复杂的收益优化和风险管理策略。</li>
+<li><strong>应用</strong>：满足不同风险偏好和市场预期的投资者需求。</li>
+</ul>
+<hr />
+<h2 id="三收益代币化的原理">三、收益代币化的原理</h2>
+<h3 id="基础公式">1. 基础公式</h3>
+<ul>
+<li><strong>到期日前</strong>：1 PT + 1 YT = 1 单位标的资产（Underlying
+Asset）</li>
+<li><strong>到期日后</strong>：
+<ul>
+<li>1 PT = 1 单位标的资产</li>
+<li>1 YT = 0（收益权已兑现）</li>
+</ul></li>
+</ul>
+<h3 id="pt-和-yt-的功能">2. PT 和 YT 的功能</h3>
+<h4 id="本金代币pt">（1）本金代币（PT）</h4>
+<ul>
+<li><strong>定义</strong>：在到期日赎回 1 单位标的资产的权利。</li>
+<li><strong>收益来源</strong>：持有 PT
+的价值在于购买价格与到期日赎回价值之间的差额，即固定收益。</li>
+<li><strong>类似概念</strong>：传统金融中的零息债券。</li>
+</ul>
+<h4 id="收益代币yt">（2）收益代币（YT）</h4>
+<ul>
+<li><strong>定义</strong>：在到期日前获取标的资产产生的收益的权利。</li>
+<li><strong>收益来源</strong>：标的资产在持有期间产生的所有收益，如质押奖励、交易费用等。</li>
+<li><strong>优势</strong>：无需贷款和杠杆，不存在清算风险，获取收益的杠杆敞口。</li>
+<li><strong>类似概念</strong>：传统金融中的分离式票息（Detached
+Coupon）。</li>
+</ul>
+<h3 id="在不同时间点的操作">3. 在不同时间点的操作</h3>
+<ul>
+<li><p><strong>到期日前</strong>：</p>
+<ul>
+<li><strong>铸造</strong>：将收益生成型代币拆分为 1 PT 和 1 YT。</li>
+<li><strong>赎回</strong>：通过持有 1 PT 和 1 YT，合并赎回 1
+单位标的资产。</li>
+<li><strong>收益领取</strong>：YT 持有人可以实时领取累计收益。</li>
+</ul></li>
+<li><p><strong>到期日后</strong>：</p>
+<ul>
+<li><strong>PT 赎回</strong>：持有 PT 的用户可以直接以 1:1
+赎回标的资产，无需 YT。</li>
+</ul></li>
+<li><p><strong>任何时刻</strong>：</p>
+<ul>
+<li><strong>交易 PT 和 YT</strong>：通过 Pendle 的 AMM
+池进行交易，价格机制确保 PT 价格 + YT 价格 = 标的资产价格。</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="四pendle-earn基础固定收益策略">四、Pendle
+Earn：基础固定收益策略</h2>
+<h3 id="存款机制">1. 存款机制</h3>
+<p><img src="image.png" srcset="/img/loading.gif" lazyload /></p>
+<ul>
+<li><strong>类似性</strong>：与传统金融中的定期存款或存款凭证（CD）类似，但没有资金锁定限制，可以随时退出。</li>
+<li><strong>收益计算</strong>：例如，存入 1 个 stETH，到期日赎回 1.06 个
+stETH，获得 0.06 个 stETH 的固定收益。</li>
+<li><strong>优势</strong>：
+<ul>
+<li><strong>风险敞口低</strong>：与持有标的资产的风险类似，在市场下跌时提供一定保护。</li>
+<li><strong>收益稳定</strong>：避免了 DeFi
+中收益率波动和频繁更换农场的麻烦。</li>
+<li><strong>灵活性</strong>：可随时进入或退出，不受锁定期限制。</li>
+</ul></li>
+</ul>
+<h3 id="流动性提供lp">2. 流动性提供（LP）</h3>
+<p><img src="image-1.png" srcset="/img/loading.gif" lazyload /></p>
+<ul>
+<li><p><strong>机制</strong>：用户可以向 Pendle 的 AMM
+池提供流动性，收益包括：</p>
+<ul>
+<li><strong>原生收益</strong>：
+<ul>
+<li>底层标的资产的协议收益（如 stETH 的质押收益）。</li>
+<li>持有 PT 的固定收益。</li>
+</ul></li>
+<li><strong>交易手续费</strong>：来自 AMM 池的交易活动。</li>
+<li><strong>平台激励</strong>：Pendle 平台的代币奖励
+<strong>$PENDLE</strong>，可以通过锁仓提升收益倍数。</li>
+</ul></li>
+<li><p><strong>优势</strong>：</p>
+<ul>
+<li><strong>无常损失低</strong>：由于池子的资产是 PT
+和标的资产，价格高度相关，无常损失较小。</li>
+<li><strong>资金灵活</strong>：资产未被锁定，可随时退出。</li>
+<li><strong>策略多样</strong>：LP
+行为可以作为收益优化或交易策略的一部分。</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="五pendle-trade收益交易策略">五、Pendle Trade：收益交易策略</h2>
+<h3 id="购买-yt做多收益">1. 购买 YT（做多收益）</h3>
+<ul>
+<li><strong>机制</strong>：通过购买
+YT，用户可以获得标的资产在到期日前的所有收益。</li>
+<li><strong>优势</strong>：
+<ul>
+<li><strong>杠杆收益</strong>：YT
+的价格远低于标的资产价格，提供收益的杠杆敞口。</li>
+<li><strong>无清算风险</strong>：无需借贷或杠杆交易，避免了清算和预言机风险。</li>
+<li><strong>额外收益机会</strong>：持有 YT
+可能获得标的资产协议的空投或奖励。</li>
+</ul></li>
+</ul>
+<h3 id="盈利条件">2. 盈利条件</h3>
+<ul>
+<li><strong>YT 价格上涨</strong>：持有期间 YT 的市场价格上升。</li>
+<li><strong>实际收益高于预期</strong>：标的资产产生的收益超过购买 YT
+的成本。</li>
+</ul>
+<p>买入并持有 YT = 做多收益的利润 = 未来收益 - YT 成本 如果认为 average
+future APY 会高于 current Implied APY ，就可以买 YT <img
+src="image-6.png" srcset="/img/loading.gif" lazyload /></p>
+<h3 id="策略应用">3. 策略应用</h3>
+<ul>
+<li><strong>市场预期判断</strong>：在预期标的资产收益率上升时购买
+YT。</li>
+<li><strong>收益最大化</strong>：利用 EigenLayer
+等新兴协议的奖励，放大收益。</li>
+</ul>
+<hr />
+<h2 id="六收益交易的重要概念">六、收益交易的重要概念</h2>
+<h3 id="基本恒等式">1. 基本恒等式</h3>
+<ul>
+<li><strong>PT + YT = 标的资产价格</strong></li>
+<li><strong>价格关系</strong>：PT 和 YT 的价格负相关。</li>
+</ul>
+<h3 id="关键指标">2. 关键指标</h3>
+<h4
+id="标的资产年化收益率underlying-apy">（1）标的资产年化收益率（Underlying
+APY）</h4>
+<ul>
+<li><strong>定义</strong>：标的资产的 7
+日移动平均收益率，用于评估一段时间内的收益表现。</li>
+</ul>
+<h4 id="隐含年化收益率implied-apy">（2）隐含年化收益率（Implied
+APY）</h4>
+<p><img src="image-4.png" srcset="/img/loading.gif" lazyload alt="alt text" /> <img src="image-5.png" srcset="/img/loading.gif" lazyload
+alt="alt text" /></p>
+<ul>
+<li><strong>定义</strong>：当前市场对标的资产未来收益的预期，反映在 YT
+的价格中。</li>
+<li><strong>影响因素</strong>：市场供需关系，买入 YT 增加，Implied APY
+上升；卖出 YT 增加，Implied APY 下降。</li>
+</ul>
+<h4 id="固定年化收益率fixed-apy">（3）固定年化收益率（Fixed APY）</h4>
+<ul>
+<li><strong>定义</strong>：持有 PT 可获得的固定收益率，数值上等于
+Implied APY。</li>
+<li><strong>应用</strong>：用于评估 PT 的投资价值。</li>
+</ul>
+<h3 id="策略时机">3. 策略时机</h3>
+<p><img src="image-2.png" srcset="/img/loading.gif" lazyload /></p>
+<ul>
+<li><p><strong>购买 YT 的时机</strong>：</p>
+<ul>
+<li>当 Implied APY 低于预期的标的资产收益率时。</li>
+<li>预期标的资产的收益率将上升。</li>
+</ul></li>
+<li><p><strong>出售 YT 的时机</strong>：</p>
+<ul>
+<li>当 Implied APY 高于标的资产的实际收益率，YT 可能被高估。</li>
+<li>预期标的资产的收益率将下降。</li>
+</ul>
+<p><img src="image-3.png" srcset="/img/loading.gif" lazyload /></p></li>
+</ul>
+<hr />
+<h2 id="七进阶收益交易策略">七、进阶收益交易策略</h2>
+<h3 id="做空收益short-yield">1. 做空收益（Short Yield）</h3>
+<h4 id="购买-pt">（1）购买 PT</h4>
+<ul>
+<li><strong>机制</strong>：持有
+PT，可以在到期日赎回标的资产，获得固定收益。</li>
+<li><strong>策略</strong>：当预期标的资产的收益率将下降时，购买 PT
+以获得高于市场预期的固定收益。</li>
+</ul>
+<h4 id="盈利条件-1">（2）盈利条件</h4>
+<ul>
+<li><strong>PT 价格上涨</strong>：持有期间 PT
+的市场价格上升，可以提前出售获利。</li>
+<li><strong>固定收益优势</strong>：固定收益率高于预期的标的资产收益率。</li>
+</ul>
+<h3 id="lp-收益交易">2. LP + 收益交易</h3>
+<h4 id="通过-lp-做空收益">（1）通过 LP 做空收益</h4>
+<ul>
+<li><strong>机制</strong>：向 Pendle 的 AMM 池提供流动性，持有 PT
+和标的资产的组合。</li>
+<li><strong>优势</strong>：
+<ul>
+<li><strong>额外收益</strong>：获得交易手续费和平台激励。</li>
+<li><strong>无常损失低</strong>：由于 PT
+和标的资产价格相关性高，无常损失较小。</li>
+<li><strong>策略灵活</strong>：可作为看跌标的资产收益的策略。</li>
+</ul></li>
+</ul>
+<h4 id="零价格影响模式zero-price-impact-mode">（2）零价格影响模式（Zero
+Price Impact Mode）</h4>
+<ul>
+<li><strong>机制</strong>：在提供流动性时，避免对 PT 和 YT
+的价格造成冲击。</li>
+<li><strong>应用</strong>：适用于希望保持收益中性的用户，不持有
+YT。</li>
+</ul>
+<hr />
+<h2 id="八策略总结与应用场景">八、策略总结与应用场景</h2>
+<h3 id="策略选择">1. 策略选择</h3>
+<ul>
+<li><strong>被动收益</strong>：适合希望获得稳定收益、风险偏好较低的用户。</li>
+<li><strong>收益交易</strong>：适合具有市场预期判断能力、希望获取更高收益的用户。</li>
+</ul>
+<h3 id="风险管理">2. 风险管理</h3>
+<ul>
+<li><strong>市场风险</strong>：标的资产价格和收益率的波动可能影响投资收益。</li>
+<li><strong>流动性风险</strong>：在极端市场条件下，PT 和 YT
+的流动性可能下降，影响交易和赎回。</li>
+</ul>
+<h3 id="应用场景">3. 应用场景</h3>
+<ul>
+<li><strong>对冲策略</strong>：通过购买
+PT，对冲标的资产收益率下降的风险。</li>
+<li><strong>杠杆策略</strong>：通过购买
+YT，放大对标的资产收益的敞口。</li>
+<li><strong>套利机会</strong>：利用 Implied APY 和 Underlying APY
+之间的差异，进行收益率套利。</li>
+</ul>
+<hr />
+<h2 id="九结论">九、结论</h2>
+<p>Pendle Finance 通过创新的收益代币化和收益交易机制，为 DeFi
+用户提供了多样化的收益策略和机会。无论是希望获得稳定收益的用户，还是具有风险偏好的交易者，都可以在
+Pendle 平台上找到适合自己的投资方式。</p>
+<p>在 DeFi 市场日益成熟和复杂的背景下，Pendle
+的出现为用户解锁了收益生成型代币的流动性，提供了更加灵活和高效的收益管理工具。然而，投资者在参与这些策略时，应充分了解相关风险，谨慎决策。</p>
+<hr />
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://pendle.finance/">Pendle Finance 官方网站</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.pendle.finance/">Pendle 文档中心</a></li>
+<li><a target="_blank" rel="noopener" href="https://academy.pendle.finance/">Pendle Academy
+教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.eigenlayer.xyz/">EigenLayer 项目介绍</a></li>
+<li><a target="_blank" rel="noopener" href="https://defirate.com/">DeFi 收益策略分析</a></li>
+</ul>
+<hr />
+<p><strong>免责声明</strong>：本文旨在提供信息交流，不构成任何投资建议。加密资产具有高风险，投资者应自行评估风险，谨慎参与。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web3/" class="category-chain-item">Web3</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Web3/DeFi/" class="category-chain-item">DeFi</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Web3/" class="print-no-link">#Web3</a>
+      
+        <a href="/tags/DeFi/" class="print-no-link">#DeFi</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>深入解析 Pendle Finance V2：解锁 DeFi 收益的新方式</div>
+      <div>http://navafee.github.io./pendlev2/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Naveen</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年5月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/chain-compare/" title="cEVM 生态、Cosmos 和 Polkadot 的比较">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">cEVM 生态、Cosmos 和 Polkadot 的比较</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/unibot/" title="unibot">
+                        <span class="hidden-mobile">unibot</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,922 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/touxiang.png">
+  <link rel="icon" href="/img/touxiang.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Naveen">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Perpetual Protocol V2 深度解析 引言 Perpetual Protocol 是一个去中心化的永续合约交易平台，与中心化交易所不同，它 不保管用户的资金，用户始终对自己的资产拥有完全的控制权。最重要的是，Perpetual Protocol 允许用户以 无需许可 且 完全透明 的方式进行交易。目前，Perpetual Protocol 使用 USDC 稳定币 作为主要的抵押品，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="perpetualv2">
+<meta property="og:url" content="http://navafee.github.io./perpetualv2/index.html">
+<meta property="og:site_name" content="Naveen&#39;s Blog">
+<meta property="og:description" content="Perpetual Protocol V2 深度解析 引言 Perpetual Protocol 是一个去中心化的永续合约交易平台，与中心化交易所不同，它 不保管用户的资金，用户始终对自己的资产拥有完全的控制权。最重要的是，Perpetual Protocol 允许用户以 无需许可 且 完全透明 的方式进行交易。目前，Perpetual Protocol 使用 USDC 稳定币 作为主要的抵押品，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://navafee.github.io./img/perpetualv2/image.png">
+<meta property="og:image" content="http://navafee.github.io./img/perpetualv2/image-1.png">
+<meta property="og:image" content="http://navafee.github.io./img/perpetualv2/image-2.png">
+<meta property="og:image" content="http://navafee.github.io./img/perpetualv2/image-3.png">
+<meta property="article:published_time" content="2024-03-12T08:18:24.000Z">
+<meta property="article:modified_time" content="2024-10-12T08:34:53.382Z">
+<meta property="article:author" content="Naveen">
+<meta property="article:tag" content="Web3">
+<meta property="article:tag" content="DeFi">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://navafee.github.io./img/perpetualv2/image.png">
+  
+  
+  
+  <title>perpetualv2 - Naveen&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Naveen</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="perpetualv2"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-03-12 16:18" pubdate>
+          2024年3月12日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">perpetualv2</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="perpetual-protocol-v2-深度解析">Perpetual Protocol V2
+深度解析</h1>
+<h2 id="引言">引言</h2>
+<p>Perpetual Protocol
+是一个去中心化的永续合约交易平台，与中心化交易所不同，它
+<strong>不保管用户的资金</strong>，用户始终对自己的资产拥有完全的控制权。最重要的是，Perpetual
+Protocol 允许用户以 <strong>无需许可</strong> 且
+<strong>完全透明</strong> 的方式进行交易。目前，Perpetual Protocol 使用
+<strong>USDC 稳定币</strong>
+作为主要的抵押品，未来将扩展到其他类型的抵押品。</p>
+<p>Perpetual Protocol V2
+对初始设计进行了迭代，引入了一种新的管理头寸和执行交易的模型，该模型利用了
+<strong>Uniswap V3</strong> 及其
+<strong>集中的流动性</strong>。本文将深入探讨 Perpetual Protocol V2
+的核心机制、与 V1 的主要区别，以及常见的三种交易场景。</p>
+<h2 id="一perpetual-protocol-v2-的核心机制">一、Perpetual Protocol V2
+的核心机制</h2>
+<h3 id="集成-uniswap-v3-的集中流动性">1. 集成 Uniswap V3
+的集中流动性</h3>
+<p>Perpetual Protocol V2 利用了 Uniswap V3
+的集中流动性特性，使得资金的利用率大大提高。V1
+中使用的虚拟自动做市商（vAMM）逻辑现在在 Uniswap V3
+上运行，提供了更高效的交易体验。</p>
+<h3 id="杠杆流动性提供者leveraged-lps">2. 杠杆流动性提供者（Leveraged
+LPs）</h3>
+<p>在 V2 中，引入了 <strong>杠杆流动性提供者（Leveraged LPs）</strong>
+的概念，允许 LP 在提供一定数量的抵押品（如 USDC）的基础上，获得最高达
+<strong>10 倍杠杆</strong> 的虚拟资产。这使得 LP
+可以在系统内放置更多的流动性，提高资金利用率。</p>
+<h4 id="示例">示例：</h4>
+<ul>
+<li><strong>初始资金</strong>：LP 向清算所（Clearing House）提供
+<strong>1,000 USDC</strong> 作为抵押品。</li>
+<li><strong>杠杆倍数</strong>：使用 <strong>10 倍杠杆</strong>，LP 获得
+<strong>10,000 vUSDC</strong> 的信用额度。</li>
+<li><strong>资产分配</strong>：LP 可以将这 <strong>10,000 vUSDC</strong>
+分配到不同的资产和价格区间。例如：
+<ul>
+<li><strong>5,000 vUSDC</strong> 保持为 vUSDC。</li>
+<li><strong>5,000 vUSDC</strong> 按照预言机价格兑换为
+<strong>vETH</strong>（假设 ETH 价格为 2,500 USDC，则获得 2
+vETH）。</li>
+</ul></li>
+<li><strong>添加流动性</strong>：LP 可以根据自己的做市策略，将这些
+v-token 分配到 Uniswap V3 上的相应价格区间。</li>
+</ul>
+<h2 id="二v2-相较于-v1-的主要变动">二、V2 相较于 V1 的主要变动</h2>
+<p><img src="../img/perpetualv2/image.png" srcset="/img/loading.gif" lazyload /></p>
+<h3 id="流动性来源的变化">1. 流动性来源的变化</h3>
+<ul>
+<li><strong>V1：</strong> 使用内部的
+vAMM，为交易者提供流动性，价格由内部算法决定。</li>
+<li><strong>V2：</strong> 利用 Uniswap V3 的真实 AMM，交易者的订单直接在
+Uniswap V3 上执行，价格更具市场性。</li>
+</ul>
+<h3 id="资金效率的提升">2. 资金效率的提升</h3>
+<ul>
+<li><strong>V1：</strong>
+流动性提供者无法获得交易手续费，且资金利用率较低。</li>
+<li><strong>V2：</strong> 引入杠杆 LP，LP
+可以获得交易手续费，并且通过杠杆机制提高资金利用率。</li>
+</ul>
+<h3 id="风险管理的改进">3. 风险管理的改进</h3>
+<ul>
+<li><strong>价格风险：</strong> 由于 V2 直接与 Uniswap V3
+集成，价格更为准确，减少了价格操纵的可能性。</li>
+<li><strong>清算机制：</strong> V2
+引入了更严格的清算机制，保护系统的安全性。</li>
+</ul>
+<h2 id="三交易场景解析">三、交易场景解析</h2>
+<h3
+id="场景一交易者开立多头头寸"><strong>场景一：交易者开立多头头寸</strong></h3>
+<p><img src="../img/perpetualv2/image-1.png" srcset="/img/loading.gif" lazyload /></p>
+<h4 id="步骤">步骤：</h4>
+<ol type="1">
+<li><strong>抵押 USDC</strong>：交易者将 USDC 存入 Perpetual Protocol
+作为初始保证金。</li>
+<li><strong>选择杠杆倍数</strong>：交易者选择所需的杠杆倍数（例如 5
+倍）。</li>
+<li><strong>开立多头头寸</strong>：交易者在 Perpetual Protocol 上开立
+ETH 的多头头寸。</li>
+<li><strong>订单执行</strong>：协议在 Uniswap V3
+上为交易者执行订单，购买相应数量的 vETH。</li>
+<li><strong>头寸管理</strong>：交易者的头寸由清算所管理，实时监控保证金和杠杆率。</li>
+</ol>
+<h4 id="关键点">关键点：</h4>
+<ul>
+<li><strong>价格执行</strong>：交易价格基于 Uniswap V3
+的价格，提高了价格的透明度和准确性。</li>
+<li><strong>保证金要求</strong>：系统会根据杠杆倍数和头寸大小，计算所需的初始保证金。</li>
+<li><strong>风险控制</strong>：如果头寸的未实现损益导致保证金率低于维持保证金要求，可能会触发清算。</li>
+</ul>
+<h3
+id="场景二在标记价格之上提供流动性"><strong>场景二：在标记价格之上提供流动性</strong></h3>
+<p><img src="../img/perpetualv2/image-2.png" srcset="/img/loading.gif" lazyload /></p>
+<h4 id="背景">背景：</h4>
+<ul>
+<li><strong>标记价格（Mark Price）</strong>：当前市场上 ETH 的价格，例如
+2,500 USDC。</li>
+<li>LP 认为 ETH 的价格将会上涨，想要在价格区间 <strong>[2,500 USDC,
+3,000 USDC]</strong> 提供流动性。</li>
+</ul>
+<h4 id="步骤-1">步骤：</h4>
+<ol type="1">
+<li><strong>抵押 USDC</strong>：LP 存入 <strong>1,000 USDC</strong>
+作为抵押品。</li>
+<li><strong>选择杠杆倍数</strong>：LP 选择 <strong>5
+倍杠杆</strong>，获得 <strong>5,000 vUSDC</strong> 的信用额度。</li>
+<li><strong>资产配置</strong>：
+<ul>
+<li><strong>5,000 vUSDC</strong> 全部兑换为 vETH，按照当前价格获得
+<strong>2 vETH</strong>。</li>
+</ul></li>
+<li><strong>设置价格区间</strong>：LP 将 <strong>2 vETH</strong> 放置在
+<strong>[2,500 USDC, 3,000 USDC]</strong> 的价格区间内。</li>
+<li><strong>添加流动性</strong>：LP 在 Uniswap V3
+上的相应价格区间内提供流动性。</li>
+</ol>
+<h4 id="预期结果">预期结果：</h4>
+<ul>
+<li><strong>价格上涨获利</strong>：如果 ETH 价格上涨到 3,000 USDC，LP
+可以赚取交易手续费和价差收益。</li>
+<li><strong>价格下跌风险</strong>：如果价格下跌，LP
+的头寸价值减少，但由于是在标记价格之上提供流动性，初始时 LP 并未持有
+vUSDC，因此风险相对可控。</li>
+</ul>
+<h3
+id="场景三围绕标记价格添加流动性"><strong>场景三：围绕标记价格添加流动性</strong></h3>
+<p><img src="../img/perpetualv2/image-3.png" srcset="/img/loading.gif" lazyload /></p>
+<h4 id="背景-1">背景：</h4>
+<ul>
+<li>LP 想要在 ETH
+的当前价格附近提供流动性，以赚取更多的交易手续费。</li>
+</ul>
+<h4 id="步骤-2">步骤：</h4>
+<ol type="1">
+<li><strong>抵押 USDC</strong>：LP 存入 <strong>2,000 USDC</strong>
+作为抵押品。</li>
+<li><strong>选择杠杆倍数</strong>：LP 选择 <strong>10
+倍杠杆</strong>，获得 <strong>20,000 vUSDC</strong> 的信用额度。</li>
+<li><strong>资产配置</strong>：
+<ul>
+<li><strong>10,000 vUSDC</strong> 保持为 vUSDC。</li>
+<li><strong>10,000 vUSDC</strong> 按照当前价格兑换为 <strong>4
+vETH</strong>（假设 ETH 价格为 2,500 USDC）。</li>
+</ul></li>
+<li><strong>设置价格区间</strong>：LP 将 <strong>vUSDC</strong> 和
+<strong>vETH</strong> 在价格区间 <strong>[2,400 USDC, 2,600
+USDC]</strong> 内提供流动性。</li>
+<li><strong>添加流动性</strong>：LP 在 Uniswap V3
+上的该价格区间内提供流动性。</li>
+</ol>
+<h4 id="预期结果-1">预期结果：</h4>
+<ul>
+<li><strong>高手续费收益</strong>：由于交易量通常集中在当前价格附近，LP
+可以获得更多的交易手续费。</li>
+<li><strong>价格波动风险</strong>：价格向任一方向剧烈波动，可能导致无常损失，LP
+需要密切监控头寸。</li>
+</ul>
+<h2 id="四技术细节">四、技术细节</h2>
+<h3 id="虚拟资产v-token">1. 虚拟资产（v-token）</h3>
+<ul>
+<li><strong>vUSDC 和
+vETH</strong>：系统通过抵押品和杠杆倍数，铸造相应的虚拟资产。</li>
+<li><strong>用途</strong>：v-token 用于在 Uniswap V3 上提供流动性，代表
+LP 的头寸。</li>
+</ul>
+<h3 id="清算所clearing-house">2. 清算所（Clearing House）</h3>
+<ul>
+<li><strong>功能</strong>：管理用户的头寸和抵押品，计算风险和保证金要求。</li>
+<li><strong>风险控制</strong>：当用户的保证金率低于维持保证金要求时，清算所可以触发清算，防止系统损失。</li>
+</ul>
+<h3 id="预言机价格">3. 预言机价格</h3>
+<ul>
+<li><strong>价格来源</strong>：Perpetual Protocol
+使用预言机获取资产的标记价格，确保价格的准确性。</li>
+<li><strong>用途</strong>：用于头寸的估值、保证金计算和清算触发。</li>
+</ul>
+<h2 id="五风险与注意事项">五、风险与注意事项</h2>
+<h3 id="杠杆风险">1. 杠杆风险</h3>
+<ul>
+<li><strong>高杠杆放大风险</strong>：杠杆倍数越高，价格波动对头寸的影响越大，可能导致快速爆仓。</li>
+<li><strong>谨慎选择杠杆</strong>：用户应根据自身风险承受能力，谨慎选择杠杆倍数。</li>
+</ul>
+<h3 id="价格波动风险">2. 价格波动风险</h3>
+<ul>
+<li><strong>市场风险</strong>：加密资产价格波动剧烈，可能导致头寸价值大幅变化。</li>
+<li><strong>风险管理</strong>：建议用户密切关注市场行情，及时调整头寸。</li>
+</ul>
+<h3 id="清算风险">3. 清算风险</h3>
+<ul>
+<li><strong>保证金不足</strong>：如果未实现损益导致保证金率低于维持保证金要求，头寸可能被清算。</li>
+<li><strong>避免清算</strong>：用户应保持足够的保证金，或及时追加资金。</li>
+</ul>
+<h3 id="系统风险">4. 系统风险</h3>
+<ul>
+<li><strong>智能合约风险</strong>：虽然合约经过审计，但仍可能存在漏洞。</li>
+<li><strong>预言机风险</strong>：价格数据可能受到攻击或异常波动，影响系统正常运行。</li>
+</ul>
+<h2 id="六总结">六、总结</h2>
+<p>Perpetual Protocol V2 通过引入 Uniswap V3 的集中流动性和杠杆 LP
+机制，大幅提高了资金利用率和交易效率。用户可以在无需许可和完全透明的环境下，进行永续合约交易和流动性提供。然而，高杠杆同时也带来了更高的风险，用户在参与前应充分了解其机制和潜在风险，谨慎决策。</p>
+<h2 id="七参考资料">七、参考资料</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://perp.com/">Perpetual Protocol 官方网站</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.perp.com/">Perpetual Protocol 文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://uniswap.org/docs/v3/">Uniswap V3 官方文档</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://medium.com/perpetual-protocol/perpetual-protocol-v2-curie-is-live-on-mainnet-4b51c8b9d52d">Perpetual
+Protocol V2 发布公告</a></li>
+<li><a target="_blank" rel="noopener" href="https://ethereum.org/developers/">以太坊开发者文档</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://consensys.github.io/smart-contract-best-practices/">DeFi
+安全最佳实践</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web3/" class="category-chain-item">Web3</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Web3/DeFi/" class="category-chain-item">DeFi</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Web3/" class="print-no-link">#Web3</a>
+      
+        <a href="/tags/DeFi/" class="print-no-link">#DeFi</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>perpetualv2</div>
+      <div>http://navafee.github.io./perpetualv2/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Naveen</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年3月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/unibot/" title="unibot">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">unibot</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/ribbon/" title="Ribbon Finance 深度解析：Theta Vaults 架构">
+                        <span class="hidden-mobile">Ribbon Finance 深度解析：Theta Vaults 架构</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
