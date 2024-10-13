@@ -1,0 +1,836 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/touxiang.png">
+  <link rel="icon" href="/img/touxiang.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Naveen">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="介绍 Golang（简称 Go）自诞生以来，以其简洁、高效和强大的并发能力，迅速成为开发者们喜爱的编程语言之一。为了充分发挥 Go 的优势，编写高质量、可维护的代码至关重要。本文将介绍 Golang 的最佳实践，涵盖代码风格、错误处理、并发编程、测试、依赖管理、性能优化等多个方面，帮助开发者编写出更加优雅和高效的 Go 代码。 代码风格 遵循 Go 官方编码规范 Go 语言拥有官方的编码规范，涵盖">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Golang 代码规范">
+<meta property="og:url" content="http://navafee.github.io./go-practice/index.html">
+<meta property="og:site_name" content="Naveen&#39;s Blog">
+<meta property="og:description" content="介绍 Golang（简称 Go）自诞生以来，以其简洁、高效和强大的并发能力，迅速成为开发者们喜爱的编程语言之一。为了充分发挥 Go 的优势，编写高质量、可维护的代码至关重要。本文将介绍 Golang 的最佳实践，涵盖代码风格、错误处理、并发编程、测试、依赖管理、性能优化等多个方面，帮助开发者编写出更加优雅和高效的 Go 代码。 代码风格 遵循 Go 官方编码规范 Go 语言拥有官方的编码规范，涵盖">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://go.dev/blog/go-brand/Go-Logo/PNG/Go-Logo_Blue.png">
+<meta property="article:published_time" content="2023-03-19T02:23:32.000Z">
+<meta property="article:modified_time" content="2024-10-13T07:33:10.786Z">
+<meta property="article:author" content="Naveen">
+<meta property="article:tag" content="Golang">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://go.dev/blog/go-brand/Go-Logo/PNG/Go-Logo_Blue.png">
+  
+  
+  
+  <title>Golang 代码规范 - Naveen&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Naveen</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Golang 代码规范"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-19 10:23" pubdate>
+          2023年3月19日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Golang 代码规范</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="介绍">介绍</h2>
+<p>Golang（简称
+Go）自诞生以来，以其简洁、高效和强大的并发能力，迅速成为开发者们喜爱的编程语言之一。为了充分发挥
+Go 的优势，编写高质量、可维护的代码至关重要。本文将介绍 Golang
+的最佳实践，涵盖代码风格、错误处理、并发编程、测试、依赖管理、性能优化等多个方面，帮助开发者编写出更加优雅和高效的
+Go 代码。</p>
+<h2 id="代码风格">代码风格</h2>
+<h3 id="遵循-go-官方编码规范">遵循 Go 官方编码规范</h3>
+<p>Go 语言拥有官方的编码规范，涵盖了代码格式、命名、注释等方面。使用
+<code>gofmt</code> 工具可以自动格式化代码，确保代码风格的一致性。</p>
+<p><strong>示例：使用 <code>gofmt</code> 格式化代码</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gofmt -w yourfile.go<br></code></pre></td></tr></table></figure>
+<p>此外，使用 <code>go vet</code> 和 <code>golint</code>
+等工具可以帮助发现潜在的问题和风格上的不一致。</p>
+<h3 id="命名约定">命名约定</h3>
+<p>良好的命名能够显著提升代码的可读性和可维护性。Go 的命名约定如下：</p>
+<ul>
+<li><p><strong>包名</strong>：简短且有意义，通常使用小写字母，避免使用下划线或驼峰。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> http<br><span class="hljs-keyword">package</span> jsonparser<br></code></pre></td></tr></table></figure></li>
+<li><p><strong>变量和函数名</strong>：使用驼峰命名法，首字母小写表示未导出，首字母大写表示导出。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> userName <span class="hljs-type">string</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">CalculateSum</span><span class="hljs-params">(a <span class="hljs-type">int</span>, b <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>    <span class="hljs-keyword">return</span> a + b<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p><strong>结构体和接口名</strong>：通常为单数形式，使用驼峰命名法。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> User <span class="hljs-keyword">struct</span> &#123;<br>    Name <span class="hljs-type">string</span><br>    Age  <span class="hljs-type">int</span><br>&#125;<br><br><span class="hljs-keyword">type</span> Reader <span class="hljs-keyword">interface</span> &#123;<br>    Read(p []<span class="hljs-type">byte</span>) (n <span class="hljs-type">int</span>, err <span class="hljs-type">error</span>)<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="错误处理">错误处理</h2>
+<h3 id="避免忽略错误">避免忽略错误</h3>
+<p>在 Go
+语言中，错误是显式返回的。忽略错误可能导致潜在的漏洞和程序崩溃。因此，处理每一个可能返回错误的函数调用至关重要。</p>
+<p><strong>错误示例：忽略错误</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go">file, _ := os.Open(<span class="hljs-string">&quot;config.yaml&quot;</span>)<br><span class="hljs-comment">// 如果文件不存在或无法打开，file 可能为 nil，后续操作将导致崩溃</span><br><span class="hljs-keyword">defer</span> file.Close()<br></code></pre></td></tr></table></figure>
+<p><strong>正确示例：处理错误</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go">file, err := os.Open(<span class="hljs-string">&quot;config.yaml&quot;</span>)<br><span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>    log.Fatalf(<span class="hljs-string">&quot;无法打开配置文件: %v&quot;</span>, err)<br>&#125;<br><span class="hljs-keyword">defer</span> file.Close()<br><span class="hljs-comment">// 继续处理文件</span><br></code></pre></td></tr></table></figure>
+<h3 id="使用自定义错误类型">使用自定义错误类型</h3>
+<p>自定义错误类型可以提供更多的上下文信息，帮助定位问题并增强错误处理的灵活性。</p>
+<p><strong>错误示例：使用标准错误</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Authenticate</span><span class="hljs-params">(user, pass <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">error</span> &#123;<br>    <span class="hljs-keyword">if</span> user != <span class="hljs-string">&quot;admin&quot;</span> || pass != <span class="hljs-string">&quot;password&quot;</span> &#123;<br>        <span class="hljs-keyword">return</span> errors.New(<span class="hljs-string">&quot;认证失败&quot;</span>)<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>正确示例：使用自定义错误类型</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> AuthError <span class="hljs-keyword">struct</span> &#123;<br>    Reason <span class="hljs-type">string</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(e *AuthError)</span></span> Error() <span class="hljs-type">string</span> &#123;<br>    <span class="hljs-keyword">return</span> fmt.Sprintf(<span class="hljs-string">&quot;认证失败: %s&quot;</span>, e.Reason)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Authenticate</span><span class="hljs-params">(user, pass <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">error</span> &#123;<br>    <span class="hljs-keyword">if</span> user != <span class="hljs-string">&quot;admin&quot;</span> || pass != <span class="hljs-string">&quot;password&quot;</span> &#123;<br>        <span class="hljs-keyword">return</span> &amp;AuthError&#123;Reason: <span class="hljs-string">&quot;用户名或密码错误&quot;</span>&#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="并发编程">并发编程</h2>
+<h3 id="正确使用-goroutines-和-channels">正确使用 Goroutines 和
+Channels</h3>
+<p>Goroutines 是 Go
+并发编程的核心，但不当使用可能导致数据竞态和资源泄漏。确保 Goroutines
+的生命周期被正确管理，并避免在未同步的情况下共享数据。</p>
+<p><strong>错误示例：数据竞态</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> counter <span class="hljs-type">int</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">increment</span><span class="hljs-params">()</span></span> &#123;<br>    counter++<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1000</span>; i++ &#123;<br>        <span class="hljs-keyword">go</span> increment()<br>    &#125;<br>    time.Sleep(time.Second)<br>    fmt.Println(counter) <span class="hljs-comment">// 结果不可预测</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>正确示例：使用 Mutex 保护共享数据</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> (<br>    counter <span class="hljs-type">int</span><br>    mu      sync.Mutex<br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">increment</span><span class="hljs-params">()</span></span> &#123;<br>    mu.Lock()<br>    <span class="hljs-keyword">defer</span> mu.Unlock()<br>    counter++<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">1000</span>; i++ &#123;<br>        <span class="hljs-keyword">go</span> increment()<br>    &#125;<br>    time.Sleep(time.Second)<br>    fmt.Println(counter) <span class="hljs-comment">// 结果为 1000</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="使用同步原语">使用同步原语</h3>
+<p>Go 提供了多种同步原语，如
+<code>sync.Mutex</code>、<code>sync.RWMutex</code> 和
+<code>sync.WaitGroup</code>，以确保并发操作的安全性。</p>
+<p><strong>错误示例：未使用同步原语</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> data []<span class="hljs-type">int</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">addData</span><span class="hljs-params">(n <span class="hljs-type">int</span>)</span></span> &#123;<br>    data = <span class="hljs-built_in">append</span>(data, n)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i++ &#123;<br>        <span class="hljs-keyword">go</span> addData(i)<br>    &#125;<br>    time.Sleep(time.Second)<br>    fmt.Println(<span class="hljs-built_in">len</span>(data)) <span class="hljs-comment">// 结果可能不正确</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>正确示例：使用 WaitGroup 和 Mutex</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> (<br>    data []<span class="hljs-type">int</span><br>    mu   sync.Mutex<br>    wg   sync.WaitGroup<br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">addData</span><span class="hljs-params">(n <span class="hljs-type">int</span>)</span></span> &#123;<br>    <span class="hljs-keyword">defer</span> wg.Done()<br>    mu.Lock()<br>    <span class="hljs-keyword">defer</span> mu.Unlock()<br>    data = <span class="hljs-built_in">append</span>(data, n)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i++ &#123;<br>        wg.Add(<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">go</span> addData(i)<br>    &#125;<br>    wg.Wait()<br>    fmt.Println(<span class="hljs-built_in">len</span>(data)) <span class="hljs-comment">// 结果为 100</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="测试">测试</h2>
+<h3 id="编写单元测试">编写单元测试</h3>
+<p>编写单元测试是确保代码正确性和稳定性的关键步骤。Go
+提供了内置的测试框架，使用 <code>testing</code>
+包可以方便地编写和运行测试。</p>
+<p><strong>示例：编写单元测试</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 文件名：math_test.go</span><br><span class="hljs-keyword">package</span> math<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;testing&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestAdd</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>    result := Add(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)<br>    expected := <span class="hljs-number">5</span><br>    <span class="hljs-keyword">if</span> result != expected &#123;<br>        t.Errorf(<span class="hljs-string">&quot;Add(2, 3) = %d; want %d&quot;</span>, result, expected)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="使用表驱动测试">使用表驱动测试</h3>
+<p>表驱动测试是一种简洁且易于扩展的测试方法，适用于测试多个输入和预期输出。</p>
+<p><strong>示例：使用表驱动测试</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 文件名：math_test.go</span><br><span class="hljs-keyword">package</span> math<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;testing&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestAdd</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>    tests := []<span class="hljs-keyword">struct</span>&#123;<br>        a, b <span class="hljs-type">int</span><br>        want <span class="hljs-type">int</span><br>    &#125;&#123;<br>        &#123;a: <span class="hljs-number">1</span>, b: <span class="hljs-number">2</span>, want: <span class="hljs-number">3</span>&#125;,<br>        &#123;a: <span class="hljs-number">-1</span>, b: <span class="hljs-number">1</span>, want: <span class="hljs-number">0</span>&#125;,<br>        &#123;a: <span class="hljs-number">0</span>, b: <span class="hljs-number">0</span>, want: <span class="hljs-number">0</span>&#125;,<br>        &#123;a: <span class="hljs-number">100</span>, b: <span class="hljs-number">200</span>, want: <span class="hljs-number">300</span>&#125;,<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> _, tt := <span class="hljs-keyword">range</span> tests &#123;<br>        t.Run(fmt.Sprintf(<span class="hljs-string">&quot;%d+%d&quot;</span>, tt.a, tt.b), <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>            got := Add(tt.a, tt.b)<br>            <span class="hljs-keyword">if</span> got != tt.want &#123;<br>                t.Errorf(<span class="hljs-string">&quot;Add(%d, %d) = %d; want %d&quot;</span>, tt.a, tt.b, got, tt.want)<br>            &#125;<br>        &#125;)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="依赖管理">依赖管理</h2>
+<h3 id="使用-go-modules">使用 Go Modules</h3>
+<p>Go Modules 是 Go
+语言的依赖管理工具，推荐在项目中使用它来管理依赖关系。它能够简化依赖版本的控制，并确保构建的可重复性。</p>
+<p><strong>初始化 Go Modules</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">go mod init your_project_name<br></code></pre></td></tr></table></figure>
+<p><strong>添加依赖</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">go get github.com/gin-gonic/gin<br></code></pre></td></tr></table></figure>
+<h3 id="定期更新依赖">定期更新依赖</h3>
+<p>定期更新项目依赖，确保使用最新的库版本，包含最新的功能和安全修复。</p>
+<p><strong>更新所有依赖</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">go get -u ./...<br></code></pre></td></tr></table></figure>
+<p><strong>验证依赖</strong></p>
+<p>使用 <code>go mod tidy</code>
+清理未使用的依赖，并添加缺失的依赖。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">go mod tidy<br></code></pre></td></tr></table></figure>
+<h2 id="性能优化">性能优化</h2>
+<h3 id="避免不必要的内存分配">避免不必要的内存分配</h3>
+<p>减少内存分配可以显著提升程序的性能。尽量复用对象，使用指针传递大型结构体，避免在循环中频繁创建新对象。</p>
+<p><strong>错误示例：频繁分配内存</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">process</span><span class="hljs-params">(data []<span class="hljs-type">int</span>)</span></span> &#123;<br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> data &#123;<br>        obj := &amp;MyStruct&#123;Value: v&#125;<br>        <span class="hljs-comment">// 处理 obj</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>正确示例：复用对象</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">process</span><span class="hljs-params">(data []<span class="hljs-type">int</span>)</span></span> &#123;<br>    obj := &amp;MyStruct&#123;&#125;<br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> data &#123;<br>        obj.Value = v<br>        <span class="hljs-comment">// 处理 obj</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="使用高效的数据结构">使用高效的数据结构</h3>
+<p>选择合适的数据结构能够提升程序的性能。例如，使用 <code>map</code>
+进行快速查找，使用 <code>slice</code> 进行有序存储等。</p>
+<p><strong>示例：使用 map 进行快速查找</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 错误示例：使用 slice 进行查找</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">contains</span><span class="hljs-params">(data []<span class="hljs-type">string</span>, target <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">bool</span> &#123;<br>    <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> data &#123;<br>        <span class="hljs-keyword">if</span> v == target &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>&#125;<br><br><span class="hljs-comment">// 正确示例：使用 map 进行查找</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">contains</span><span class="hljs-params">(data <span class="hljs-keyword">map</span>[<span class="hljs-type">string</span>]<span class="hljs-keyword">struct</span>&#123;&#125;, target <span class="hljs-type">string</span>)</span></span> <span class="hljs-type">bool</span> &#123;<br>    _, exists := data[target]<br>    <span class="hljs-keyword">return</span> exists<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="代码组织">代码组织</h2>
+<h3 id="合理划分包结构">合理划分包结构</h3>
+<p>良好的包结构有助于代码的可维护性和可复用性。根据功能和责任划分包，避免包之间的循环依赖。</p>
+<p><strong>示例：合理划分包</strong></p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs maxima">your_project/<br>├── cmd/<br>│   └── your_app/<br>│       └── main.<span class="hljs-built_in">go</span><br>├── pkg/<br>│   ├── handler/<br>│   ├── service/<br>│   └── repository/<br>├── internal/<br>│   └── auth/<br>└── <span class="hljs-built_in">go</span>.<span class="hljs-built_in">mod</span><br></code></pre></td></tr></table></figure>
+<h3 id="接口设计">接口设计</h3>
+<p>合理设计接口，遵循接口隔离原则。接口应尽量小且专一，避免过大的接口导致实现复杂。</p>
+<p><strong>示例：小而专一的接口</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Reader <span class="hljs-keyword">interface</span> &#123;<br>    Read(p []<span class="hljs-type">byte</span>) (n <span class="hljs-type">int</span>, err <span class="hljs-type">error</span>)<br>&#125;<br><br><span class="hljs-keyword">type</span> Writer <span class="hljs-keyword">interface</span> &#123;<br>    Write(p []<span class="hljs-type">byte</span>) (n <span class="hljs-type">int</span>, err <span class="hljs-type">error</span>)<br>&#125;<br><br><span class="hljs-keyword">type</span> ReadWriter <span class="hljs-keyword">interface</span> &#123;<br>    Reader<br>    Writer<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="工具使用">工具使用</h2>
+<h3 id="使用-linters">使用 linters</h3>
+<p>Linters 可以帮助发现代码中的潜在问题和风格不一致。推荐使用
+<code>golangci-lint</code>，它集成了多种
+linters，能够高效地扫描代码。</p>
+<p><strong>安装 golangci-lint</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go <span class="hljs-built_in">env</span> GOPATH)/bin v1.50.1<br></code></pre></td></tr></table></figure>
+<p><strong>运行 golangci-lint</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">golangci-lint run<br></code></pre></td></tr></table></figure>
+<h3 id="使用格式化工具">使用格式化工具</h3>
+<p>使用 <code>gofmt</code> 或 <code>goimports</code>
+自动格式化代码，确保代码风格的一致性。</p>
+<p><strong>使用 gofmt 格式化代码</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gofmt -w yourfile.go<br></code></pre></td></tr></table></figure>
+<p><strong>使用 goimports 格式化代码并管理导入</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">go install golang.org/x/tools/cmd/goimports@latest<br>goimports -w yourfile.go<br></code></pre></td></tr></table></figure>
+<h2 id="结论">结论</h2>
+<p>Golang
+以其简洁、高效和强大的并发能力，成为现代软件开发中的重要语言之一。遵循最佳实践能够帮助开发者充分发挥
+Go
+的优势，编写出高质量、可维护且高性能的代码。本文涵盖了从代码风格、错误处理、并发编程、测试、依赖管理到性能优化等多个方面的最佳实践，希望能为您的
+Go 项目开发提供有价值的指导。</p>
+<p>持续学习和应用这些最佳实践，将有助于您在 Golang
+生态中保持领先，构建更加健壮和高效的应用程序。</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://golang.org/doc/effective_go.html">Effective
+Go</a></li>
+<li><a target="_blank" rel="noopener" href="https://go.dev/wiki/CommonMistakes">Go Common
+Mistakes</a></li>
+<li><a target="_blank" rel="noopener" href="https://go.dev/wiki/CodeReviewComments">Go Code Review
+Comments</a></li>
+<li><a target="_blank" rel="noopener" href="https://golangci-lint.run/">golangci-lint 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://golang.org/doc/go1.11#modules">Go Modules
+官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://go.dev/doc/effective_go#concurrency">Go Concurrency
+Patterns</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Golang/" class="category-chain-item">Golang</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Golang/" class="print-no-link">#Golang</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Golang 代码规范</div>
+      <div>http://navafee.github.io./go-practice/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Naveen</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月19日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/xrp/" title="深入解析 Ripple（XRP）区块链">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">深入解析 Ripple（XRP）区块链</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/defi/" title="DeFi 项目分享">
+                        <span class="hidden-mobile">DeFi 项目分享</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
