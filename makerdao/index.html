@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":"G-R246FK9TNM"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -101,6 +101,20 @@
     </script>
   
 
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-R246FK9TNM", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-R246FK9TNM');
+        });
+      }
+    </script>
   
 
   
@@ -314,39 +328,26 @@
             
               <div class="markdown-body">
                 
-                <h1 id="makerdao-深度解析">MakerDAO 深度解析</h1>
+                <h1>MakerDAO 深度解析</h1>
 <h2 id="引言">引言</h2>
-<p>MakerDAO
-是以太坊区块链上首个去中心化自治组织（DAO），其主要产品是稳定币 DAI。DAI
-是一种与美元软锚定的稳定币，由超额抵押的数字资产支持。本文将深入探讨
-MakerDAO
-的工作原理、核心机制、智能合约实现，以及其在去中心化金融（DeFi）生态系统中的重要作用。</p>
-<h2 id="makerdao-的工作原理">MakerDAO 的工作原理</h2>
-<h3 id="稳定币-dai">稳定币 DAI</h3>
-<p>DAI 是一种去中心化的、价格稳定的加密货币，旨在保持与美元的 1:1
-价值。与中心化稳定币（如 USDT、USDC）不同，DAI
-不由任何中心化机构发行，而是通过超额抵押的方式，由用户生成。</p>
-<h3 id="抵押债仓vaults">抵押债仓（Vaults）</h3>
-<p>用户可以将支持的数字资产（如 ETH、BAT 等）存入 Maker Vaults，生成新的
-DAI。Vaults 原本被称为抵押债仓（CDPs）。</p>
+<p>MakerDAO 是以太坊区块链上首个去中心化自治组织（DAO），其主要产品是稳定币 DAI。DAI 是一种与美元软锚定的稳定币，由超额抵押的数字资产支持。本文将深入探讨 MakerDAO 的工作原理、核心机制、智能合约实现，以及其在去中心化金融（DeFi）生态系统中的重要作用。</p>
+<h2 id="MakerDAO-的工作原理">MakerDAO 的工作原理</h2>
+<h3 id="稳定币-DAI">稳定币 DAI</h3>
+<p>DAI 是一种去中心化的、价格稳定的加密货币，旨在保持与美元的 1:1 价值。与中心化稳定币（如 USDT、USDC）不同，DAI 不由任何中心化机构发行，而是通过超额抵押的方式，由用户生成。</p>
+<h3 id="抵押债仓（Vaults）">抵押债仓（Vaults）</h3>
+<p>用户可以将支持的数字资产（如 ETH、BAT 等）存入 Maker Vaults，生成新的 DAI。Vaults 原本被称为抵押债仓（CDPs）。</p>
 <h4 id="操作流程">操作流程</h4>
-<ol type="1">
-<li><strong>存入抵押品</strong>：用户将一定数量的数字资产存入
-Vault。</li>
-<li><strong>生成
-DAI</strong>：根据抵押品的价值和抵押率，用户可以生成相应数量的
-DAI。</li>
-<li><strong>偿还债务</strong>：用户需要在未来偿还生成的
-DAI，以及一定的稳定费用。</li>
+<ol>
+<li><strong>存入抵押品</strong>：用户将一定数量的数字资产存入 Vault。</li>
+<li><strong>生成 DAI</strong>：根据抵押品的价值和抵押率，用户可以生成相应数量的 DAI。</li>
+<li><strong>偿还债务</strong>：用户需要在未来偿还生成的 DAI，以及一定的稳定费用。</li>
 <li><strong>取回抵押品</strong>：在偿还债务后，用户可以取回抵押的资产。</li>
 </ol>
 <h3 id="超额抵押">超额抵押</h3>
-<p>为了抵御市场波动，MakerDAO 要求抵押品的价值必须高于生成的 DAI
-的价值。例如，若最低抵押率为 150%，用户需要至少抵押价值 $150 的
-ETH，才能生成 $100 的 DAI。</p>
+<p>为了抵御市场波动，MakerDAO 要求抵押品的价值必须高于生成的 DAI 的价值。例如，若最低抵押率为 150%，用户需要至少抵押价值 $150 的 ETH，才能生成 $100 的 DAI。</p>
 <h3 id="清算机制">清算机制</h3>
 <p>当抵押率低于最低要求时，Vault 将被清算。清算过程如下：</p>
-<ol type="1">
+<ol>
 <li><strong>触发清算</strong>：当抵押率低于最低要求，清算机器人会触发清算。</li>
 <li><strong>拍卖抵押品</strong>：抵押品被拍卖，以偿还债务和罚金。</li>
 <li><strong>偿还债务</strong>：拍卖所得用于偿还生成的 DAI。</li>
@@ -355,76 +356,65 @@ ETH，才能生成 $100 的 DAI。</p>
 <h2 id="数学模型">数学模型</h2>
 <h3 id="抵押率计算">抵押率计算</h3>
 <p>抵押率（Collateralization Ratio, CR）计算公式为：</p>
-<p><span class="math display">\[
-CR = \frac{V_{collateral}}{V_{debt}} \times 100\%
-\]</span></p>
+<p>$$<br>
+CR = \frac{V_{collateral}}{V_{debt}} \times 100%<br>
+$$</p>
 <p>其中：</p>
 <ul>
 <li>( V_{collateral} ) 是抵押品的价值。</li>
 <li>( V_{debt} ) 是生成的 DAI 数量。</li>
 </ul>
-<h3 id="最大可生成的-dai-数量">最大可生成的 DAI 数量</h3>
+<h3 id="最大可生成的-DAI-数量">最大可生成的 DAI 数量</h3>
 <p>最大可生成的 DAI 数量（ ( D_{max} ) ）计算为：</p>
-<p><span class="math display">\[
-D_{max} = \frac{V_{collateral}}{R_{min}}
-\]</span></p>
+<p>$$<br>
+D_{max} = \frac{V_{collateral}}{R_{min}}<br>
+$$</p>
 <p>其中：</p>
 <ul>
 <li>( R_{min} ) 是最低抵押率。</li>
 </ul>
 <h3 id="清算价格">清算价格</h3>
 <p>清算价格（ ( P_{liquidation} ) ）是触发清算的抵押品价格：</p>
-<p><span class="math display">\[
-P_{liquidation} = P_{initial} \times \frac{R_{min}}{CR_{initial}}
-\]</span></p>
+<p>$$<br>
+P_{liquidation} = P_{initial} \times \frac{R_{min}}{CR_{initial}}<br>
+$$</p>
 <p>其中：</p>
 <ul>
 <li>( P_{initial} ) 是抵押品的初始价格。</li>
 <li>( CR_{initial} ) 是初始抵押率。</li>
 </ul>
 <h2 id="智能合约与代码示例">智能合约与代码示例</h2>
-<p>以下是一个使用 Solidity 与 MakerDAO
-进行交互的简单示例，展示如何在智能合约中生成和偿还 DAI。</p>
+<p>以下是一个使用 Solidity 与 MakerDAO 进行交互的简单示例，展示如何在智能合约中生成和偿还 DAI。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs solidity">pragma solidity ^0.6.6;<br><br>interface DaiJoin &#123;<br>    function join(address usr, uint wad) external;<br>    function exit(address usr, uint wad) external;<br>&#125;<br><br>interface Vat &#123;<br>    function hope(address usr) external;<br>&#125;<br><br>interface GemJoin &#123;<br>    function join(address usr, uint wad) external payable;<br>&#125;<br><br>contract MakerDaoExample &#123;<br>    DaiJoin constant daiJoin = DaiJoin(0x5...); // DaiJoin 合约地址<br>    Vat constant vat = Vat(0x5...); // Vat 合约地址<br>    GemJoin constant ethJoin = GemJoin(0x5...); // ETH-A GemJoin 合约地址<br><br>    function openVaultAndGenerateDai(uint daiAmount) external payable &#123;<br>        // 将 ETH 存入 GemJoin<br>        ethJoin.join&#123;value: msg.value&#125;(address(this), msg.value);<br><br>        // 授权 Vat 合约<br>        vat.hope(address(daiJoin));<br><br>        // 调用 Vat 合约生成 DAI<br>        // 省略具体代码，需与 MakerDAO 合约详细交互<br><br>        // 将生成的 DAI 发送给用户<br>        daiJoin.exit(msg.sender, daiAmount);<br>    &#125;<br><br>    // 偿还 DAI 并取回抵押品的函数略<br>&#125;<br></code></pre></td></tr></table></figure>
-<p><strong>注意</strong>：上述代码仅为示例，实际操作中需要与 MakerDAO
-合约的更多细节进行交互，建议参考官方文档。</p>
+<p><strong>注意</strong>：上述代码仅为示例，实际操作中需要与 MakerDAO 合约的更多细节进行交互，建议参考官方文档。</p>
 <h3 id="部署与测试">部署与测试</h3>
-<ol type="1">
-<li><strong>设置合约地址</strong>：将示例代码中的合约地址替换为实际的
-MakerDAO 合约地址。</li>
+<ol>
+<li><strong>设置合约地址</strong>：将示例代码中的合约地址替换为实际的 MakerDAO 合约地址。</li>
 <li><strong>编译合约</strong>：使用 Solidity 0.6.6 版本进行编译。</li>
 <li><strong>部署合约</strong>：在测试网或主网上部署合约。</li>
-<li><strong>交互测试</strong>：调用 <code>openVaultAndGenerateDai</code>
-函数，测试生成 DAI。</li>
+<li><strong>交互测试</strong>：调用 <code>openVaultAndGenerateDai</code> 函数，测试生成 DAI。</li>
 </ol>
-<h2 id="makerdao-的治理机制">MakerDAO 的治理机制</h2>
-<h3 id="mkr-代币">MKR 代币</h3>
-<p>MKR 是 MakerDAO
-的治理代币，持有者可以参与协议的治理，包括调整抵押率、稳定费用、添加新抵押品等。</p>
+<h2 id="MakerDAO-的治理机制">MakerDAO 的治理机制</h2>
+<h3 id="MKR-代币">MKR 代币</h3>
+<p>MKR 是 MakerDAO 的治理代币，持有者可以参与协议的治理，包括调整抵押率、稳定费用、添加新抵押品等。</p>
 <h3 id="治理投票">治理投票</h3>
-<p>持有 MKR
-的用户可以通过投票来决定协议的参数调整。治理投票分为执行投票和信号投票。</p>
+<p>持有 MKR 的用户可以通过投票来决定协议的参数调整。治理投票分为执行投票和信号投票。</p>
 <ul>
 <li><strong>执行投票</strong>：对具体的协议变更进行投票，一旦通过，立即生效。</li>
 <li><strong>信号投票</strong>：用于收集社区对某些提案的意见，不具备立即执行的效果。</li>
 </ul>
-<h2 id="dai-的稳定机制">DAI 的稳定机制</h2>
+<h2 id="DAI-的稳定机制">DAI 的稳定机制</h2>
 <h3 id="稳定费用">稳定费用</h3>
-<p>当用户生成 DAI 时，需要支付稳定费用（年化），以激励或抑制 DAI
-的供应。</p>
-<h3 id="dsrdai-savings-rate">DSR（DAI Savings Rate）</h3>
-<p>DAI 持有者可以将 DAI 存入 DSR 合约，获得利息收益。DSR 的调整可以影响
-DAI 的需求，从而稳定其价格。</p>
+<p>当用户生成 DAI 时，需要支付稳定费用（年化），以激励或抑制 DAI 的供应。</p>
+<h3 id="DSR（DAI-Savings-Rate）">DSR（DAI Savings Rate）</h3>
+<p>DAI 持有者可以将 DAI 存入 DSR 合约，获得利息收益。DSR 的调整可以影响 DAI 的需求，从而稳定其价格。</p>
 <h3 id="目标价格调整">目标价格调整</h3>
-<p>MakerDAO 可以通过调整参数，影响 DAI
-的供应和需求，使其价格回归目标。</p>
+<p>MakerDAO 可以通过调整参数，影响 DAI 的供应和需求，使其价格回归目标。</p>
 <h2 id="实际应用案例">实际应用案例</h2>
-<h3 id="使用-dai-进行支付">使用 DAI 进行支付</h3>
-<p>DAI
-作为稳定币，可以用于日常支付、跨境交易等，避免了加密货币价格波动的风险。</p>
-<h3 id="参与-defi-协议">参与 DeFi 协议</h3>
-<p>DAI 是 DeFi
-生态系统中的重要资产，可以用于借贷、交易、流动性挖矿等。</p>
+<h3 id="使用-DAI-进行支付">使用 DAI 进行支付</h3>
+<p>DAI 作为稳定币，可以用于日常支付、跨境交易等，避免了加密货币价格波动的风险。</p>
+<h3 id="参与-DeFi-协议">参与 DeFi 协议</h3>
+<p>DAI 是 DeFi 生态系统中的重要资产，可以用于借贷、交易、流动性挖矿等。</p>
 <h3 id="风险对冲">风险对冲</h3>
 <p>投资者可以通过生成 DAI，对冲数字资产价格下跌的风险。</p>
 <h2 id="风险与挑战">风险与挑战</h2>
@@ -433,10 +423,8 @@ DAI 的需求，从而稳定其价格。</p>
 <h3 id="智能合约风险">智能合约风险</h3>
 <p>尽管 MakerDAO 合约经过审计，但仍存在智能合约漏洞的可能性。</p>
 <h3 id="依赖抵押品">依赖抵押品</h3>
-<p>DAI 的稳定性依赖于抵押品的价值，当抵押品价格大幅下跌时，可能影响 DAI
-的稳定性。</p>
-<h2 id="表格makerdao-与其他稳定币的比较">表格：MakerDAO
-与其他稳定币的比较</h2>
+<p>DAI 的稳定性依赖于抵押品的价值，当抵押品价格大幅下跌时，可能影响 DAI 的稳定性。</p>
+<h2 id="表格：MakerDAO-与其他稳定币的比较">表格：MakerDAO 与其他稳定币的比较</h2>
 <table>
 <thead>
 <tr>
@@ -480,9 +468,7 @@ DAI 的需求，从而稳定其价格。</p>
 </tbody>
 </table>
 <h2 id="结论">结论</h2>
-<p>MakerDAO 通过创新的超额抵押和治理机制，实现了去中心化稳定币 DAI
-的发行和管理。作为 DeFi 生态系统的基石，理解 MakerDAO
-的工作原理和风险，对于投资者和开发者而言都至关重要。</p>
+<p>MakerDAO 通过创新的超额抵押和治理机制，实现了去中心化稳定币 DAI 的发行和管理。作为 DeFi 生态系统的基石，理解 MakerDAO 的工作原理和风险，对于投资者和开发者而言都至关重要。</p>
 <h2 id="参考资料">参考资料</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://docs.makerdao.com/">MakerDAO 官方文档</a></li>

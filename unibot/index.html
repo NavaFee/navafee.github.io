@@ -19,12 +19,12 @@
   <meta name="author" content="Naveen">
   <meta name="keywords" content="">
   
-    <meta name="description" content="UniBot 设计 UniBot 由不同的组件组成：  Diamond Pool 是一款 ETH 借贷产品，为 ETH 持有者提供低风险赚取利息。 Diamond Factory 是一个允许第 3 方创建自己的 Uniswap V3 流动性头寸的平台，其自定义参数包括范围、借贷比率和止损价格。 Diamond Automated Vaults (DAV)是结构化产品，它接受 USDC 等单一资产，">
+    <meta name="description" content="UniBot 设计 UniBot 由不同的组件组成：   Diamond Pool 是一款 ETH 借贷产品，为 ETH 持有者提供低风险赚取利息。   Diamond Factory 是一个允许第 3 方创建自己的 Uniswap V3 流动性头寸的平台，其自定义参数包括范围、借贷比率和止损价格。   Diamond Automated Vaults (DAV)是结构化产品，它接受 USDC 等">
 <meta property="og:type" content="article">
 <meta property="og:title" content="unibot">
 <meta property="og:url" content="http://navafee.github.io./unibot/index.html">
 <meta property="og:site_name" content="Naveen&#39;s Blog">
-<meta property="og:description" content="UniBot 设计 UniBot 由不同的组件组成：  Diamond Pool 是一款 ETH 借贷产品，为 ETH 持有者提供低风险赚取利息。 Diamond Factory 是一个允许第 3 方创建自己的 Uniswap V3 流动性头寸的平台，其自定义参数包括范围、借贷比率和止损价格。 Diamond Automated Vaults (DAV)是结构化产品，它接受 USDC 等单一资产，">
+<meta property="og:description" content="UniBot 设计 UniBot 由不同的组件组成：   Diamond Pool 是一款 ETH 借贷产品，为 ETH 持有者提供低风险赚取利息。   Diamond Factory 是一个允许第 3 方创建自己的 Uniswap V3 流动性头寸的平台，其自定义参数包括范围、借贷比率和止损价格。   Diamond Automated Vaults (DAV)是结构化产品，它接受 USDC 等">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://image.blocktempo.com/2023/08/Gw9VX0TbXI.jpeg">
 <meta property="article:published_time" content="2024-04-17T04:56:33.000Z">
@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":"G-R246FK9TNM"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -101,6 +101,20 @@
     </script>
   
 
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-R246FK9TNM", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-R246FK9TNM');
+        });
+      }
+    </script>
   
 
   
@@ -314,20 +328,23 @@
             
               <div class="markdown-body">
                 
-                <h1 id="unibot-设计">UniBot 设计</h1>
+                <h1>UniBot 设计</h1>
 <p>UniBot 由不同的组件组成：</p>
-<ol type="1">
-<li><p>Diamond Pool 是一款 ETH 借贷产品，为 ETH
-持有者提供低风险赚取利息。</p></li>
-<li><p>Diamond Factory 是一个允许第 3 方创建自己的 Uniswap V3
-流动性头寸的平台，其自定义参数包括范围、借贷比率和止损价格。</p></li>
-<li><p>Diamond Automated Vaults (DAV)是结构化产品，它接受 USDC
-等单一资产，并从 Diamond Pool 借入其他资产以创建 Uniswap V3
-流动性，提供头寸并赚取掉期费用。</p></li>
-<li><p>Diamond Keepers 是为工厂和 DAV
-自动进行再平衡、止损和清算的机器人。</p></li>
+<ol>
+<li>
+<p>Diamond Pool 是一款 ETH 借贷产品，为 ETH 持有者提供低风险赚取利息。</p>
+</li>
+<li>
+<p>Diamond Factory 是一个允许第 3 方创建自己的 Uniswap V3 流动性头寸的平台，其自定义参数包括范围、借贷比率和止损价格。</p>
+</li>
+<li>
+<p>Diamond Automated Vaults (DAV)是结构化产品，它接受 USDC 等单一资产，并从 Diamond Pool 借入其他资产以创建 Uniswap V3 流动性，提供头寸并赚取掉期费用。</p>
+</li>
+<li>
+<p>Diamond Keepers 是为工厂和 DAV 自动进行再平衡、止损和清算的机器人。</p>
+</li>
 </ol>
-<p><img src="../img/unibot/image.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="../img/unibot/image.png" srcset="/img/loading.gif" lazyload alt=""></p>
 
                 
               </div>

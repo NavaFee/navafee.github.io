@@ -63,7 +63,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":"G-R246FK9TNM"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -89,6 +89,20 @@
     </script>
   
 
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-R246FK9TNM", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-R246FK9TNM');
+        });
+      }
+    </script>
   
 
   
@@ -423,7 +437,7 @@
       
       <a class="index-excerpt " href="/unibot/" target="_self">
         <div>
-          UniBot 设计 UniBot 由不同的组件组成：  Diamond Pool 是一款 ETH 借贷产品，为 ETH 持有者提供低风险赚取利息。 Diamond Factory 是一个允许第 3 方创建自己的 Uniswap V3 流动性头寸的平台，其自定义参数包括范围、借贷比率和止损价格。 Diamond Automated Vaults (DAV)是结构化产品，它接受 USDC 等单一资产，
+          UniBot 设计 UniBot 由不同的组件组成：   Diamond Pool 是一款 ETH 借贷产品，为 ETH 持有者提供低风险赚取利息。   Diamond Factory 是一个允许第 3 方创建自己的 Uniswap V3 流动性头寸的平台，其自定义参数包括范围、借贷比率和止损价格。   Diamond Automated Vaults (DAV)是结构化产品，它接受 USDC 等
         </div>
       </a>
 
@@ -796,7 +810,7 @@
       
       <a class="index-excerpt " href="/restaking/" target="_self">
         <div>
-          EigenLayer 再质押详解与风险评估 目录  什么是 EigenLayer EigenLayer 的再质押类型  Native ETH 再质押 LST 再质押  中心化风险与 Rug Pull 风险 资金规模与投资建议  大资金投资建议 小资金投资建议  市场趋势与风险评估 总结   什么是 EigenLayer EigenLayer 是一个基于以太坊的去中心化再质押协议，允许用户在现有的以
+          EigenLayer 再质押详解与风险评估 目录  什么是 EigenLayer EigenLayer 的再质押类型  Native ETH 再质押 LST 再质押   中心化风险与 Rug Pull 风险 资金规模与投资建议  大资金投资建议 小资金投资建议   市场趋势与风险评估 总结   什么是 EigenLayer EigenLayer 是一个基于以太坊的去中心化再质押协议，允许用户在现有
         </div>
       </a>
 
@@ -948,7 +962,7 @@
       
       <a class="index-excerpt " href="/squeeth/" target="_self">
         <div>
-          Squeeth 深度解析 引言 Squeeth 是由 Opyn 团队推出的一款新型金融衍生品，其名称源自 "Squared ETH" 的缩写，旨在为用户提供一种与 ETH 价格平方相关的投资工具。Squeeth 与杠杆代币类似，交易者通过持有特定的 ERC-20 代币（oSQTH）来跟踪标的资产的价格，而无需承担被强制平仓的风险。然而，与传统的杠杆产品不同，Squeeth 的收益曲线是非线性的，具
+          Squeeth 深度解析 引言 Squeeth 是由 Opyn 团队推出的一款新型金融衍生品，其名称源自 “Squared ETH” 的缩写，旨在为用户提供一种与 ETH 价格平方相关的投资工具。Squeeth 与杠杆代币类似，交易者通过持有特定的 ERC-20 代币（oSQTH）来跟踪标的资产的价格，而无需承担被强制平仓的风险。然而，与传统的杠杆产品不同，Squeeth 的收益曲线是非线性的，具
         </div>
       </a>
 

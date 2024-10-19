@@ -76,7 +76,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":"G-R246FK9TNM"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -102,6 +102,20 @@
     </script>
   
 
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-R246FK9TNM", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-R246FK9TNM');
+        });
+      }
+    </script>
   
 
   
@@ -253,7 +267,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          1.2k 字
         
       </span>
     
@@ -315,18 +329,18 @@
             
               <div class="markdown-body">
                 
-                <h1 id="深入理解以太坊智能合约">深入理解以太坊智能合约</h1>
+                <h1>深入理解以太坊智能合约</h1>
 <h2 id="目录">目录</h2>
-<ol type="1">
-<li><a href="#什么是智能合约">什么是智能合约</a></li>
-<li><a href="#以太坊虚拟机-evm">以太坊虚拟机（EVM）</a></li>
-<li><a href="#solidity-编程基础">Solidity 编程基础</a></li>
-<li><a href="#智能合约示例">智能合约示例</a></li>
-<li><a href="#gas-费用与优化">Gas 费用与优化</a></li>
-<li><a href="#安全性与最佳实践">安全性与最佳实践</a></li>
-<li><a href="#总结">总结</a></li>
+<ol>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6">什么是智能合约</a></li>
+<li><a href="#%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%99%9A%E6%8B%9F%E6%9C%BA-evm">以太坊虚拟机（EVM）</a></li>
+<li><a href="#solidity-%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80">Solidity 编程基础</a></li>
+<li><a href="#%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E7%A4%BA%E4%BE%8B">智能合约示例</a></li>
+<li><a href="#gas-%E8%B4%B9%E7%94%A8%E4%B8%8E%E4%BC%98%E5%8C%96">Gas 费用与优化</a></li>
+<li><a href="#%E5%AE%89%E5%85%A8%E6%80%A7%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">安全性与最佳实践</a></li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
 </ol>
-<hr />
+<hr>
 <h2 id="什么是智能合约">什么是智能合约</h2>
 <p><strong>智能合约</strong>是一种在区块链上自动执行、控制或文档化法律相关事件和行动的计算机协议。它们允许无需中介机构即可进行可信交易和协议。</p>
 <h3 id="智能合约的特点">智能合约的特点</h3>
@@ -336,28 +350,20 @@
 <li><strong>不可篡改性</strong>：一旦部署，智能合约的代码和状态无法被修改。</li>
 <li><strong>自动执行</strong>：满足条件时，合约自动执行预设的操作。</li>
 </ul>
-<h2 id="以太坊虚拟机evm">以太坊虚拟机（EVM）</h2>
-<p>以太坊虚拟机（<strong>EVM</strong>）是一个运行智能合约的去中心化计算环境。EVM
-是图灵完备的，这意味着它能够执行任何计算，只要有足够的资源。</p>
-<h3 id="evm-的架构">EVM 的架构</h3>
-<figure>
-<img src="https://img.learnblockchain.cn/pics/20240630210720.png" srcset="/img/loading.gif" lazyload
-alt="EVM 架构示意图" />
-<figcaption aria-hidden="true">EVM 架构示意图</figcaption>
-</figure>
+<h2 id="以太坊虚拟机（EVM）">以太坊虚拟机（EVM）</h2>
+<p>以太坊虚拟机（<strong>EVM</strong>）是一个运行智能合约的去中心化计算环境。EVM 是图灵完备的，这意味着它能够执行任何计算，只要有足够的资源。</p>
+<h3 id="EVM-的架构">EVM 的架构</h3>
+<p><img src="https://img.learnblockchain.cn/pics/20240630210720.png" srcset="/img/loading.gif" lazyload alt="EVM 架构示意图"></p>
 <p><em>图 1. 以太坊虚拟机架构示意图</em></p>
-<h3 id="evm-的工作原理">EVM 的工作原理</h3>
-<ol type="1">
+<h3 id="EVM-的工作原理">EVM 的工作原理</h3>
+<ol>
 <li><strong>部署合约</strong>：开发者编写智能合约代码并部署到以太坊网络。</li>
 <li><strong>交易触发</strong>：用户发送交易调用合约中的函数。</li>
-<li><strong>执行代码</strong>：EVM
-根据交易执行合约代码，修改合约状态。</li>
+<li><strong>执行代码</strong>：EVM 根据交易执行合约代码，修改合约状态。</li>
 <li><strong>记录结果</strong>：执行结果记录在区块链上，所有节点同步更新状态。</li>
 </ol>
-<h2 id="solidity-编程基础">Solidity 编程基础</h2>
-<p><strong>Solidity</strong>
-是以太坊上用于编写智能合约的主要编程语言。它类似于 JavaScript 和
-C++，具有面向对象的特性。</p>
+<h2 id="Solidity-编程基础">Solidity 编程基础</h2>
+<p><strong>Solidity</strong> 是以太坊上用于编写智能合约的主要编程语言。它类似于 JavaScript 和 C++，具有面向对象的特性。</p>
 <h3 id="基本语法">基本语法</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs solidity">pragma solidity ^0.8.0;<br><br>contract HelloWorld &#123;<br>    string public message;<br><br>    constructor(string memory _message) &#123;<br>        message = _message;<br>    &#125;<br><br>    function setMessage(string memory _newMessage) public &#123;<br>        message = _newMessage;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="关键组件">关键组件</h3>
@@ -396,26 +402,19 @@ C++，具有面向对象的特性。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs solidity">pragma solidity ^0.8.0;<br><br>contract SimpleVote &#123;<br>    mapping (bytes32 =&gt; uint256) public votesReceived;<br>    bytes32[] public candidateList;<br><br>    constructor(bytes32[] memory candidateNames) &#123;<br>        candidateList = candidateNames;<br>    &#125;<br><br>    function voteForCandidate(bytes32 candidate) public &#123;<br>        require(validCandidate(candidate), &quot;Candidate does not exist&quot;);<br>        votesReceived[candidate] += 1;<br>    &#125;<br><br>    function totalVotesFor(bytes32 candidate) view public returns (uint256) &#123;<br>        require(validCandidate(candidate), &quot;Candidate does not exist&quot;);<br>        return votesReceived[candidate];<br>    &#125;<br><br>    function validCandidate(bytes32 candidate) view public returns (bool) &#123;<br>        for(uint i = 0; i &lt; candidateList.length; i++) &#123;<br>            if (candidateList[i] == candidate) &#123;<br>                return true;<br>            &#125;<br>        &#125;<br>        return false;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="合约说明">合约说明</h3>
 <ul>
-<li><strong>候选人列表</strong>：通过 <code>candidateList</code>
-存储所有候选人。</li>
-<li><strong>投票功能</strong>：<code>voteForCandidate</code>
-函数允许用户为候选人投票。</li>
-<li><strong>查询功能</strong>：<code>totalVotesFor</code>
-函数返回某候选人的总票数。</li>
-<li><strong>验证功能</strong>：<code>validCandidate</code>
-确保投票的候选人有效。</li>
+<li><strong>候选人列表</strong>：通过 <code>candidateList</code> 存储所有候选人。</li>
+<li><strong>投票功能</strong>：<code>voteForCandidate</code> 函数允许用户为候选人投票。</li>
+<li><strong>查询功能</strong>：<code>totalVotesFor</code> 函数返回某候选人的总票数。</li>
+<li><strong>验证功能</strong>：<code>validCandidate</code> 确保投票的候选人有效。</li>
 </ul>
-<h2 id="gas-费用与优化">Gas 费用与优化</h2>
-<p><strong>Gas</strong>
-是以太坊中用于衡量计算工作的单位。每个操作都有相应的 Gas
-费用，用户需要支付 Gas 以执行智能合约。</p>
-<h3 id="gas-计算公式">Gas 计算公式</h3>
-<p><span class="math display">\[
-\text{总费用} = \text{Gas 单价} \times \text{Gas 消耗量}
-\]</span></p>
-<h3 id="gas-优化策略">Gas 优化策略</h3>
+<h2 id="Gas-费用与优化">Gas 费用与优化</h2>
+<p><strong>Gas</strong> 是以太坊中用于衡量计算工作的单位。每个操作都有相应的 Gas 费用，用户需要支付 Gas 以执行智能合约。</p>
+<h3 id="Gas-计算公式">Gas 计算公式</h3>
+<p>$$<br>
+\text{总费用} = \text{Gas 单价} \times \text{Gas 消耗量}<br>
+$$</p>
+<h3 id="Gas-优化策略">Gas 优化策略</h3>
 <table>
-
 <thead>
 <tr>
 <th>优化策略</th>
@@ -487,10 +486,8 @@ C++，具有面向对象的特性。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs solidity">bool private locked = false;<br><br>modifier noReentrancy() &#123;<br>    require(!locked, &quot;Reentrant call.&quot;);<br>    locked = true;<br>    _;<br>    locked = false;<br>&#125;<br><br>function withdraw(uint256 amount) public noReentrancy &#123;<br>    require(balances[msg.sender] &gt;= amount, &quot;Insufficient balance.&quot;);<br>    (bool success, ) = msg.sender.call&#123;value: amount&#125;(&quot;&quot;);<br>    require(success, &quot;Transfer failed.&quot;);<br>    balances[msg.sender] -= amount;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>通过 <code>noReentrancy</code> 修饰符防止重入调用。</p>
 <h2 id="总结">总结</h2>
-<p>智能合约是区块链技术的核心组件，赋予去中心化应用强大的自动化和信任机制。通过理解
-EVM、掌握 Solidity 编程、优化 Gas
-费用以及遵循安全最佳实践，开发者可以构建高效且安全的智能合约，为区块链生态系统贡献力量。</p>
-<hr />
+<p>智能合约是区块链技术的核心组件，赋予去中心化应用强大的自动化和信任机制。通过理解 EVM、掌握 Solidity 编程、优化 Gas 费用以及遵循安全最佳实践，开发者可以构建高效且安全的智能合约，为区块链生态系统贡献力量。</p>
+<hr>
 <p><em>本文配图及代码示例仅供参考，实际应用请根据具体需求调整。</em></p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs"><br></code></pre></td></tr></table></figure>
 

@@ -27,6 +27,7 @@
 <meta property="og:description" content="Convex Finance 深度解析 引言 Convex Finance 是一个建立在 Curve 之上的收益聚合器，旨在为 Curve 的流动性提供者（LP）和持有 CRV 代币的用户提供更高的收益。通过聚合用户的资金，Convex 为双方都带来了额外的收益机会。本文将深入探讨 Convex 的产品机制、代币模型，以及其在 DeFi 生态系统中的重要作用。 产品机制 1. CRV 质押用户 1">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://navafee.github.io./img/convex/image.png">
+<meta property="og:image" content="http://navafee.github.io./img/convex/image-1.png">
 <meta property="article:published_time" content="2023-01-25T01:54:29.000Z">
 <meta property="article:modified_time" content="2024-10-12T07:05:58.700Z">
 <meta property="article:author" content="Naveen">
@@ -75,7 +76,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":"G-R246FK9TNM"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -101,6 +102,20 @@
     </script>
   
 
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-R246FK9TNM", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-R246FK9TNM');
+        });
+      }
+    </script>
   
 
   
@@ -314,118 +329,82 @@
             
               <div class="markdown-body">
                 
-                <h1 id="convex-finance-深度解析">Convex Finance 深度解析</h1>
+                <h1>Convex Finance 深度解析</h1>
 <h2 id="引言">引言</h2>
-<p><a target="_blank" rel="noopener" href="https://www.convexfinance.com/stake">Convex Finance</a>
-是一个建立在 Curve 之上的收益聚合器，旨在为 Curve
-的流动性提供者（LP）和持有 CRV
-代币的用户提供更高的收益。通过聚合用户的资金，Convex
-为双方都带来了额外的收益机会。本文将深入探讨 Convex
-的产品机制、代币模型，以及其在 DeFi 生态系统中的重要作用。</p>
+<p><a target="_blank" rel="noopener" href="https://www.convexfinance.com/stake">Convex Finance</a> 是一个建立在 Curve 之上的收益聚合器，旨在为 Curve 的流动性提供者（LP）和持有 CRV 代币的用户提供更高的收益。通过聚合用户的资金，Convex 为双方都带来了额外的收益机会。本文将深入探讨 Convex 的产品机制、代币模型，以及其在 DeFi 生态系统中的重要作用。</p>
 <h2 id="产品机制">产品机制</h2>
-<h3 id="crv-质押用户">1. CRV 质押用户</h3>
-<h4 id="质押-crv获得-cvxcrv">1）质押 CRV，获得 cvxCRV</h4>
+<h3 id="1-CRV-质押用户">1. CRV 质押用户</h3>
+<h4 id="1）质押-CRV，获得-cvxCRV">1）质押 CRV，获得 cvxCRV</h4>
 <ul>
-<li><strong>操作</strong>：用户将 <strong>CRV</strong> 代币质押到 Convex
-协议中，CRV 将被永久锁定为 <strong>veCRV</strong>（vote-escrowed
-CRV）。</li>
-<li><strong>获得</strong>：用户将获得
-<strong>cvxCRV</strong>，这是一种可交易的代币，代表 veCRV
-的收益权。</li>
-<li><strong>特点</strong>：cvxCRV 不可直接赎回为 CRV，但可以通过 Curve
-上的 <strong>cvxCRV/CRV 池</strong>，将 cvxCRV 兑换回
-CRV，实现流动性。</li>
+<li><strong>操作</strong>：用户将 <strong>CRV</strong> 代币质押到 Convex 协议中，CRV 将被永久锁定为 <strong>veCRV</strong>（vote-escrowed CRV）。</li>
+<li><strong>获得</strong>：用户将获得 <strong>cvxCRV</strong>，这是一种可交易的代币，代表 veCRV 的收益权。</li>
+<li><strong>特点</strong>：cvxCRV 不可直接赎回为 CRV，但可以通过 Curve 上的 <strong>cvxCRV/CRV 池</strong>，将 cvxCRV 兑换回 CRV，实现流动性。</li>
 </ul>
-<h4 id="质押-cvxcrv获得收益">2）质押 cvxCRV，获得收益</h4>
+<h4 id="2）质押-cvxCRV，获得收益">2）质押 cvxCRV，获得收益</h4>
 <ul>
-<li><strong>操作</strong>：用户可以将 <strong>cvxCRV</strong> 质押回
-Convex 协议，以获得更多的收益。</li>
-<li><strong>特点</strong>：cvxCRV
-的质押是灵活的，用户可以随时存入或取回。</li>
+<li><strong>操作</strong>：用户可以将 <strong>cvxCRV</strong> 质押回 Convex 协议，以获得更多的收益。</li>
+<li><strong>特点</strong>：cvxCRV 的质押是灵活的，用户可以随时存入或取回。</li>
 </ul>
-<h4 id="用户收益">3）用户收益</h4>
+<h4 id="3）用户收益">3）用户收益</h4>
 <p>质押 cvxCRV 的用户可以获得以下收益：</p>
 <ul>
-<li><strong>50% 的 Curve 交易手续费</strong>：以 3CRV（Curve 三池 LP
-代币）的形式发放。</li>
-<li><strong>Convex 原生代币 CVX 奖励</strong>：参与 Convex
-协议的治理和收益分配。</li>
-<li><strong>CRV LP 挖矿奖励的 10%</strong>：来自 Convex 对 LP
-挖矿奖励的分成。</li>
-<li><strong>Curve 提供的空投奖励</strong>：参与 Curve
-协议的空投活动。</li>
+<li><strong>50% 的 Curve 交易手续费</strong>：以 3CRV（Curve 三池 LP 代币）的形式发放。</li>
+<li><strong>Convex 原生代币 CVX 奖励</strong>：参与 Convex 协议的治理和收益分配。</li>
+<li><strong>CRV LP 挖矿奖励的 10%</strong>：来自 Convex 对 LP 挖矿奖励的分成。</li>
+<li><strong>Curve 提供的空投奖励</strong>：参与 Curve 协议的空投活动。</li>
 </ul>
-<p><img src="../img/convex/image.png" srcset="/img/loading.gif" lazyload /></p>
-<h3 id="提供-lp-的用户">2. 提供 LP 的用户</h3>
-<h4 id="存入-lp-代币">1）存入 LP 代币</h4>
+<p><img src="../img/convex/image.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<h3 id="2-提供-LP-的用户">2. 提供 LP 的用户</h3>
+<h4 id="1）存入-LP-代币">1）存入 LP 代币</h4>
 <ul>
-<li><strong>操作</strong>：用户可以将 Curve 的 LP 代币（如 3CRV、steCRV
-等）存入 Convex 协议。</li>
-<li><strong>特点</strong>：LP
-代币的存入和赎回是灵活的，用户可以随时操作。</li>
+<li><strong>操作</strong>：用户可以将 Curve 的 LP 代币（如 3CRV、steCRV 等）存入 Convex 协议。</li>
+<li><strong>特点</strong>：LP 代币的存入和赎回是灵活的，用户可以随时操作。</li>
 </ul>
-<h4 id="用户收益-1">2）用户收益</h4>
+<h4 id="2）用户收益">2）用户收益</h4>
 <p>提供 LP 的用户可以获得以下收益：</p>
 <ul>
 <li><strong>50% 的 Curve 交易手续费</strong>：以 3CRV 的形式发放。</li>
-<li><strong>Convex 原生代币 CVX 奖励</strong>：参与 Convex
-协议的治理和收益分配。</li>
-<li><strong>CRV LP 挖矿奖励的 90%</strong>：包括 veCRV
-用户才能获得的挖矿加速奖励。</li>
+<li><strong>Convex 原生代币 CVX 奖励</strong>：参与 Convex 协议的治理和收益分配。</li>
+<li><strong>CRV LP 挖矿奖励的 90%</strong>：包括 veCRV 用户才能获得的挖矿加速奖励。</li>
 <li><strong>其他项目的代币奖励</strong>：如 SNX、PNT、BOR、LDO 等。</li>
 </ul>
-<h3 id="cvx-质押用户">3. CVX 质押用户</h3>
-<h4 id="质押-cvx获得更多收益">1）质押 CVX，获得更多收益</h4>
+<h3 id="3-CVX-质押用户">3. CVX 质押用户</h3>
+<h4 id="1）质押-CVX，获得更多收益">1）质押 CVX，获得更多收益</h4>
 <ul>
-<li><strong>操作</strong>：用户可以将 <strong>CVX</strong> 代币质押到
-Convex 协议中。</li>
-<li><strong>特点</strong>：质押的 CVX
-将被锁定一段时间，用户可以获得额外的收益。</li>
+<li><strong>操作</strong>：用户可以将 <strong>CVX</strong> 代币质押到 Convex 协议中。</li>
+<li><strong>特点</strong>：质押的 CVX 将被锁定一段时间，用户可以获得额外的收益。</li>
 </ul>
-<h4 id="用户收益-2">2）用户收益</h4>
+<h4 id="2）用户收益-2">2）用户收益</h4>
 <p>CVX 质押者可以获得：</p>
 <ul>
-<li><strong>部分交易手续费</strong>：以 cvxCRV 的形式发放，来自于 Convex
-对 LP 挖矿奖励的 17% 收益中的 5%。</li>
-<li><strong>CVX 奖励</strong>：通过参与 Curve 的 cvxCRV
-池提供流动性，质押 cvxCRV LP 代币来赚取更多的 CVX。</li>
+<li><strong>部分交易手续费</strong>：以 cvxCRV 的形式发放，来自于 Convex 对 LP 挖矿奖励的 17% 收益中的 5%。</li>
+<li><strong>CVX 奖励</strong>：通过参与 Curve 的 cvxCRV 池提供流动性，质押 cvxCRV LP 代币来赚取更多的 CVX。</li>
 </ul>
 <h3 id="收益分配机制">收益分配机制</h3>
 <p>Convex 对 LP 挖矿奖励的 <strong>17%</strong> 收取费用，分配如下：</p>
 <ul>
-<li><strong>10%</strong>：以 CRV 的形式分配给 <strong>cvxCRV
-质押者</strong>。</li>
-<li><strong>5%</strong>：以 cvxCRV 的形式分配给 <strong>CVX
-质押者</strong>。</li>
-<li><strong>1%</strong>：以 CRV 的形式奖励给 <strong>调用
-<code>harvest</code> 函数的用户</strong>，用于补偿 Gas 费用。</li>
-<li><strong>1%</strong>：保留给 Convex 协议，用于持续发展。 <img
-src="../img/convex/image-1.png" srcset="/img/loading.gif" lazyload /></li>
+<li><strong>10%</strong>：以 CRV 的形式分配给 <strong>cvxCRV 质押者</strong>。</li>
+<li><strong>5%</strong>：以 cvxCRV 的形式分配给 <strong>CVX 质押者</strong>。</li>
+<li><strong>1%</strong>：以 CRV 的形式奖励给 <strong>调用 <code>harvest</code> 函数的用户</strong>，用于补偿 Gas 费用。</li>
+<li><strong>1%</strong>：保留给 Convex 协议，用于持续发展。<br>
+<img src="../img/convex/image-1.png" srcset="/img/loading.gif" lazyload alt=""></li>
 </ul>
-<h2 id="convex-与-curve-的关系">Convex 与 Curve 的关系</h2>
+<h2 id="Convex-与-Curve-的关系">Convex 与 Curve 的关系</h2>
 <h3 id="流动性挖矿的加速器">流动性挖矿的加速器</h3>
-<p>Convex Finance 作为一个收益聚合器，通过汇集大量的 CRV
-代币，将其永久锁定为 veCRV，从而在 Curve
-协议中获得更高的投票权和挖矿加速奖励。这使得 Convex
-可以为其用户提供比单独参与 Curve 更高的收益。</p>
+<p>Convex Finance 作为一个收益聚合器，通过汇集大量的 CRV 代币，将其永久锁定为 veCRV，从而在 Curve 协议中获得更高的投票权和挖矿加速奖励。这使得 Convex 可以为其用户提供比单独参与 Curve 更高的收益。</p>
 <h3 id="分离投票权与收益权">分离投票权与收益权</h3>
 <ul>
-<li><strong>veCRV 的投票权</strong>：通过将 CRV 转换为 veCRV，Convex
-获得了巨大的投票权，可以影响 Curve 的治理和奖励分配。</li>
-<li><strong>cvxCRV 的收益权</strong>：用户持有 cvxCRV，可以享受 veCRV
-的收益，而无需长时间锁定 CRV。</li>
+<li><strong>veCRV 的投票权</strong>：通过将 CRV 转换为 veCRV，Convex 获得了巨大的投票权，可以影响 Curve 的治理和奖励分配。</li>
+<li><strong>cvxCRV 的收益权</strong>：用户持有 cvxCRV，可以享受 veCRV 的收益，而无需长时间锁定 CRV。</li>
 </ul>
-<h3 id="cvx-的作用">CVX 的作用</h3>
+<h3 id="CVX-的作用">CVX 的作用</h3>
 <ul>
-<li><strong>治理代币</strong>：CVX 持有者可以参与 Convex
-协议的治理，包括对 Curve 池的投票。</li>
-<li><strong>投票代理</strong>：CVX
-持有者可以将投票权委托给特定的地址，使得贿赂投票机制更加容易执行。</li>
-<li><strong>价值捕获</strong>：随着 Convex 锁定的 CRV 增加，CVX
-的价值也会相应提升。</li>
+<li><strong>治理代币</strong>：CVX 持有者可以参与 Convex 协议的治理，包括对 Curve 池的投票。</li>
+<li><strong>投票代理</strong>：CVX 持有者可以将投票权委托给特定的地址，使得贿赂投票机制更加容易执行。</li>
+<li><strong>价值捕获</strong>：随着 Convex 锁定的 CRV 增加，CVX 的价值也会相应提升。</li>
 </ul>
-<h2 id="convex-的代币模型">Convex 的代币模型</h2>
-<h3 id="cvx-代币">CVX 代币</h3>
+<h2 id="Convex-的代币模型">Convex 的代币模型</h2>
+<h3 id="CVX-代币">CVX 代币</h3>
 <ul>
 <li><strong>代币名称</strong>：Convex Finance Token</li>
 <li><strong>代币符号</strong>：CVX</li>
@@ -440,124 +419,101 @@ src="../img/convex/image-1.png" srcset="/img/loading.gif" lazyload /></li>
 <li><strong>Curve LP 奖励</strong>：13.1%</li>
 <li><strong>CVX 持有者奖励</strong>：16.5%</li>
 </ul>
-<h3 id="cvx-的铸造曲线">CVX 的铸造曲线</h3>
+<h3 id="CVX-的铸造曲线">CVX 的铸造曲线</h3>
 <ul>
-<li><strong>铸造机制</strong>：每当用户在 Convex 上领取 CRV
-奖励时，系统会按照一定比例铸造新的 CVX。</li>
-<li><strong>曲线特点</strong>：随着总铸造的 CVX 数量增加，新的 CVX
-铸造速度会逐步减缓，呈现出通缩的趋势。</li>
+<li><strong>铸造机制</strong>：每当用户在 Convex 上领取 CRV 奖励时，系统会按照一定比例铸造新的 CVX。</li>
+<li><strong>曲线特点</strong>：随着总铸造的 CVX 数量增加，新的 CVX 铸造速度会逐步减缓，呈现出通缩的趋势。</li>
 </ul>
 <h4 id="数学公式">数学公式</h4>
 <p>假设：</p>
 <ul>
 <li><strong>已铸造的 CVX 总量</strong>：( M )</li>
-<li><strong>最大供应量</strong>：( M_{} = 100,000,000 )</li>
-<li><strong>每领取 1 CRV，铸造的 CVX 数量</strong>：( CVX = (M_{} - M) r
-)</li>
+<li><strong>最大供应量</strong>：( M_{\text{max}} = 100,000,000 )</li>
+<li><strong>每领取 1 CRV，铸造的 CVX 数量</strong>：( \Delta CVX = (M_{\text{max}} - M) \times r )</li>
 </ul>
 <p>其中，( r ) 是一个随 ( M ) 增加而递减的比率。</p>
-<h3 id="cvx-的价值增长">CVX 的价值增长</h3>
+<h3 id="CVX-的价值增长">CVX 的价值增长</h3>
 <ul>
-<li><strong>控制 veCRV 投票权</strong>：随着 Convex 锁定的 CRV
-增加，每个 CVX 代表的 veCRV 投票权也会增加。</li>
-<li><strong>收益分享</strong>：CVX 持有者可以通过质押获得 cvxCRV
-的收益分享。</li>
-<li><strong>供需关系</strong>：由于 CVX
-的铸造速度减缓，供应量增长放缓，可能导致市场上 CVX 的需求增加。</li>
+<li><strong>控制 veCRV 投票权</strong>：随着 Convex 锁定的 CRV 增加，每个 CVX 代表的 veCRV 投票权也会增加。</li>
+<li><strong>收益分享</strong>：CVX 持有者可以通过质押获得 cvxCRV 的收益分享。</li>
+<li><strong>供需关系</strong>：由于 CVX 的铸造速度减缓，供应量增长放缓，可能导致市场上 CVX 的需求增加。</li>
 </ul>
-<h2 id="convex-在流动性战争中的作用">Convex 在流动性战争中的作用</h2>
+<h2 id="Convex-在流动性战争中的作用">Convex 在流动性战争中的作用</h2>
 <h3 id="流动性租赁战争">流动性租赁战争</h3>
 <ul>
-<li><strong>背景</strong>：各稳定币项目为了争夺 Curve
-上的流动性，提供高额的奖励，形成了所谓的 "Curve War"。</li>
-<li><strong>Convex 的推动</strong>：通过聚合大量的 veCRV 投票权，Convex
-成为了 Curve 上最大的投票者，可以影响奖励的分配。</li>
+<li><strong>背景</strong>：各稳定币项目为了争夺 Curve 上的流动性，提供高额的奖励，形成了所谓的 “Curve War”。</li>
+<li><strong>Convex 的推动</strong>：通过聚合大量的 veCRV 投票权，Convex 成为了 Curve 上最大的投票者，可以影响奖励的分配。</li>
 </ul>
 <h3 id="影响机制">影响机制</h3>
-<ol type="1">
-<li><strong>增强投票权</strong>：Convex 将 CRV 永久转换为
-veCRV，积累了巨大的投票权。</li>
-<li><strong>简化贿赂机制</strong>：CVX
-持有者可以将投票权委托或出售给其他项目，使得贿赂选票更加容易执行。</li>
-<li><strong>价值捕获</strong>：随着 CVX 的供应量增长放缓，单个 CVX
-控制的 veCRV 投票权增加，提升了 CVX 的价值。</li>
+<ol>
+<li><strong>增强投票权</strong>：Convex 将 CRV 永久转换为 veCRV，积累了巨大的投票权。</li>
+<li><strong>简化贿赂机制</strong>：CVX 持有者可以将投票权委托或出售给其他项目，使得贿赂选票更加容易执行。</li>
+<li><strong>价值捕获</strong>：随着 CVX 的供应量增长放缓，单个 CVX 控制的 veCRV 投票权增加，提升了 CVX 的价值。</li>
 </ol>
-<h3 id="示例稳定币项目的竞争">示例：稳定币项目的竞争</h3>
+<h3 id="示例：稳定币项目的竞争">示例：稳定币项目的竞争</h3>
 <ul>
-<li><strong>项目 A</strong> 希望在 Curve
-上的池获得更多的奖励，以吸引用户提供流动性。</li>
-<li><strong>项目 A</strong> 可以向 Convex 的 CVX
-持有者提供额外的奖励，获取他们的投票支持。</li>
-<li><strong>Convex</strong>
-作为中介，为稳定币项目和流动性提供者之间搭建了桥梁。</li>
+<li><strong>项目 A</strong> 希望在 Curve 上的池获得更多的奖励，以吸引用户提供流动性。</li>
+<li><strong>项目 A</strong> 可以向 Convex 的 CVX 持有者提供额外的奖励，获取他们的投票支持。</li>
+<li><strong>Convex</strong> 作为中介，为稳定币项目和流动性提供者之间搭建了桥梁。</li>
 </ul>
 <h2 id="操作流程">操作流程</h2>
-<h3 id="质押-crv获取-cvxcrv">1. 质押 CRV，获取 cvxCRV</h3>
+<h3 id="1-质押-CRV，获取-cvxCRV">1. 质押 CRV，获取 cvxCRV</h3>
 <ul>
 <li><strong>步骤</strong>：
-<ol type="1">
+<ol>
 <li>访问 Convex Finance 的官网，连接钱包。</li>
-<li>在 <strong>"Stake"</strong> 页面，选择 <strong>"Deposit
-CRV"</strong>。</li>
+<li>在 <strong>“Stake”</strong> 页面，选择 <strong>“Deposit CRV”</strong>。</li>
 <li>输入想要质押的 CRV 数量，确认交易。</li>
 <li>质押成功后，获得等量的 <strong>cvxCRV</strong>。</li>
-</ol></li>
+</ol>
+</li>
 </ul>
-<h3 id="质押-cvxcrv获取收益">2. 质押 cvxCRV，获取收益</h3>
+<h3 id="2-质押-cvxCRV，获取收益">2. 质押 cvxCRV，获取收益</h3>
 <ul>
 <li><strong>步骤</strong>：
-<ol type="1">
-<li>在 <strong>"Stake"</strong> 页面，选择 <strong>"Stake
-cvxCRV"</strong>。</li>
+<ol>
+<li>在 <strong>“Stake”</strong> 页面，选择 <strong>“Stake cvxCRV”</strong>。</li>
 <li>输入想要质押的 cvxCRV 数量，确认交易。</li>
 <li>开始获得收益，包括交易手续费分成、CVX 奖励等。</li>
-</ol></li>
+</ol>
+</li>
 </ul>
-<h3 id="存入-curve-lp-代币">3. 存入 Curve LP 代币</h3>
+<h3 id="3-存入-Curve-LP-代币">3. 存入 Curve LP 代币</h3>
 <ul>
 <li><strong>步骤</strong>：
-<ol type="1">
-<li>在 <strong>"Stake"</strong> 页面，选择对应的 Curve 池。</li>
+<ol>
+<li>在 <strong>“Stake”</strong> 页面，选择对应的 Curve 池。</li>
 <li>存入 LP 代币，确认交易。</li>
 <li>开始获得收益，包括交易手续费分成、CRV 奖励、CVX 奖励等。</li>
-</ol></li>
+</ol>
+</li>
 </ul>
-<h3 id="质押-cvx">4. 质押 CVX</h3>
+<h3 id="4-质押-CVX">4. 质押 CVX</h3>
 <ul>
 <li><strong>步骤</strong>：
-<ol type="1">
-<li>在 <strong>"Lock CVX"</strong> 页面，选择锁定的 CVX 数量。</li>
+<ol>
+<li>在 <strong>“Lock CVX”</strong> 页面，选择锁定的 CVX 数量。</li>
 <li>确认锁定期限（通常为 16 周）。</li>
 <li>开始获得 cvxCRV 的收益分成。</li>
-</ol></li>
+</ol>
+</li>
 </ul>
 <h2 id="风险与注意事项">风险与注意事项</h2>
 <ul>
-<li><strong>智能合约风险</strong>：参与 Convex
-的操作涉及智能合约，可能存在漏洞风险。</li>
+<li><strong>智能合约风险</strong>：参与 Convex 的操作涉及智能合约，可能存在漏洞风险。</li>
 <li><strong>流动性风险</strong>：代币价格波动可能导致资产价值下降。</li>
-<li><strong>锁定风险</strong>：质押 CRV 转换为 cvxCRV 后，CRV
-被永久锁定，无法取回。</li>
-<li><strong>市场风险</strong>：DeFi
-市场变化迅速，策略需要及时调整。</li>
+<li><strong>锁定风险</strong>：质押 CRV 转换为 cvxCRV 后，CRV 被永久锁定，无法取回。</li>
+<li><strong>市场风险</strong>：DeFi 市场变化迅速，策略需要及时调整。</li>
 </ul>
 <h2 id="结论">结论</h2>
-<p>Convex Finance 通过创新的机制，为 Curve
-的用户提供了更高的收益和更多的选择。它在 DeFi
-生态系统中扮演了重要的角色，推动了流动性挖矿和治理机制的发展。然而，用户在参与
-Convex 时，应充分了解其机制和潜在风险，谨慎决策。</p>
+<p>Convex Finance 通过创新的机制，为 Curve 的用户提供了更高的收益和更多的选择。它在 DeFi 生态系统中扮演了重要的角色，推动了流动性挖矿和治理机制的发展。然而，用户在参与 Convex 时，应充分了解其机制和潜在风险，谨慎决策。</p>
 <h2 id="参考资料">参考资料</h2>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://www.convexfinance.com/">Convex Finance
-官方网站</a></li>
-<li><a target="_blank" rel="noopener" href="https://docs.convexfinance.com/">Convex Finance
-文档</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/convex-eth">Convex Finance GitHub
-代码库</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.convexfinance.com/">Convex Finance 官方网站</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.convexfinance.com/">Convex Finance 文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/convex-eth">Convex Finance GitHub 代码库</a></li>
 <li><a target="_blank" rel="noopener" href="https://curve.fi/">Curve Finance 官方网站</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://consensys.github.io/smart-contract-best-practices/">DeFi
-安全最佳实践</a></li>
+<li><a target="_blank" rel="noopener" href="https://consensys.github.io/smart-contract-best-practices/">DeFi 安全最佳实践</a></li>
 <li><a target="_blank" rel="noopener" href="https://ethereum.org/developers/">以太坊开发者文档</a></li>
 </ul>
 

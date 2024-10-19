@@ -76,7 +76,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":"G-R246FK9TNM"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -102,6 +102,20 @@
     </script>
   
 
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-R246FK9TNM", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-R246FK9TNM');
+        });
+      }
+    </script>
   
 
   
@@ -315,207 +329,194 @@
             
               <div class="markdown-body">
                 
-                <h1 id="ust-与-luna-深度解析">UST 与 LUNA 深度解析</h1>
+                <h1>UST 与 LUNA 深度解析</h1>
 <h2 id="引言">引言</h2>
-<p>在去中心化金融（DeFi）领域，Terra 区块链上的稳定币 UST 和其治理代币
-LUNA 曾经引起广泛关注。UST 试图通过算法和市场机制来维持与美元的 1:1
-价值锚定，而 LUNA 则用于维持 UST 的稳定性。然而，在 2022 年 5
-月，这一体系经历了剧烈的市场波动，导致了所谓的“死亡螺旋”。本文将深入探讨
-UST 和 LUNA 的机制、它们如何互相作用，以及导致崩溃的原因。</p>
-<h2 id="ust-与-luna-的机制">UST 与 LUNA 的机制</h2>
-<p><img src="../img/ust-luna/image.png" srcset="/img/loading.gif" lazyload /></p>
-<h3 id="稳定币-ust-与治理代币-luna">稳定币 UST 与治理代币 LUNA</h3>
+<p>在去中心化金融（DeFi）领域，Terra 区块链上的稳定币 UST 和其治理代币 LUNA 曾经引起广泛关注。UST 试图通过算法和市场机制来维持与美元的 1:1 价值锚定，而 LUNA 则用于维持 UST 的稳定性。然而，在 2022 年 5 月，这一体系经历了剧烈的市场波动，导致了所谓的“死亡螺旋”。本文将深入探讨 UST 和 LUNA 的机制、它们如何互相作用，以及导致崩溃的原因。</p>
+<h2 id="UST-与-LUNA-的机制">UST 与 LUNA 的机制</h2>
+<p><img src="../img/ust-luna/image.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<h3 id="稳定币-UST-与治理代币-LUNA">稳定币 UST 与治理代币 LUNA</h3>
 <ul>
-<li><strong>UST</strong>：一种算法稳定币，旨在与美元保持 1:1
-的价值锚定。</li>
-<li><strong>LUNA</strong>：Terra 区块链的原生代币，用于治理和维持 UST
-的价格稳定。</li>
+<li><strong>UST</strong>：一种算法稳定币，旨在与美元保持 1:1 的价值锚定。</li>
+<li><strong>LUNA</strong>：Terra 区块链的原生代币，用于治理和维持 UST 的价格稳定。</li>
 </ul>
 <h3 id="双向销毁机制">双向销毁机制</h3>
-<p>UST 和 LUNA 之间存在一个核心机制，即通过双向销毁来维持 UST
-的价值锚定。</p>
-<ol type="1">
-<li><strong>恒定兑换率</strong>：价值 1 美元的 LUNA 可以兑换为 1 个
-UST，反之亦然。</li>
-<li><strong>自由兑换</strong>：任何人都可以将 1 个 UST 换成价值 1 美元的
-LUNA，或将 LUNA 换成 1 个 UST。</li>
-<li><strong>UST 的生成</strong>：UST 只能通过销毁等值的 LUNA
-来生成，不会凭空出现。</li>
+<p>UST 和 LUNA 之间存在一个核心机制，即通过双向销毁来维持 UST 的价值锚定。</p>
+<ol>
+<li><strong>恒定兑换率</strong>：价值 1 美元的 LUNA 可以兑换为 1 个 UST，反之亦然。</li>
+<li><strong>自由兑换</strong>：任何人都可以将 1 个 UST 换成价值 1 美元的 LUNA，或将 LUNA 换成 1 个 UST。</li>
+<li><strong>UST 的生成</strong>：UST 只能通过销毁等值的 LUNA 来生成，不会凭空出现。</li>
 </ol>
 <h3 id="维持价格稳定的机制">维持价格稳定的机制</h3>
-<p>当 UST 的市场价格偏离 1
-美元时，套利者可以通过以下方式促使价格回归：</p>
+<p>当 UST 的市场价格偏离 1 美元时，套利者可以通过以下方式促使价格回归：</p>
 <ul>
-<li><p><strong>UST &gt; 1 美元（例如 1.1 美元）</strong>：</p>
+<li>
+<p><strong>UST &gt; 1 美元（例如 1.1 美元）</strong>：</p>
 <ul>
-<li><strong>操作</strong>：使用价值 1 美元的 LUNA 通过协议兑换成 1 个
-UST。</li>
-<li><strong>结果</strong>：在市场上以 1.1 美元卖出 UST，获得 10%
-的套利收益。</li>
-<li><strong>影响</strong>：增加市场上 UST 的供应，促使 UST
-价格回落。</li>
-</ul></li>
-<li><p><strong>UST &lt; 1 美元（例如 0.9 美元）</strong>：</p>
+<li><strong>操作</strong>：使用价值 1 美元的 LUNA 通过协议兑换成 1 个 UST。</li>
+<li><strong>结果</strong>：在市场上以 1.1 美元卖出 UST，获得 10% 的套利收益。</li>
+<li><strong>影响</strong>：增加市场上 UST 的供应，促使 UST 价格回落。</li>
+</ul>
+</li>
+<li>
+<p><strong>UST &lt; 1 美元（例如 0.9 美元）</strong>：</p>
 <ul>
-<li><strong>操作</strong>：购买低价 UST，通过协议兑换成价值 1 美元的
-LUNA。</li>
+<li><strong>操作</strong>：购买低价 UST，通过协议兑换成价值 1 美元的 LUNA。</li>
 <li><strong>结果</strong>：在市场上卖出 LUNA，获得 10% 的套利收益。</li>
-<li><strong>影响</strong>：减少市场上 UST 的供应，促使 UST
-价格回升。</li>
-</ul></li>
+<li><strong>影响</strong>：减少市场上 UST 的供应，促使 UST 价格回升。</li>
+</ul>
+</li>
 </ul>
 <h3 id="数学公式解析">数学公式解析</h3>
 <h4 id="套利机制">套利机制</h4>
 <ul>
-<li><p><strong>套利收益计算</strong>：</p>
-<p><span class="math display">\[
-\text{套利收益} = \left( \frac{P_{\text{market}} -
-P_{\text{peg}}}{P_{\text{peg}}} \right) \times 100\%
-\]</span></p>
+<li>
+<p><strong>套利收益计算</strong>：</p>
+<p>$$<br>
+\text{套利收益} = \left( \frac{P_{\text{market}} - P_{\text{peg}}}{P_{\text{peg}}} \right) \times 100%<br>
+$$</p>
 <p>其中：</p>
 <ul>
-<li>( P_{} ) 是 UST 的市场价格。</li>
-<li>( P_{} ) 是 UST 的目标锚定价格（1 美元）。</li>
-</ul></li>
+<li>( P_{\text{market}} ) 是 UST 的市场价格。</li>
+<li>( P_{\text{peg}} ) 是 UST 的目标锚定价格（1 美元）。</li>
+</ul>
+</li>
 </ul>
 <h4 id="供应调节">供应调节</h4>
 <ul>
-<li><p><strong>UST 供应变化</strong>：</p>
-<p>当市场上 UST 被大量兑换为 LUNA 时，UST
-的供应减少，反之亦然。</p></li>
+<li>
+<p><strong>UST 供应变化</strong>：</p>
+<p>当市场上 UST 被大量兑换为 LUNA 时，UST 的供应减少，反之亦然。</p>
+</li>
 </ul>
-<h2 id="luna-价值的保障机制">LUNA 价值的保障机制</h2>
-<h3 id="anchor-协议">Anchor 协议</h3>
-<p>Anchor 协议是 Terra 生态系统中的一个借贷平台，为 UST 存款提供高达
-<strong>20% 的年化收益率（APR）</strong>。</p>
+<h2 id="LUNA-价值的保障机制">LUNA 价值的保障机制</h2>
+<h3 id="Anchor-协议">Anchor 协议</h3>
+<p>Anchor 协议是 Terra 生态系统中的一个借贷平台，为 UST 存款提供高达 <strong>20% 的年化收益率（APR）</strong>。</p>
 <ul>
 <li><strong>高收益的来源</strong>：由借款人支付的利息和抵押品收益。</li>
-<li><strong>吸引资金流入</strong>：高利率吸引了大量资金购买 UST 并存入
-Anchor，从而提高了 UST 的需求和 LUNA 的价值。</li>
+<li><strong>吸引资金流入</strong>：高利率吸引了大量资金购买 UST 并存入 Anchor，从而提高了 UST 的需求和 LUNA 的价值。</li>
 </ul>
 <h3 id="抵押借贷机制">抵押借贷机制</h3>
 <ul>
-<li><strong>抵押 LUNA 或 ETH</strong>：用户可以抵押 LUNA
-或其他支持的加密资产。</li>
+<li><strong>抵押 LUNA 或 ETH</strong>：用户可以抵押 LUNA 或其他支持的加密资产。</li>
 <li><strong>借入 UST</strong>：以低利率甚至负利率借入 UST。</li>
-<li><strong>市场影响</strong>：增加了对 LUNA 的需求，因为更多的人需要
-LUNA 来铸造 UST。</li>
+<li><strong>市场影响</strong>：增加了对 LUNA 的需求，因为更多的人需要 LUNA 来铸造 UST。</li>
 </ul>
 <h3 id="价格上升的循环">价格上升的循环</h3>
-<ol type="1">
-<li><strong>高收益吸引</strong>：Anchor 的高 APR 吸引了大量资金购买
-UST。</li>
-<li><strong>需求增加</strong>：铸造 UST 需要销毁 LUNA，导致 LUNA
-供应减少。</li>
-<li><strong>价格上涨</strong>：LUNA
-供应减少且需求增加，价格因此上涨。</li>
-<li><strong>正反馈循环</strong>：LUNA
-价格上涨，吸引更多投资者参与。</li>
+<ol>
+<li><strong>高收益吸引</strong>：Anchor 的高 APR 吸引了大量资金购买 UST。</li>
+<li><strong>需求增加</strong>：铸造 UST 需要销毁 LUNA，导致 LUNA 供应减少。</li>
+<li><strong>价格上涨</strong>：LUNA 供应减少且需求增加，价格因此上涨。</li>
+<li><strong>正反馈循环</strong>：LUNA 价格上涨，吸引更多投资者参与。</li>
 </ol>
 <h3 id="市场表现">市场表现</h3>
 <ul>
-<li><strong>2022 年 4 月</strong>：LUNA 的价格达到 <strong>120
-美元</strong>。</li>
+<li><strong>2022 年 4 月</strong>：LUNA 的价格达到 <strong>120 美元</strong>。</li>
 <li><strong>市值</strong>：一度突破 <strong>430 亿美元</strong>。</li>
-<li><strong>UST 的地位</strong>：成为仅次于 USDT 和 USDC
-的第三大稳定币。</li>
+<li><strong>UST 的地位</strong>：成为仅次于 USDT 和 USDC 的第三大稳定币。</li>
 </ul>
 <h2 id="死亡螺旋的形成">死亡螺旋的形成</h2>
-<h3 id="当-ust-价格无法回归-1-美元">当 UST 价格无法回归 1 美元</h3>
-<p>如果市场信心不足，UST 的价格持续低于 1
-美元，套利机制可能无法有效恢复锚定。</p>
+<h3 id="当-UST-价格无法回归-1-美元">当 UST 价格无法回归 1 美元</h3>
+<p>如果市场信心不足，UST 的价格持续低于 1 美元，套利机制可能无法有效恢复锚定。</p>
 <h4 id="负反馈循环">负反馈循环</h4>
-<ol type="1">
-<li><strong>UST 持有人抛售</strong>：由于恐慌，持有人以低价抛售
-UST。</li>
-<li><strong>兑换压力增加</strong>：大量 UST 被兑换为 LUNA，增加了 LUNA
-的供应。</li>
-<li><strong>LUNA 价格下跌</strong>：供应增加且市场抛售，导致 LUNA
-价格下跌。</li>
-<li><strong>兑换数量增加</strong>：LUNA 价格越低，每个 UST 可兑换的 LUNA
-数量越多，加剧了 LUNA 的供应过剩。</li>
-<li><strong>死亡螺旋</strong>：LUNA 价格持续下跌，UST
-价格无法恢复，整个系统陷入崩溃。</li>
+<ol>
+<li><strong>UST 持有人抛售</strong>：由于恐慌，持有人以低价抛售 UST。</li>
+<li><strong>兑换压力增加</strong>：大量 UST 被兑换为 LUNA，增加了 LUNA 的供应。</li>
+<li><strong>LUNA 价格下跌</strong>：供应增加且市场抛售，导致 LUNA 价格下跌。</li>
+<li><strong>兑换数量增加</strong>：LUNA 价格越低，每个 UST 可兑换的 LUNA 数量越多，加剧了 LUNA 的供应过剩。</li>
+<li><strong>死亡螺旋</strong>：LUNA 价格持续下跌，UST 价格无法恢复，整个系统陷入崩溃。</li>
 </ol>
 <h3 id="数学模型">数学模型</h3>
-<h4 id="luna-供应的激增">LUNA 供应的激增</h4>
+<h4 id="LUNA-供应的激增">LUNA 供应的激增</h4>
 <ul>
-<li><p><strong>UST 兑换为 LUNA 的数量</strong>：</p>
-<p><span class="math display">\[
-N_{\text{LUNA}} = \frac{1}{P_{\text{LUNA}}}
-\]</span></p>
+<li>
+<p><strong>UST 兑换为 LUNA 的数量</strong>：</p>
+<p>$$<br>
+N_{\text{LUNA}} = \frac{1}{P_{\text{LUNA}}}<br>
+$$</p>
 <p>其中：</p>
 <ul>
-<li>( P_{} ) 是 LUNA 的市场价格。</li>
-</ul></li>
-<li><p><strong>当 ( P_{} ) 下降时</strong>，( N_{} ) 增加，导致 LUNA
-供应迅速膨胀。</p></li>
+<li>( P_{\text{LUNA}} ) 是 LUNA 的市场价格。</li>
+</ul>
+</li>
+<li>
+<p><strong>当 ( P_{\text{LUNA}} ) 下降时</strong>，( N_{\text{LUNA}} ) 增加，导致 LUNA 供应迅速膨胀。</p>
+</li>
 </ul>
 <h3 id="示例计算">示例计算</h3>
 <ul>
-<li><p><strong>当 LUNA = 10 美元</strong>：</p>
-<p><span class="math display">\[
-N_{\text{LUNA}} = \frac{1}{10} = 0.1
-\]</span></p></li>
-<li><p><strong>当 LUNA = 0.5 美元</strong>：</p>
-<p><span class="math display">\[
-N_{\text{LUNA}} = \frac{1}{0.5} = 2
-\]</span></p></li>
-<li><p><strong>当 LUNA = 0.01 美元</strong>：</p>
-<p><span class="math display">\[
-N_{\text{LUNA}} = \frac{1}{0.01} = 100
-\]</span></p></li>
+<li>
+<p><strong>当 LUNA = 10 美元</strong>：</p>
+<p>$$<br>
+N_{\text{LUNA}} = \frac{1}{10} = 0.1<br>
+$$</p>
+</li>
+<li>
+<p><strong>当 LUNA = 0.5 美元</strong>：</p>
+<p>$$<br>
+N_{\text{LUNA}} = \frac{1}{0.5} = 2<br>
+$$</p>
+</li>
+<li>
+<p><strong>当 LUNA = 0.01 美元</strong>：</p>
+<p>$$<br>
+N_{\text{LUNA}} = \frac{1}{0.01} = 100<br>
+$$</p>
+</li>
 </ul>
-<h2 id="崩溃的导火索机构狙击">崩溃的导火索：机构狙击</h2>
-<h3 id="citadel-等机构的介入">Citadel 等机构的介入</h3>
+<h2 id="崩溃的导火索：机构狙击">崩溃的导火索：机构狙击</h2>
+<h3 id="Citadel-等机构的介入">Citadel 等机构的介入</h3>
 <p>据传闻，机构投资者如 Citadel 利用市场机制，策划了对 UST 的攻击。</p>
 <h3 id="选择-5-月出手的原因">选择 5 月出手的原因</h3>
-<ol type="1">
-<li><p><strong>Anchor 协议的可持续性</strong>：</p>
+<ol>
+<li>
+<p><strong>Anchor 协议的可持续性</strong>：</p>
 <ul>
-<li><strong>资金池枯竭</strong>：Anchor 用于支付 20% APR
-的流动资金预计只能支持到 6 月。</li>
-<li><strong>庞氏风险</strong>：如果没有新资金进入，Anchor
-的高收益无法维持。</li>
-</ul></li>
-<li><p><strong>美联储加息的影响</strong>：</p>
+<li><strong>资金池枯竭</strong>：Anchor 用于支付 20% APR 的流动资金预计只能支持到 6 月。</li>
+<li><strong>庞氏风险</strong>：如果没有新资金进入，Anchor 的高收益无法维持。</li>
+</ul>
+</li>
+<li>
+<p><strong>美联储加息的影响</strong>：</p>
 <ul>
-<li><strong>市场环境恶化</strong>：5 月 4
-日美联储加息后，全球市场趋紧。</li>
-<li><strong>收益率不合理</strong>：在其他收益率下降的情况下，Anchor
-仍提供 20% APR，引发质疑。</li>
-</ul></li>
-<li><p><strong>Terra 流动性的削弱</strong>：</p>
+<li><strong>市场环境恶化</strong>：5 月 4 日美联储加息后，全球市场趋紧。</li>
+<li><strong>收益率不合理</strong>：在其他收益率下降的情况下，Anchor 仍提供 20% APR，引发质疑。</li>
+</ul>
+</li>
+<li>
+<p><strong>Terra 流动性的削弱</strong>：</p>
 <ul>
-<li><strong>资金撤出</strong>：5 月 8 日，Terra 官方抽走了 <strong>1.5
-亿美元</strong>的流动性，削弱了生态的稳定性。</li>
-</ul></li>
+<li><strong>资金撤出</strong>：5 月 8 日，Terra 官方抽走了 <strong>1.5 亿美元</strong>的流动性，削弱了生态的稳定性。</li>
+</ul>
+</li>
 </ol>
 <h3 id="攻击过程">攻击过程</h3>
-<ol type="1">
-<li><p><strong>大规模提款</strong>：</p>
+<ol>
+<li>
+<p><strong>大规模提款</strong>：</p>
 <ul>
-<li><strong>机构撤资</strong>：大型机构从 Anchor 提取了约 <strong>20
-亿美元</strong>的 UST 存款。</li>
+<li><strong>机构撤资</strong>：大型机构从 Anchor 提取了约 <strong>20 亿美元</strong>的 UST 存款。</li>
 <li><strong>市场抛售</strong>：大量 UST 被抛售，导致其价格下跌。</li>
-</ul></li>
-<li><p><strong>引发挤兑</strong>：</p>
+</ul>
+</li>
+<li>
+<p><strong>引发挤兑</strong>：</p>
 <ul>
-<li><strong>市场恐慌</strong>：UST
-持有人担心价格继续下跌，纷纷抛售。</li>
+<li><strong>市场恐慌</strong>：UST 持有人担心价格继续下跌，纷纷抛售。</li>
 <li><strong>价格脱锚</strong>：UST 价格跌破 1 美元，套利机制失效。</li>
-</ul></li>
-<li><p><strong>死亡螺旋启动</strong>：</p>
+</ul>
+</li>
+<li>
+<p><strong>死亡螺旋启动</strong>：</p>
 <ul>
-<li><strong>LUNA 供应激增</strong>：UST 被大量兑换为 LUNA，LUNA
-供应量膨胀。</li>
-<li><strong>LUNA 价格崩溃</strong>：过度供应和市场抛售导致 LUNA
-价格暴跌。</li>
-</ul></li>
+<li><strong>LUNA 供应激增</strong>：UST 被大量兑换为 LUNA，LUNA 供应量膨胀。</li>
+<li><strong>LUNA 价格崩溃</strong>：过度供应和市场抛售导致 LUNA 价格暴跌。</li>
+</ul>
+</li>
 </ol>
 <h3 id="数据统计">数据统计</h3>
 <ul>
-<li><p><strong>LUNA 供应量变化</strong>：</p>
+<li>
+<p><strong>LUNA 供应量变化</strong>：</p>
 <table>
 <thead>
 <tr>
@@ -533,27 +534,22 @@ N_{\text{LUNA}} = \frac{1}{0.01} = 100
 <td>超过 6.5 万亿枚</td>
 </tr>
 </tbody>
-</table></li>
-<li><p><strong>价格走势</strong>：</p>
-<figure>
-<img src="https://example.com/luna_price_crash.png" srcset="/img/loading.gif" lazyload
-alt="LUNA 价格崩溃图" />
-<figcaption aria-hidden="true">LUNA 价格崩溃图</figcaption>
-</figure>
-<p><em>（图示：LUNA 价格在短时间内从 100 多美元跌至不足 0.01
-美元）</em></p></li>
+</table>
+</li>
+<li>
+<p><strong>价格走势</strong>：</p>
+<p><img src="https://example.com/luna_price_crash.png" srcset="/img/loading.gif" lazyload alt="LUNA 价格崩溃图"></p>
+<p><em>（图示：LUNA 价格在短时间内从 100 多美元跌至不足 0.01 美元）</em></p>
+</li>
 </ul>
 <h2 id="结论">结论</h2>
-<p>UST 和 LUNA
-的崩溃揭示了算法稳定币在极端市场条件下的脆弱性。尽管通过套利机制维持价格稳定的设计在理论上可行，但在市场信心丧失和大规模抛售的情况下，机制可能失效，甚至加速系统的崩溃。投资者和开发者应从中吸取教训，谨慎对待高收益承诺和复杂的金融机制。</p>
+<p>UST 和 LUNA 的崩溃揭示了算法稳定币在极端市场条件下的脆弱性。尽管通过套利机制维持价格稳定的设计在理论上可行，但在市场信心丧失和大规模抛售的情况下，机制可能失效，甚至加速系统的崩溃。投资者和开发者应从中吸取教训，谨慎对待高收益承诺和复杂的金融机制。</p>
 <h2 id="参考资料">参考资料</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://docs.terra.money/">Terra 官方文档</a></li>
 <li><a target="_blank" rel="noopener" href="https://anchorprotocol.com/">Anchor 协议介绍</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.coindesk.com/">UST 和 LUNA 崩溃事件分析 -
-CoinDesk</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.blockchainresearch.com/">算法稳定币的机制与风险
-- 区块链研究院</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.coindesk.com/">UST 和 LUNA 崩溃事件分析 - CoinDesk</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.blockchainresearch.com/">算法稳定币的机制与风险 - 区块链研究院</a></li>
 </ul>
 
                 

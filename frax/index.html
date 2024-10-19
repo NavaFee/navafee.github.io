@@ -73,7 +73,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":"G-R246FK9TNM"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -99,6 +99,20 @@
     </script>
   
 
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-R246FK9TNM", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-R246FK9TNM');
+        });
+      }
+    </script>
   
 
   
@@ -312,228 +326,194 @@
             
               <div class="markdown-body">
                 
-                <h1 id="frax-深度解析">Frax 深度解析</h1>
+                <h1>Frax 深度解析</h1>
 <h2 id="引言">引言</h2>
-<p>Frax 是首个将部分抵押和算法控制相结合的稳定币协议，旨在实现对 1
-美元的稳定锚定。它结合了传统抵押型稳定币（如
-DAI、USDC）的安全性和算法稳定币的灵活性，通过双代币模型和算法市场运营控制器（AMO），提供了一个创新的稳定币解决方案。本文将深入探讨
-Frax 协议的核心机制、数学模型、AMO
-以及其在去中心化金融（DeFi）生态系统中的作用。</p>
-<h2 id="frax-协议核心">Frax 协议核心</h2>
+<p>Frax 是首个将部分抵押和算法控制相结合的稳定币协议，旨在实现对 1 美元的稳定锚定。它结合了传统抵押型稳定币（如 DAI、USDC）的安全性和算法稳定币的灵活性，通过双代币模型和算法市场运营控制器（AMO），提供了一个创新的稳定币解决方案。本文将深入探讨 Frax 协议的核心机制、数学模型、AMO 以及其在去中心化金融（DeFi）生态系统中的作用。</p>
+<h2 id="Frax-协议核心">Frax 协议核心</h2>
 <h3 id="部分抵押与算法控制">部分抵押与算法控制</h3>
-<p>Frax 协议采用了 <strong>部分抵押 + 部分算法</strong>
-的混合机制（"fractional-algorithmic"），用于维持 FRAX 稳定币对 1
-美元的锚定。</p>
+<p>Frax 协议采用了 <strong>部分抵押 + 部分算法</strong> 的混合机制（“fractional-algorithmic”），用于维持 FRAX 稳定币对 1 美元的锚定。</p>
 <ul>
-<li><strong>抵押品</strong>：包括 DAI、USDC 等稳定币，作为 FRAX
-的一部分支持。</li>
-<li><strong>算法控制</strong>：当 FRAX 的市场价格偏离 1
-美元时，协议会自动调整抵押品比率（Collateral Ratio,
-<strong>CR</strong>）以维持稳定。</li>
+<li><strong>抵押品</strong>：包括 DAI、USDC 等稳定币，作为 FRAX 的一部分支持。</li>
+<li><strong>算法控制</strong>：当 FRAX 的市场价格偏离 1 美元时，协议会自动调整抵押品比率（Collateral Ratio, <strong>CR</strong>）以维持稳定。</li>
 </ul>
 <h3 id="双向调整机制">双向调整机制</h3>
 <ul>
-<li><strong>FRAX 价格高于 1
-美元</strong>：协议会降低抵押品所占的比率（CR），更多地依赖算法部分。</li>
-<li><strong>FRAX 价格低于 1
-美元</strong>：协议会提升抵押品所占的比率，增强抵押支持。</li>
+<li><strong>FRAX 价格高于 1 美元</strong>：协议会降低抵押品所占的比率（CR），更多地依赖算法部分。</li>
+<li><strong>FRAX 价格低于 1 美元</strong>：协议会提升抵押品所占的比率，增强抵押支持。</li>
 </ul>
 <h3 id="读取预言机数据">读取预言机数据</h3>
-<p>Frax 协议使用 Chainlink
-预言机获取美元价格等必要数据，以确保价格信息的准确性和实时性。</p>
-<h3 id="借用-amm-原理">借用 AMM 原理</h3>
-<p>Frax 协议借用了 Uniswap
-的自动做市商（AMM）原理，通过在交易过程中获取收益，进一步稳定 FRAX
-的价格。</p>
+<p>Frax 协议使用 Chainlink 预言机获取美元价格等必要数据，以确保价格信息的准确性和实时性。</p>
+<h3 id="借用-AMM-原理">借用 AMM 原理</h3>
+<p>Frax 协议借用了 Uniswap 的自动做市商（AMM）原理，通过在交易过程中获取收益，进一步稳定 FRAX 的价格。</p>
 <h2 id="双代币模型">双代币模型</h2>
-<h3 id="稳定币-frax">1. 稳定币 FRAX</h3>
+<h3 id="1-稳定币-FRAX">1. 稳定币 FRAX</h3>
 <ul>
-<li><strong>FRAX</strong>：一种部分抵押、部分算法的混合型稳定币，旨在保持与
-1 美元的锚定。</li>
+<li><strong>FRAX</strong>：一种部分抵押、部分算法的混合型稳定币，旨在保持与 1 美元的锚定。</li>
 </ul>
-<h3 id="治理代币-fxs">2. 治理代币 FXS</h3>
+<h3 id="2-治理代币-FXS">2. 治理代币 FXS</h3>
 <ul>
-<li><strong>FXS（Frax
-Share）</strong>：协议的治理代币，持有者可以获得费用、铸币税收入和超额抵押品价值。</li>
-<li><strong>价值捕获</strong>：通过协议费用、铸币税和抵押品增值，FXS
-的价值会随着 FRAX 的使用和需求增长而上升。</li>
+<li><strong>FXS（Frax Share）</strong>：协议的治理代币，持有者可以获得费用、铸币税收入和超额抵押品价值。</li>
+<li><strong>价值捕获</strong>：通过协议费用、铸币税和抵押品增值，FXS 的价值会随着 FRAX 的使用和需求增长而上升。</li>
 </ul>
 <h3 id="维持稳定性的机制">维持稳定性的机制</h3>
 <ul>
-<li><strong>FXS 销毁（Burning）</strong>：当用户铸造 FRAX 时，部分 FXS
-会被销毁，减少 FXS 的流通量。</li>
-<li><strong>抵押品比率调整</strong>：通过调整 CR，控制 FRAX
-的供应和需求，维持价格稳定。</li>
+<li><strong>FXS 销毁（Burning）</strong>：当用户铸造 FRAX 时，部分 FXS 会被销毁，减少 FXS 的流通量。</li>
+<li><strong>抵押品比率调整</strong>：通过调整 CR，控制 FRAX 的供应和需求，维持价格稳定。</li>
 </ul>
 <h2 id="详细机制解析">详细机制解析</h2>
-<h3 id="铸造和赎回-frax">铸造和赎回 FRAX</h3>
-<h4 id="铸造-frax">铸造 FRAX</h4>
+<h3 id="铸造和赎回-FRAX">铸造和赎回 FRAX</h3>
+<h4 id="铸造-FRAX">铸造 FRAX</h4>
 <ul>
-<li><p><strong>当 FRAX 市场价格高于 1 美元</strong>：</p>
+<li>
+<p><strong>当 FRAX 市场价格高于 1 美元</strong>：</p>
 <ul>
-<li><strong>操作</strong>：用户可以向协议存入 1 美元的价值，获得 1
-FRAX。</li>
-<li><strong>组成</strong>：存入的 1 美元由 <strong>CR% 的抵押品</strong>
-和 <strong>(1 - CR)% 的 FXS（被销毁）</strong> 组成。</li>
-<li><strong>套利机会</strong>：用户可以在市场上以高于 1 美元的价格卖出
-FRAX，获得套利收益。</li>
-</ul></li>
-<li><p><strong>示例</strong>：</p>
+<li><strong>操作</strong>：用户可以向协议存入 1 美元的价值，获得 1 FRAX。</li>
+<li><strong>组成</strong>：存入的 1 美元由 <strong>CR% 的抵押品</strong> 和 <strong>(1 - CR)% 的 FXS（被销毁）</strong> 组成。</li>
+<li><strong>套利机会</strong>：用户可以在市场上以高于 1 美元的价格卖出 FRAX，获得套利收益。</li>
+</ul>
+</li>
+<li>
+<p><strong>示例</strong>：</p>
 <ul>
 <li>如果 CR = 86%，铸造 1 FRAX 需要：
 <ul>
 <li><strong>0.86 USD</strong> 的抵押品。</li>
 <li><strong>0.14 USD</strong> 的 FXS（将被销毁）。</li>
-</ul></li>
-</ul></li>
 </ul>
-<h4 id="赎回-frax">赎回 FRAX</h4>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="赎回-FRAX">赎回 FRAX</h4>
 <ul>
-<li><p><strong>当 FRAX 市场价格低于 1 美元</strong>：</p>
+<li>
+<p><strong>当 FRAX 市场价格低于 1 美元</strong>：</p>
 <ul>
-<li><strong>操作</strong>：用户可以在市场上购买低于 1 美元的
-FRAX，然后以 1 FRAX = 1 USD 的比例赎回对应价值的抵押品和 FXS。</li>
-<li><strong>套利机会</strong>：通过协议按 1
-美元的价值赎回，获得套利收益。</li>
-</ul></li>
-<li><p><strong>任何时候的赎回</strong>：</p>
+<li><strong>操作</strong>：用户可以在市场上购买低于 1 美元的 FRAX，然后以 1 FRAX = 1 USD 的比例赎回对应价值的抵押品和 FXS。</li>
+<li><strong>套利机会</strong>：通过协议按 1 美元的价值赎回，获得套利收益。</li>
+</ul>
+</li>
+<li>
+<p><strong>任何时候的赎回</strong>：</p>
 <ul>
 <li>用户可以按当前 CR 比例赎回：
 <ul>
 <li><strong>CR% 的抵押品</strong>。</li>
 <li><strong>(1 - CR)% 的 FXS</strong>。</li>
-</ul></li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h3 id="数学公式">数学公式</h3>
-<h4 id="抵押率cr的调整">抵押率（CR）的调整</h4>
+<h4 id="抵押率（CR）的调整">抵押率（CR）的调整</h4>
 <ul>
-<li><strong>当 FRAX &gt; 1 美元</strong>： <span class="math display">\[
-\text{CR}_{\text{new}} = \text{CR}_{\text{current}} - \Delta_{\text{CR}}
-\]</span></li>
-<li><strong>当 FRAX &lt; 1 美元</strong>： <span class="math display">\[
-\text{CR}_{\text{new}} = \text{CR}_{\text{current}} + \Delta_{\text{CR}}
-\]</span></li>
+<li><strong>当 FRAX &gt; 1 美元</strong>：<br>
+$$<br>
+\text{CR}<em>{\text{new}} = \text{CR}</em>{\text{current}} - \Delta_{\text{CR}}<br>
+$$</li>
+<li><strong>当 FRAX &lt; 1 美元</strong>：<br>
+$$<br>
+\text{CR}<em>{\text{new}} = \text{CR}</em>{\text{current}} + \Delta_{\text{CR}}<br>
+$$</li>
 <li><strong>其中</strong>：
 <ul>
-<li>( _{} ) 是协议设定的 CR 调整步长。</li>
-</ul></li>
+<li>( \Delta_{\text{CR}} ) 是协议设定的 CR 调整步长。</li>
 </ul>
-<h4 id="铸造所需的抵押品和-fxs">铸造所需的抵押品和 FXS</h4>
+</li>
+</ul>
+<h4 id="铸造所需的抵押品和-FXS">铸造所需的抵押品和 FXS</h4>
 <ul>
-<li><strong>抵押品数量</strong>： <span class="math display">\[
-\text{Collateral} = \text{CR} \times \text{FRAX\ Amount}
-\]</span></li>
-<li><strong>FXS 销毁数量</strong>： <span class="math display">\[
-\text{FXS\ to\ Burn} = (1 - \text{CR}) \times \text{FRAX\ Amount}
-\]</span></li>
+<li><strong>抵押品数量</strong>：<br>
+$$<br>
+\text{Collateral} = \text{CR} \times \text{FRAX\ Amount}<br>
+$$</li>
+<li><strong>FXS 销毁数量</strong>：<br>
+$$<br>
+\text{FXS\ to\ Burn} = (1 - \text{CR}) \times \text{FRAX\ Amount}<br>
+$$</li>
 </ul>
 <h3 id="市场机制的作用">市场机制的作用</h3>
 <ul>
-<li><strong>套利者的角色</strong>：套利者通过上述机制在市场上买卖 FRAX
-和 FXS，帮助维持 FRAX 的价格稳定。</li>
-<li><strong>FXS 的价值提升</strong>：随着 FRAX 的需求增加和 FXS
-的销毁，FXS 的市场价值也会上升。</li>
+<li><strong>套利者的角色</strong>：套利者通过上述机制在市场上买卖 FRAX 和 FXS，帮助维持 FRAX 的价格稳定。</li>
+<li><strong>FXS 的价值提升</strong>：随着 FRAX 的需求增加和 FXS 的销毁，FXS 的市场价值也会上升。</li>
 </ul>
-<h2 id="算法市场运营控制器amo">算法市场运营控制器（AMO）</h2>
+<h2 id="算法市场运营控制器（AMO）">算法市场运营控制器（AMO）</h2>
 <h3 id="概述">概述</h3>
 <ul>
-<li><strong>AMO</strong>（Algorithmic Market Operations
-Controller）：一种自治合约，负责在不凭空铸造 FRAX 和不改变 FRAX
-锚定价格的前提下，执行货币政策。</li>
+<li><strong>AMO</strong>（Algorithmic Market Operations Controller）：一种自治合约，负责在不凭空铸造 FRAX 和不改变 FRAX 锚定价格的前提下，执行货币政策。</li>
 </ul>
-<h3 id="amo-的四个属性">AMO 的四个属性</h3>
-<ol type="1">
-<li><strong>Decollateralize（去抵押）</strong>：降低 CR
-的策略部分。</li>
-<li><strong>Market Operation（市场操作）</strong>：在不改变 CR
-的情况下，执行市场均衡操作。</li>
-<li><strong>Recollateralize（重新抵押）</strong>：增加 CR
-的策略部分。</li>
-<li><strong>FXS1559</strong>：类似于以太坊的
-EIP-1559，定义了在利润高于目标 CR 时，可以销毁多少 FXS。</li>
+<h3 id="AMO-的四个属性">AMO 的四个属性</h3>
+<ol>
+<li><strong>Decollateralize（去抵押）</strong>：降低 CR 的策略部分。</li>
+<li><strong>Market Operation（市场操作）</strong>：在不改变 CR 的情况下，执行市场均衡操作。</li>
+<li><strong>Recollateralize（重新抵押）</strong>：增加 CR 的策略部分。</li>
+<li><strong>FXS1559</strong>：类似于以太坊的 EIP-1559，定义了在利润高于目标 CR 时，可以销毁多少 FXS。</li>
 </ol>
-<h3 id="amo-的版本演进">AMO 的版本演进</h3>
-<h4 id="v1-版本">V1 版本</h4>
+<h3 id="AMO-的版本演进">AMO 的版本演进</h3>
+<h4 id="V1-版本">V1 版本</h4>
 <ul>
 <li><strong>基础稳定机制</strong>：
 <ul>
-<li><strong>Decollateralize</strong>：当 FRAX &gt; 1 美元时，降低
-CR。</li>
+<li><strong>Decollateralize</strong>：当 FRAX &gt; 1 美元时，降低 CR。</li>
 <li><strong>Balance</strong>：当 FRAX = 1 美元时，不更改 CR。</li>
-<li><strong>Recollateralize</strong>：当 FRAX &lt; 1 美元时，增加
-CR。</li>
+<li><strong>Recollateralize</strong>：当 FRAX &lt; 1 美元时，增加 CR。</li>
 <li><strong>FXS 增值机制</strong>：铸造 FRAX 时销毁 FXS。</li>
-</ul></li>
 </ul>
-<h4 id="v2-版本">V2 版本</h4>
+</li>
+</ul>
+<h4 id="V2-版本">V2 版本</h4>
 <ul>
-<li><strong>模块化设计</strong>：AMO
-机制被推广到任意复杂的市场操作，每个 AMO 都可以成为一个“央行”。</li>
-<li><strong>AMO
-的要求</strong>：必须具备上述四个属性，确保在不危及系统稳定性的前提下，执行定制的货币政策。</li>
+<li><strong>模块化设计</strong>：AMO 机制被推广到任意复杂的市场操作，每个 AMO 都可以成为一个“央行”。</li>
+<li><strong>AMO 的要求</strong>：必须具备上述四个属性，确保在不危及系统稳定性的前提下，执行定制的货币政策。</li>
 <li><strong>操作流程</strong>：
 <ul>
-<li>当 FRAX 价格高于锚定点，AMO 执行去抵押操作，降低 CR，扩大 FRAX
-供应。</li>
-<li>当 CR 降低到预设阈值，AMO 预定义重新抵押操作，增加
-CR，维持锚定。</li>
-</ul></li>
+<li>当 FRAX 价格高于锚定点，AMO 执行去抵押操作，降低 CR，扩大 FRAX 供应。</li>
+<li>当 CR 降低到预设阈值，AMO 预定义重新抵押操作，增加 CR，维持锚定。</li>
 </ul>
-<h3 id="amo-的优势">AMO 的优势</h3>
+</li>
+</ul>
+<h3 id="AMO-的优势">AMO 的优势</h3>
 <ul>
 <li><strong>灵活性</strong>：允许不断升级和改进，适应市场变化。</li>
-<li><strong>开放性</strong>：任何人都可以提议、构建和创建
-AMO，只要遵守协议规范并通过治理批准。</li>
+<li><strong>开放性</strong>：任何人都可以提议、构建和创建 AMO，只要遵守协议规范并通过治理批准。</li>
 <li><strong>稳健性</strong>：在保持系统设计优雅和可组合性的同时，不增加技术复杂性。</li>
 </ul>
-<h2 id="对抗通胀的工具fpi">对抗通胀的工具：FPI</h2>
-<h3 id="什么是-fpi">什么是 FPI</h3>
+<h2 id="对抗通胀的工具：FPI">对抗通胀的工具：FPI</h2>
+<h3 id="什么是-FPI">什么是 FPI</h3>
 <ul>
-<li><strong>FPI（Frax Price
-Index）</strong>：一种抗通胀、锚定消费者价格指数（CPI）的稳定币。</li>
-<li><strong>目标</strong>：让持有 FPI 的用户每月根据 CPI
-的变化获得价值增长，保持购买力稳定。</li>
+<li><strong>FPI（Frax Price Index）</strong>：一种抗通胀、锚定消费者价格指数（CPI）的稳定币。</li>
+<li><strong>目标</strong>：让持有 FPI 的用户每月根据 CPI 的变化获得价值增长，保持购买力稳定。</li>
 </ul>
 <h3 id="双代币系统">双代币系统</h3>
 <ul>
 <li><strong>FPI 稳定币</strong>：抗通胀的稳定币，价值随 CPI 变化。</li>
-<li><strong>FPIS</strong>：FPI 的治理代币，与 FXS
-持有者共享价值捕获。</li>
+<li><strong>FPIS</strong>：FPI 的治理代币，与 FXS 持有者共享价值捕获。</li>
 </ul>
 <h3 id="工作机制">工作机制</h3>
 <ul>
-<li><strong>链上预言机</strong>：每月获取 CPI 数据，调整 FPI
-的价值。</li>
-<li><strong>价值增长</strong>：FPI
-的价值随通胀率增长，抵消通胀带来的购买力下降。</li>
+<li><strong>链上预言机</strong>：每月获取 CPI 数据，调整 FPI 的价值。</li>
+<li><strong>价值增长</strong>：FPI 的价值随通胀率增长，抵消通胀带来的购买力下降。</li>
 </ul>
 <h3 id="应用场景">应用场景</h3>
 <ul>
-<li><strong>抵押借贷</strong>：用 FPI
-作为抵押品，借出风险资产的同时，FPI 自身增值，确保抵押率不下降。</li>
-<li><strong>高收益衍生品</strong>：未来可能基于 FPI
-打造高收益的金融产品，不仅用于跑赢 CPI，还可获取更高收益。</li>
+<li><strong>抵押借贷</strong>：用 FPI 作为抵押品，借出风险资产的同时，FPI 自身增值，确保抵押率不下降。</li>
+<li><strong>高收益衍生品</strong>：未来可能基于 FPI 打造高收益的金融产品，不仅用于跑赢 CPI，还可获取更高收益。</li>
 </ul>
-<h2 id="frax-的优势与创新">Frax 的优势与创新</h2>
+<h2 id="Frax-的优势与创新">Frax 的优势与创新</h2>
 <ul>
 <li><strong>部分抵押稳定币的先驱</strong>：结合抵押和算法控制的优势，提供更高的资本效率。</li>
-<li><strong>AMO
-机制</strong>：引入了灵活的货币政策工具，增强了协议的稳健性和适应性。</li>
-<li><strong>抗通胀解决方案</strong>：通过
-FPI，提供了对抗法币通胀的稳定币选择。</li>
+<li><strong>AMO 机制</strong>：引入了灵活的货币政策工具，增强了协议的稳健性和适应性。</li>
+<li><strong>抗通胀解决方案</strong>：通过 FPI，提供了对抗法币通胀的稳定币选择。</li>
 </ul>
 <h2 id="风险与挑战">风险与挑战</h2>
 <ul>
-<li><strong>市场风险</strong>：市场剧烈波动可能影响 FRAX
-的价格稳定性。</li>
+<li><strong>市场风险</strong>：市场剧烈波动可能影响 FRAX 的价格稳定性。</li>
 <li><strong>算法失效风险</strong>：在极端情况下，算法可能无法及时调整，导致价格偏离。</li>
-<li><strong>治理风险</strong>：AMO
-的开放性需要有效的治理，防止恶意或不当的货币政策。</li>
+<li><strong>治理风险</strong>：AMO 的开放性需要有效的治理，防止恶意或不当的货币政策。</li>
 </ul>
-<h2 id="表格对比frax-与其他稳定币">表格对比：Frax 与其他稳定币</h2>
-<table style="width:100%;">
-
+<h2 id="表格对比：Frax-与其他稳定币">表格对比：Frax 与其他稳定币</h2>
+<table>
 <thead>
 <tr>
 <th>特性</th>
@@ -576,17 +556,11 @@ FPI，提供了对抗法币通胀的稳定币选择。</li>
 </tbody>
 </table>
 <h2 id="智能合约与代码示例">智能合约与代码示例</h2>
-<p>以下是一个与 Frax 协议交互的简单示例，展示如何铸造和赎回
-FRAX。请注意，实际操作需要处理抵押品和 FXS
-的授权和转账，以下代码仅供参考。</p>
+<p>以下是一个与 Frax 协议交互的简单示例，展示如何铸造和赎回 FRAX。请注意，实际操作需要处理抵押品和 FXS 的授权和转账，以下代码仅供参考。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs solidity">pragma solidity ^0.6.6;<br><br>interface IFrax &#123;<br>    function mint(uint256 fraxAmount) external;<br>    function redeem(uint256 fraxAmount) external;<br>&#125;<br><br>interface IFraxCollateral &#123;<br>    function deposit(uint256 amount) external;<br>    function withdraw(uint256 amount) external;<br>&#125;<br><br>interface IFxs &#123;<br>    function burn(uint256 amount) external;<br>&#125;<br><br>contract FraxExample &#123;<br>    IFrax public frax;<br>    IFraxCollateral public collateral;<br>    IFxs public fxs;<br><br>    constructor(address _frax, address _collateral, address _fxs) public &#123;<br>        frax = IFrax(_frax);<br>        collateral = IFraxCollateral(_collateral);<br>        fxs = IFxs(_fxs);<br>    &#125;<br><br>    function mintFrax(uint256 fraxAmount, uint256 collateralAmount, uint256 fxsAmount) external &#123;<br>        // 用户需要先授权转移抵押品和 FXS<br>        collateral.deposit(collateralAmount);<br>        fxs.burn(fxsAmount);<br>        frax.mint(fraxAmount);<br>        // 将 FRAX 转给用户<br>    &#125;<br><br>    function redeemFrax(uint256 fraxAmount) external &#123;<br>        frax.redeem(fraxAmount);<br>        // 用户收到抵押品和 FXS<br>        // 根据当前 CR 计算分配<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p><strong>注意</strong>：上述代码省略了很多实际需要的安全检查和完整性验证，实际开发中应参考
-Frax 官方的智能合约实现。</p>
+<p><strong>注意</strong>：上述代码省略了很多实际需要的安全检查和完整性验证，实际开发中应参考 Frax 官方的智能合约实现。</p>
 <h2 id="结论">结论</h2>
-<p>Frax
-协议通过创新性的部分抵押和算法控制机制，提供了一种新型的稳定币设计。其双代币模型和
-AMO 机制为 DeFi
-领域带来了新的思路。然而，任何金融创新都伴随着风险，投资者和开发者应充分理解其机制和潜在的风险，谨慎参与。</p>
+<p>Frax 协议通过创新性的部分抵押和算法控制机制，提供了一种新型的稳定币设计。其双代币模型和 AMO 机制为 DeFi 领域带来了新的思路。然而，任何金融创新都伴随着风险，投资者和开发者应充分理解其机制和潜在的风险，谨慎参与。</p>
 <h2 id="参考资料">参考资料</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://frax.finance/">Frax 官方网站</a></li>

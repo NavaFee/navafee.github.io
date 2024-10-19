@@ -63,7 +63,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":"G-R246FK9TNM"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -89,6 +89,20 @@
     </script>
   
 
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-R246FK9TNM", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-R246FK9TNM');
+        });
+      }
+    </script>
   
 
   
@@ -680,7 +694,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/defi/" target="_self">
         <div>
-          DeFi 项目分享 概念梳理 DeFi 定义  和 CeFi 的对比:      CeFi DeFi     需要被许可:封闭系统,建立在中心化的数据库上;使用和建立需要第三方的批准和同意 无需许可:开源系统;建立在无许可的区块链之上;任何人都可以使用、交互操作或在其上构建,无须第三方批准和协议   托管:资产由持有执照的第三方保管 无托管:资产不由单独第三方保管   中心化治理:单一实体负责升级
+          DeFi 项目分享 概念梳理 DeFi 定义  和 CeFi 的对比:     CeFi DeFi     需要被许可:封闭系统,建立在中心化的数据库上;使用和建立需要第三方的批准和同意 无需许可:开源系统;建立在无许可的区块链之上;任何人都可以使用、交互操作或在其上构建,无须第三方批准和协议   托管:资产由持有执照的第三方保管 无托管:资产不由单独第三方保管   中心化治理:单一实体负责升级决
         </div>
       </a>
 
@@ -832,7 +846,7 @@
       
       <a class="index-excerpt " href="/gin/" target="_self">
         <div>
-          深入掌握 Golang 的 Gin 框架 目录  简介 Gin 框架概述  Gin 的特点 Gin 的安装与配置  基本使用  创建第一个 Gin 应用 路由管理  中间件  内置中间件 自定义中间件  请求处理  参数绑定 数据验证  模板渲染 错误处理与日志记录 性能优化 常用工具与扩展 案例分析  构建一个简单的 RESTful API  总结   简介 Gin 是一个用 Go 语言编写的高
+          深入掌握 Golang 的 Gin 框架 目录  简介 Gin 框架概述  Gin 的特点 Gin 的安装与配置   基本使用  创建第一个 Gin 应用 路由管理   中间件  内置中间件 自定义中间件   请求处理  参数绑定 数据验证   模板渲染 错误处理与日志记录 性能优化 常用工具与扩展 案例分析  构建一个简单的 RESTful API   总结   简介 Gin 是一个用 Go 语
         </div>
       </a>
 

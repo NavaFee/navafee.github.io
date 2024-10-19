@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":"G-R246FK9TNM"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -101,6 +101,20 @@
     </script>
   
 
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-R246FK9TNM", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-R246FK9TNM');
+        });
+      }
+    </script>
   
 
   
@@ -252,7 +266,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          2.2k 字
         
       </span>
     
@@ -314,82 +328,61 @@
             
               <div class="markdown-body">
                 
-                <h1 id="compound-深度解析">Compound 深度解析</h1>
+                <h1>Compound 深度解析</h1>
 <h2 id="引言">引言</h2>
-<p><a target="_blank" rel="noopener" href="https://compound.finance/">Compound</a>
-是以太坊上的去中心化借贷协议，允许用户存入加密资产赚取利息，或抵押加密资产以借入其他资产。Compound
-通过算法调节借贷利率，旨在为用户提供高效、安全的资金市场。本文将深入探讨
-Compound
-的工作原理、核心机制、智能合约实现，以及其在去中心化金融（DeFi）生态系统中的重要作用。</p>
-<h2 id="供应资产supplying-assets">1. 供应资产（Supplying Assets）</h2>
-<h3 id="ctoken-概述">cToken 概述</h3>
-<p>当用户向 Compound 协议存入资产时，会收到对应的 ERC-20 代币，即
-<strong>cToken</strong>，例如存入 ETH 会收到 cETH。cToken 代表用户在
-Compound 协议中的存款及其产生的利息。持有 cToken
-相当于在银行存款，随着时间的推移，用户的 cToken
-可以兑换为更多的基础资产，收益来自借款人的利息支付。</p>
+<p><a target="_blank" rel="noopener" href="https://compound.finance/">Compound</a> 是以太坊上的去中心化借贷协议，允许用户存入加密资产赚取利息，或抵押加密资产以借入其他资产。Compound 通过算法调节借贷利率，旨在为用户提供高效、安全的资金市场。本文将深入探讨 Compound 的工作原理、核心机制、智能合约实现，以及其在去中心化金融（DeFi）生态系统中的重要作用。</p>
+<h2 id="1-供应资产（Supplying-Assets）">1. 供应资产（Supplying Assets）</h2>
+<h3 id="cToken-概述">cToken 概述</h3>
+<p>当用户向 Compound 协议存入资产时，会收到对应的 ERC-20 代币，即 <strong>cToken</strong>，例如存入 ETH 会收到 cETH。cToken 代表用户在 Compound 协议中的存款及其产生的利息。持有 cToken 相当于在银行存款，随着时间的推移，用户的 cToken 可以兑换为更多的基础资产，收益来自借款人的利息支付。</p>
 <h3 id="供应资产的流程">供应资产的流程</h3>
-<ol type="1">
-<li><strong>存入资产</strong>：用户将支持的 ERC-20 代币存入 Compound
-协议。</li>
-<li><strong>获得 cToken</strong>：协议按当前的兑换率铸造
-cToken，发送给用户。</li>
-<li><strong>赚取利息</strong>：随着时间的推移，cToken
-与基础资产的兑换率增加，用户可赎回更多的基础资产。</li>
+<ol>
+<li><strong>存入资产</strong>：用户将支持的 ERC-20 代币存入 Compound 协议。</li>
+<li><strong>获得 cToken</strong>：协议按当前的兑换率铸造 cToken，发送给用户。</li>
+<li><strong>赚取利息</strong>：随着时间的推移，cToken 与基础资产的兑换率增加，用户可赎回更多的基础资产。</li>
 </ol>
-<h2 id="借入资产borrowing-assets">2. 借入资产（Borrowing Assets）</h2>
-<h3 id="抵押价值collateral-value">2.1 抵押价值（Collateral Value）</h3>
+<h2 id="2-借入资产（Borrowing-Assets）">2. 借入资产（Borrowing Assets）</h2>
+<h3 id="2-1-抵押价值（Collateral-Value）">2.1 抵押价值（Collateral Value）</h3>
 <ul>
 <li><strong>抵押品</strong>：用户需要存入一定价值的资产作为抵押品，才能借入其他资产。</li>
-<li><strong>抵押因子（Collateral
-Factor）</strong>：每种资产都有一个抵押因子，范围在 0% 到 90%
-之间，表示该资产价值中可用于借款的比例。流动性越高、波动性越低的资产，其抵押因子越高。</li>
+<li><strong>抵押因子（Collateral Factor）</strong>：每种资产都有一个抵押因子，范围在 0% 到 90% 之间，表示该资产价值中可用于借款的比例。流动性越高、波动性越低的资产，其抵押因子越高。</li>
 </ul>
 <h4 id="计算借款能力">计算借款能力</h4>
-<p><span class="math display">\[
-\text{Borrowing\ Capacity} = \sum (\text{Supply}_i \times
-\text{Collateral\ Factor}_i)
-\]</span></p>
+<p>$$<br>
+\text{Borrowing\ Capacity} = \sum (\text{Supply}_i \times \text{Collateral\ Factor}_i)<br>
+$$</p>
 <ul>
 <li><strong>借款限制</strong>：用户不能借出超过其借款能力的资产。</li>
 <li><strong>账户操作限制</strong>：若借款达到借款能力上限，用户将无法进一步借款、转账或赎回抵押品，以防止借款超出限制。</li>
 </ul>
-<h3 id="风险与清算risk-liquidation">2.2 风险与清算（Risk &amp;
-Liquidation）</h3>
+<h3 id="2-2-风险与清算（Risk-Liquidation）">2.2 风险与清算（Risk &amp; Liquidation）</h3>
 <h4 id="清算触发条件">清算触发条件</h4>
 <ul>
-<li>当用户的 <strong>借款余额</strong> 超过其
-<strong>总抵押价值</strong>（即 <strong>借贷价值比 LTV &gt;
-1</strong>）时，会触发清算。</li>
+<li>当用户的 <strong>借款余额</strong> 超过其 <strong>总抵押价值</strong>（即 <strong>借贷价值比 LTV &gt; 1</strong>）时，会触发清算。</li>
 </ul>
-<h4 id="清算折扣liquidation-discount">清算折扣（Liquidation
-Discount）</h4>
+<h4 id="清算折扣（Liquidation-Discount）">清算折扣（Liquidation Discount）</h4>
 <ul>
 <li>清算人可以以市场价格减去一定折扣的价格购买借款人的抵押品。</li>
 <li><strong>激励机制</strong>：折扣激励清算人参与，降低借款人的风险敞口。</li>
 </ul>
-<h4 id="清算比例close-factor">清算比例（Close Factor）</h4>
+<h4 id="清算比例（Close-Factor）">清算比例（Close Factor）</h4>
 <ul>
-<li><strong>定义</strong>：在一次清算中，借款人借入资产中可被清算的最大比例，范围为
-0% 到 50%。</li>
+<li><strong>定义</strong>：在一次清算中，借款人借入资产中可被清算的最大比例，范围为 0% 到 50%。</li>
 <li><strong>持续清算</strong>：清算过程可以被多次调用，直到借款人的借款余额低于清算阈值。</li>
 </ul>
 <h4 id="清算流程">清算流程</h4>
-<ol type="1">
+<ol>
 <li><strong>发现风险账户</strong>：任何持有借入资产的以太坊地址都可以发起清算。</li>
 <li><strong>调用清算函数</strong>：清算人偿还借款人的部分债务。</li>
 <li><strong>获得抵押品</strong>：清算人按照折扣价获得借款人的抵押品。</li>
 </ol>
-<h3 id="利率模型interest-rate-model">2.3 利率模型（Interest Rate
-Model）</h3>
-<h4 id="利用率utilization-ratio-u">利用率（Utilization Ratio, U）</h4>
+<h3 id="2-3-利率模型（Interest-Rate-Model）">2.3 利率模型（Interest Rate Model）</h3>
+<h4 id="利用率（Utilization-Ratio-U）">利用率（Utilization Ratio, U）</h4>
 <ul>
 <li>表示特定市场的资金利用情况：</li>
 </ul>
-<p><span class="math display">\[
-U = \frac{\text{Total\ Borrows}}{\text{Total\ Cash} + \text{Total\
-Borrows} - \text{Reserves}}
-\]</span></p>
+<p>$$<br>
+U = \frac{\text{Total\ Borrows}}{\text{Total\ Cash} + \text{Total\ Borrows} - \text{Reserves}}<br>
+$$</p>
 <ul>
 <li><strong>Total Cash</strong>：市场中未借出的资金。</li>
 <li><strong>Total Borrows</strong>：市场中已借出的资金总额。</li>
@@ -399,90 +392,92 @@ Borrows} - \text{Reserves}}
 <ul>
 <li><strong>借款利率（Borrowing Interest Rate）</strong>：</li>
 </ul>
-<p><span class="math display">\[
-\text{Borrow\ Rate} = \text{Base\ Rate} + U \times \text{Multiplier}
-\]</span></p>
+<p>$$<br>
+\text{Borrow\ Rate} = \text{Base\ Rate} + U \times \text{Multiplier}<br>
+$$</p>
 <ul>
 <li><strong>存款利率（Supply Interest Rate）</strong>：</li>
 </ul>
-<p><span class="math display">\[
-\text{Supply\ Rate} = \text{Borrow\ Rate} \times U \times (1 -
-\text{Reserve\ Factor})
-\]</span></p>
+<p>$$<br>
+\text{Supply\ Rate} = \text{Borrow\ Rate} \times U \times (1 - \text{Reserve\ Factor})<br>
+$$</p>
 <ul>
 <li><strong>参数解释</strong>：
 <ul>
 <li><strong>Base Rate</strong>：基础利率，通常为一个固定值。</li>
 <li><strong>Multiplier</strong>：利率增量，与市场利用率成正比。</li>
 <li><strong>Reserve Factor</strong>：储备因子，协议保留的利息比例。</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <h4 id="利率模型示例">利率模型示例</h4>
 <p>假设某市场的基础利率为 2%，利率增量为 20%，储备因子为 10%：</p>
 <ul>
-<li><p>当利用率 U = 50% 时：</p>
+<li>
+<p>当利用率 U = 50% 时：</p>
 <ul>
-<li><p><strong>Borrow Rate</strong>：</p>
-<p><span class="math display">\[
-\text{Borrow\ Rate} = 2\% + 50\% \times 20\% = 12\%
-\]</span></p></li>
-<li><p><strong>Supply Rate</strong>：</p>
-<p><span class="math display">\[
-\text{Supply\ Rate} = 12\% \times 50\% \times (1 - 10\%) = 5.4\%
-\]</span></p></li>
-</ul></li>
+<li>
+<p><strong>Borrow Rate</strong>：</p>
+<p>$$<br>
+\text{Borrow\ Rate} = 2% + 50% \times 20% = 12%<br>
+$$</p>
+</li>
+<li>
+<p><strong>Supply Rate</strong>：</p>
+<p>$$<br>
+\text{Supply\ Rate} = 12% \times 50% \times (1 - 10%) = 5.4%<br>
+$$</p>
+</li>
 </ul>
-<h2 id="实现细节implementation">3. 实现细节（Implementation）</h2>
-<h3 id="ctoken-合约">3.1 cToken 合约</h3>
+</li>
+</ul>
+<h2 id="3-实现细节（Implementation）">3. 实现细节（Implementation）</h2>
+<h3 id="3-1-cToken-合约">3.1 cToken 合约</h3>
 <ul>
-<li><strong>功能</strong>：每个资产都有对应的 cToken
-合约，负责管理存款、取款、借款、还款等功能。</li>
-<li><strong>兑换率</strong>：cToken
-与基础资产的兑换率会随着市场利率变化和时间推移而增长。</li>
+<li><strong>功能</strong>：每个资产都有对应的 cToken 合约，负责管理存款、取款、借款、还款等功能。</li>
+<li><strong>兑换率</strong>：cToken 与基础资产的兑换率会随着市场利率变化和时间推移而增长。</li>
 </ul>
-<h4 id="ctoken-关键函数">cToken 关键函数</h4>
+<h4 id="cToken-关键函数">cToken 关键函数</h4>
 <ul>
-<li><strong>mint(uint256
-mintAmount)</strong>：用户存入基础资产，获得相应数量的 cToken。</li>
-<li><strong>redeem(uint256 redeemTokens)</strong>：用户赎回
-cToken，获得基础资产。</li>
-<li><strong>borrow(uint256
-borrowAmount)</strong>：用户借入基础资产，增加借款余额。</li>
-<li><strong>repayBorrow(uint256
-repayAmount)</strong>：用户偿还借款，减少借款余额。</li>
+<li><strong>mint(uint256 mintAmount)</strong>：用户存入基础资产，获得相应数量的 cToken。</li>
+<li><strong>redeem(uint256 redeemTokens)</strong>：用户赎回 cToken，获得基础资产。</li>
+<li><strong>borrow(uint256 borrowAmount)</strong>：用户借入基础资产，增加借款余额。</li>
+<li><strong>repayBorrow(uint256 repayAmount)</strong>：用户偿还借款，减少借款余额。</li>
 </ul>
-<h3 id="利息计算机制">3.2 利息计算机制</h3>
-<h4 id="利率指数interest-rate-index">利率指数（Interest Rate
-Index）</h4>
+<h3 id="3-2-利息计算机制">3.2 利息计算机制</h3>
+<h4 id="利率指数（Interest-Rate-Index）">利率指数（Interest Rate Index）</h4>
 <ul>
 <li>每个市场都有一个利率指数，用于计算借款人和存款人的利息。</li>
 <li>利率指数会在每次交易发生时更新，按照区块时间计算复利。</li>
 </ul>
 <h4 id="借款利息的计算">借款利息的计算</h4>
 <ul>
-<li><p><strong>新的利率指数</strong>：</p>
-<p><span class="math display">\[
-\text{BorrowIndex}_{new} = \text{BorrowIndex}_{old} +
-\text{BorrowIndex}_{old} \times \text{BorrowRate} \times \Delta t
-\]</span></p></li>
-<li><p><strong>更新总借款余额</strong>：</p>
-<p><span class="math display">\[
-\text{TotalBorrows}_{new} = \text{TotalBorrows}_{old} + \text{Interest\
-Accrued}
-\]</span></p></li>
-<li><p><strong>储备金</strong>：</p>
+<li>
+<p><strong>新的利率指数</strong>：</p>
+<p>$$<br>
+\text{BorrowIndex}<em>{new} = \text{BorrowIndex}</em>{old} + \text{BorrowIndex}_{old} \times \text{BorrowRate} \times \Delta t<br>
+$$</p>
+</li>
+<li>
+<p><strong>更新总借款余额</strong>：</p>
+<p>$$<br>
+\text{TotalBorrows}<em>{new} = \text{TotalBorrows}</em>{old} + \text{Interest\ Accrued}<br>
+$$</p>
+</li>
+<li>
+<p><strong>储备金</strong>：</p>
 <p>部分利息会按照 <strong>Reserve Factor</strong> 留作协议的储备金：</p>
-<p><span class="math display">\[
-\text{Reserves}_{new} = \text{Reserves}_{old} + \text{Interest\ Accrued}
-\times \text{Reserve\ Factor}
-\]</span></p></li>
+<p>$$<br>
+\text{Reserves}<em>{new} = \text{Reserves}</em>{old} + \text{Interest\ Accrued} \times \text{Reserve\ Factor}<br>
+$$</p>
+</li>
 </ul>
 <h4 id="存款利息的计算">存款利息的计算</h4>
 <ul>
 <li>存款人的收益来自借款人支付的利息，按照资金利用率和储备因子计算。</li>
 </ul>
-<h3 id="借款流程">3.3 借款流程</h3>
-<ol type="1">
+<h3 id="3-3-借款流程">3.3 借款流程</h3>
+<ol>
 <li><strong>检查借款能力</strong>：验证用户的借款不会超过其借款能力。</li>
 <li><strong>更新借款余额</strong>：增加用户的借款余额。</li>
 <li><strong>转移资产</strong>：将借入的资产转给用户。</li>
@@ -490,60 +485,56 @@ Accrued}
 </ol>
 <h4 id="借款人利息计算">借款人利息计算</h4>
 <ul>
-<li><p>借款人的借款余额会随着利率和时间增加，计算方式与利率指数相关：</p>
-<p><span class="math display">\[
-\text{BorrowBalance}_{new} = \text{BorrowBalance}_{old} \times
-\frac{\text{BorrowIndex}_{new}}{\text{BorrowIndex}_{old}}
-\]</span></p></li>
+<li>
+<p>借款人的借款余额会随着利率和时间增加，计算方式与利率指数相关：</p>
+<p>$$<br>
+\text{BorrowBalance}<em>{new} = \text{BorrowBalance}</em>{old} \times \frac{\text{BorrowIndex}<em>{new}}{\text{BorrowIndex}</em>{old}}<br>
+$$</p>
+</li>
 </ul>
-<h3 id="清算流程-1">3.4 清算流程</h3>
+<h3 id="3-4-清算流程">3.4 清算流程</h3>
 <ul>
 <li><strong>触发条件</strong>：用户的借款余额超过其借款能力（抵押品价值下降或借款资产价值上升）。</li>
 <li><strong>清算人操作</strong>：
-<ol type="1">
+<ol>
 <li><strong>调用清算函数</strong>：<code>liquidateBorrow(address borrower, uint repayAmount, address cTokenCollateral)</code></li>
-<li><strong>偿还债务</strong>：清算人用自己的资产偿还借款人的部分债务（受
-<strong>Close Factor</strong> 限制）。</li>
+<li><strong>偿还债务</strong>：清算人用自己的资产偿还借款人的部分债务（受 <strong>Close Factor</strong> 限制）。</li>
 <li><strong>获取抵押品</strong>：清算人按折扣价获得借款人的抵押品。</li>
-</ol></li>
+</ol>
+</li>
 </ul>
-<h3 id="价格预言机price-feeds">3.5 价格预言机（Price Feeds）</h3>
+<h3 id="3-5-价格预言机（Price-Feeds）">3.5 价格预言机（Price Feeds）</h3>
 <ul>
 <li><strong>作用</strong>：提供每种支持资产的实时价格，用于计算借款能力和抵押要求。</li>
-<li><strong>实现</strong>：Compound 使用 <strong>Open Price
-Feed</strong>，聚合多个来源的价格数据，确保价格的准确性和抗操纵性。</li>
+<li><strong>实现</strong>：Compound 使用 <strong>Open Price Feed</strong>，聚合多个来源的价格数据，确保价格的准确性和抗操纵性。</li>
 </ul>
-<h3 id="comptroller-合约">3.6 Comptroller 合约</h3>
+<h3 id="3-6-Comptroller-合约">3.6 Comptroller 合约</h3>
 <ul>
 <li><strong>角色</strong>：协议的风险管理和策略层，负责验证用户操作的合规性。</li>
 <li><strong>功能</strong>：
 <ul>
-<li><strong>市场支持</strong>：通过
-<code>supportMarket(address cToken)</code> 函数，添加新的支持资产。</li>
+<li><strong>市场支持</strong>：通过 <code>supportMarket(address cToken)</code> 函数，添加新的支持资产。</li>
 <li><strong>抵押因子设置</strong>：调整资产的抵押因子。</li>
 <li><strong>风险检查</strong>：在用户进行操作前，验证账户的健康程度，确保操作不会导致超额借款或违约。</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <h2 id="智能合约与代码示例">智能合约与代码示例</h2>
 <h3 id="存款与借款示例">存款与借款示例</h3>
-<p>以下是一个使用 Solidity 与 Compound
-协议交互的简单示例，展示如何存款和借款。</p>
+<p>以下是一个使用 Solidity 与 Compound 协议交互的简单示例，展示如何存款和借款。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs solidity">pragma solidity ^0.6.0;<br><br>interface CErc20 &#123;<br>    function mint(uint256 mintAmount) external returns (uint256);<br>    function redeem(uint256 redeemTokens) external returns (uint256);<br>    function borrow(uint256 borrowAmount) external returns (uint256);<br>    function repayBorrow(uint256 repayAmount) external returns (uint256);<br>&#125;<br><br>interface Comptroller &#123;<br>    function enterMarkets(address[] calldata cTokens) external returns (uint256[] memory);<br>&#125;<br><br>contract CompoundExample &#123;<br>    CErc20 public cDAI = CErc20(0x5d3a536E4D6DbD6114cc1Ead35777bAB948E3643); // cDAI 合约地址<br>    CErc20 public cUSDC = CErc20(0x39AA39c021dfbaE8faC545936693aC917d5E7563); // cUSDC 合约地址<br>    Comptroller public comptroller = Comptroller(0x3d9819210A31b4961b30EF54bE2aeD79B9c9Cd3B); // Comptroller 合约地址<br><br>    function supplyDAI(uint256 amount) external &#123;<br>        // 需要先批准 cDAI 合约转移用户的 DAI<br>        // DAI 合约地址：0x6B175474E89094C44Da98b954EedeAC495271d0F<br><br>        // 存入 DAI，获得 cDAI<br>        uint256 result = cDAI.mint(amount);<br>        require(result == 0, &quot;cDAI mint failed&quot;);<br>    &#125;<br><br>    function borrowUSDC(uint256 amount) external &#123;<br>        // 进入市场，允许使用 cDAI 作为抵押品<br>        address;<br>        markets[0] = address(cDAI);<br>        uint256[] memory errors = comptroller.enterMarkets(markets);<br>        require(errors[0] == 0, &quot;Comptroller enter market failed&quot;);<br><br>        // 借入 USDC<br>        uint256 result = cUSDC.borrow(amount);<br>        require(result == 0, &quot;cUSDC borrow failed&quot;);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p><strong>注意</strong>：上述代码仅为示例，实际操作中需要处理代币授权、安全性等问题。</p>
 <h3 id="清算示例">清算示例</h3>
-<p>清算人可以调用 <code>liquidateBorrow</code>
-函数进行清算，以下是示例代码：</p>
+<p>清算人可以调用 <code>liquidateBorrow</code> 函数进行清算，以下是示例代码：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs solidity">pragma solidity ^0.6.0;<br><br>interface CErc20 &#123;<br>    function liquidateBorrow(address borrower, uint256 repayAmount, address cTokenCollateral) external returns (uint256);<br>&#125;<br><br>contract CompoundLiquidator &#123;<br>    CErc20 public cUSDC = CErc20(0x39AA39c021dfbaE8faC545936693aC917d5E7563); // 借款资产 cUSDC<br><br>    function liquidate(address borrower, uint256 repayAmount, address cTokenCollateral) external &#123;<br>        // 需要先批准 cUSDC 合约转移清算人的 USDC<br><br>        // 执行清算<br>        uint256 result = cUSDC.liquidateBorrow(borrower, repayAmount, cTokenCollateral);<br>        require(result == 0, &quot;Liquidation failed&quot;);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="风险与注意事项">风险与注意事项</h2>
 <ul>
 <li><strong>市场风险</strong>：加密资产价格波动可能导致抵押品价值下降，增加清算风险。</li>
-<li><strong>智能合约风险</strong>：尽管 Compound
-合约经过审计，但仍可能存在未知漏洞。</li>
+<li><strong>智能合约风险</strong>：尽管 Compound 合约经过审计，但仍可能存在未知漏洞。</li>
 <li><strong>利率风险</strong>：市场利率可能波动，影响借款成本和存款收益。</li>
 <li><strong>清算风险</strong>：在市场剧烈波动时，可能发生迅速清算，导致损失。</li>
 </ul>
-<h2
-id="表格常见资产的抵押因子与利率">表格：常见资产的抵押因子与利率</h2>
+<h2 id="表格：常见资产的抵押因子与利率">表格：常见资产的抵押因子与利率</h2>
 <table>
 <thead>
 <tr>
@@ -582,22 +573,15 @@ id="表格常见资产的抵押因子与利率">表格：常见资产的抵押�
 </table>
 <p><em>注：利率为示例值，实际利率请参考 Compound 官方网站。</em></p>
 <h2 id="结论">结论</h2>
-<p>Compound 作为 DeFi
-领域的重要借贷协议，为用户提供了高效的资金利用和收益机会。其创新的
-cToken
-模型、灵活的利率机制和完善的风险管理，使得用户可以在去中心化的环境中安全地借贷和存款。然而，用户在参与时应充分了解其机制和潜在风险，谨慎操作。</p>
+<p>Compound 作为 DeFi 领域的重要借贷协议，为用户提供了高效的资金利用和收益机会。其创新的 cToken 模型、灵活的利率机制和完善的风险管理，使得用户可以在去中心化的环境中安全地借贷和存款。然而，用户在参与时应充分了解其机制和潜在风险，谨慎操作。</p>
 <h2 id="参考资料">参考资料</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://compound.finance/">Compound 官方网站</a></li>
 <li><a target="_blank" rel="noopener" href="https://compound.finance/docs">Compound 开发者文档</a></li>
-<li><a target="_blank" rel="noopener" href="https://compound.finance/docs/prices">Open Price Feed
-预言机</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/compound-finance">Compound GitHub
-代码库</a></li>
+<li><a target="_blank" rel="noopener" href="https://compound.finance/docs/prices">Open Price Feed 预言机</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/compound-finance">Compound GitHub 代码库</a></li>
 <li><a target="_blank" rel="noopener" href="https://docs.soliditylang.org">Solidity 文档</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://consensys.github.io/smart-contract-best-practices/">DeFi
-安全最佳实践</a></li>
+<li><a target="_blank" rel="noopener" href="https://consensys.github.io/smart-contract-best-practices/">DeFi 安全最佳实践</a></li>
 </ul>
 
                 

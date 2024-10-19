@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":"G-R246FK9TNM"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -101,6 +101,20 @@
     </script>
   
 
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-R246FK9TNM", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-R246FK9TNM');
+        });
+      }
+    </script>
   
 
   
@@ -314,28 +328,26 @@
             
               <div class="markdown-body">
                 
-                <h1 id="curve-深度解析">Curve 深度解析</h1>
+                <h1>Curve 深度解析</h1>
 <h2 id="引言">引言</h2>
-<p><a target="_blank" rel="noopener" href="https://curve.fi/">Curve</a>
-是一种基于自动做市商（AMM）的稳定币兑换协议，最初称为 StableSwap。Curve
-专注于在低滑点和低手续费的情况下，为用户提供稳定币之间的高效兑换。随着
-DeFi 生态的发展，Curve 不断扩展，增加了对 ETH、BTC
-以及其他替代资产的支持。本文将深入探讨 Curve 的 AMM
-机制、主要业务、流动性挖矿，以及其在 DeFi 生态系统中的重要作用。</p>
-<h2 id="一amm-机制">一、AMM 机制</h2>
+<p><a target="_blank" rel="noopener" href="https://curve.fi/">Curve</a> 是一种基于自动做市商（AMM）的稳定币兑换协议，最初称为 StableSwap。Curve 专注于在低滑点和低手续费的情况下，为用户提供稳定币之间的高效兑换。随着 DeFi 生态的发展，Curve 不断扩展，增加了对 ETH、BTC 以及其他替代资产的支持。本文将深入探讨 Curve 的 AMM 机制、主要业务、流动性挖矿，以及其在 DeFi 生态系统中的重要作用。</p>
+<h2 id="一、AMM-机制">一、AMM 机制</h2>
 <h3 id="恒定乘积与恒定总和">恒定乘积与恒定总和</h3>
-<p><img src="../img/curve/image.png" srcset="/img/loading.gif" lazyload /></p>
-<p>Curve 的核心是其独特的 AMM
-机制，结合了恒定乘积和恒定总和的数学模型：</p>
-<ol type="1">
-<li><p><strong>恒定乘积公式</strong>：</p>
-<p><span class="math display">\[
-x \times y = k_1
-\]</span></p></li>
-<li><p><strong>恒定总和公式</strong>：</p>
-<p><span class="math display">\[
-x + y = k_2
-\]</span></p></li>
+<p><img src="../img/curve/image.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>Curve 的核心是其独特的 AMM 机制，结合了恒定乘积和恒定总和的数学模型：</p>
+<ol>
+<li>
+<p><strong>恒定乘积公式</strong>：</p>
+<p>$$<br>
+x \times y = k_1<br>
+$$</p>
+</li>
+<li>
+<p><strong>恒定总和公式</strong>：</p>
+<p>$$<br>
+x + y = k_2<br>
+$$</p>
+</li>
 </ol>
 <ul>
 <li><strong>( x ) 和 ( y )</strong>：池中两种资产的数量。</li>
@@ -344,186 +356,169 @@ x + y = k_2
 </ul>
 <h3 id="机制解释">机制解释</h3>
 <ul>
-<li><p><strong>价格均衡点附近</strong>：</p>
+<li>
+<p><strong>价格均衡点附近</strong>：</p>
 <ul>
-<li>当资产价格接近均衡点时，Curve
-使用恒定总和公式。这意味着资产之间的兑换不会显著影响池中的资产比例，提供了
-<strong>低滑点</strong> 和 <strong>高流动性</strong>。</li>
-</ul></li>
-<li><p><strong>偏离均衡点较多时</strong>：</p>
+<li>当资产价格接近均衡点时，Curve 使用恒定总和公式。这意味着资产之间的兑换不会显著影响池中的资产比例，提供了 <strong>低滑点</strong> 和 <strong>高流动性</strong>。</li>
+</ul>
+</li>
+<li>
+<p><strong>偏离均衡点较多时</strong>：</p>
 <ul>
-<li>当资产价格远离均衡点，Curve 转为使用恒定乘积公式，类似于 Uniswap
-的模型。这有助于防止流动性因价格大幅波动而被耗尽。</li>
-</ul></li>
+<li>当资产价格远离均衡点，Curve 转为使用恒定乘积公式，类似于 Uniswap 的模型。这有助于防止流动性因价格大幅波动而被耗尽。</li>
+</ul>
+</li>
 </ul>
 <h3 id="数学模型">数学模型</h3>
-<p>Curve 的定价公式综合了上述两个模型，通过参数 ( A
-)（放大系数）来调节，具体公式较为复杂，简化表示为：</p>
-<p><span class="math display">\[
-\text{Invariant} = \sum x_i + \frac{D}{A \times n^{n}}
-\]</span></p>
+<p>Curve 的定价公式综合了上述两个模型，通过参数 ( A )（放大系数）来调节，具体公式较为复杂，简化表示为：</p>
+<p>$$<br>
+\text{Invariant} = \sum x_i + \frac{D}{A \times n^{n}}<br>
+$$</p>
 <ul>
 <li><strong>( D )</strong>：池中资产的平衡值。</li>
 <li><strong>( n )</strong>：池中资产的数量。</li>
 <li><strong>( A )</strong>：放大系数，决定了曲线的形状。</li>
 </ul>
-<p>当 ( A ) 较大时，曲线更接近平坦的恒定总和曲线；当 ( A )
-较小时，更接近恒定乘积曲线。</p>
-<p><em>（图示：Curve 的曲线形状，展示不同 ( A )
-值对曲线的影响）</em></p>
-<h2 id="二主营业务">二、主营业务</h2>
-<h3 id="稳定币和其他资产兑换">1. 稳定币和其他资产兑换</h3>
+<p>当 ( A ) 较大时，曲线更接近平坦的恒定总和曲线；当 ( A ) 较小时，更接近恒定乘积曲线。</p>
+<p><em>（图示：Curve 的曲线形状，展示不同 ( A ) 值对曲线的影响）</em></p>
+<h2 id="二、主营业务">二、主营业务</h2>
+<h3 id="1-稳定币和其他资产兑换">1. 稳定币和其他资产兑换</h3>
 <p>Curve 主要提供以下类型的资产兑换：</p>
-<h4 id="稳定币兑换">1）稳定币兑换</h4>
+<h4 id="1）稳定币兑换">1）稳定币兑换</h4>
 <ul>
 <li><strong>支持资产</strong>：DAI、USDC、USDT 等超过 20 种稳定币。</li>
 <li><strong>特点</strong>：低兑换费用、低滑点、高深度，适合大额稳定币交换。</li>
 </ul>
-<h4 id="映射资产兑换">2）映射资产兑换</h4>
+<h4 id="2）映射资产兑换">2）映射资产兑换</h4>
 <ul>
-<li><strong>支持资产</strong>：tBTC、wBTC、renBTC、sETH
-等映射资产。</li>
-<li><strong>作用</strong>：提供比特币、以太坊等主流币的 ERC-20
-映射资产之间的高效兑换，保证其流动性和价格稳定。</li>
+<li><strong>支持资产</strong>：tBTC、wBTC、renBTC、sETH 等映射资产。</li>
+<li><strong>作用</strong>：提供比特币、以太坊等主流币的 ERC-20 映射资产之间的高效兑换，保证其流动性和价格稳定。</li>
 </ul>
-<h4 id="票据类资产兑换">3）票据类资产兑换</h4>
+<h4 id="3）票据类资产兑换">3）票据类资产兑换</h4>
 <ul>
-<li><strong>定义</strong>：DeFi
-协议的票据型代币，代表用户在其他协议中的存款或权益。</li>
+<li><strong>定义</strong>：DeFi 协议的票据型代币，代表用户在其他协议中的存款或权益。</li>
 <li><strong>示例</strong>：
 <ul>
 <li><strong>Compound</strong> 池：cDAI、cUSDC</li>
 <li><strong>Yearn Finance</strong> 池：yDAI、yUSDC、yUSDT、yTUSD</li>
 <li><strong>MIM</strong> 池：MIM（Magic Internet Money）</li>
-</ul></li>
+</ul>
+</li>
 <li><strong>作用</strong>：提供这些票据类资产之间的兑换，方便用户管理和优化收益。</li>
 </ul>
-<h3 id="流动性挖矿">2. 流动性挖矿</h3>
-<p>Curve
-为流动性提供者（LP）提供了挖矿激励，用户可以通过提供流动性获得多重收益。</p>
-<h4 id="操作步骤">1）操作步骤</h4>
-<p>包含绑定钱包、兑换、挖矿等详细操作步骤
-https://zhuanlan.zhihu.com/p/182878770</p>
-<ol type="1">
-<li><p><strong>选择流动性池</strong>：</p>
+<h3 id="2-流动性挖矿">2. 流动性挖矿</h3>
+<p>Curve 为流动性提供者（LP）提供了挖矿激励，用户可以通过提供流动性获得多重收益。</p>
+<h4 id="1）操作步骤">1）操作步骤</h4>
+<p>包含绑定钱包、兑换、挖矿等详细操作步骤<br>
+<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/182878770">https://zhuanlan.zhihu.com/p/182878770</a></p>
+<ol>
+<li>
+<p><strong>选择流动性池</strong>：</p>
 <ul>
-<li>在 Curve 网站的 <strong>Pools</strong>
-页面，选择一个合适的流动性池（如稳定币池、BTC 池等）。</li>
-</ul></li>
-<li><p><strong>存入资产，获取 LP 代币</strong>：</p>
+<li>在 Curve 网站的 <strong>Pools</strong> 页面，选择一个合适的流动性池（如稳定币池、BTC 池等）。</li>
+</ul>
+</li>
+<li>
+<p><strong>存入资产，获取 LP 代币</strong>：</p>
 <ul>
-<li>自定义存入的资产数量，确认后将资产存入流动性池，获得对应的 LP
-代币。</li>
-</ul></li>
-<li><p><strong>查看交易详情</strong>：</p>
+<li>自定义存入的资产数量，确认后将资产存入流动性池，获得对应的 LP 代币。</li>
+</ul>
+</li>
+<li>
+<p><strong>查看交易详情</strong>：</p>
 <ul>
 <li>交易发出后，可以在以太坊浏览器中查看交易状态，包括授权交易和存款交易。</li>
-</ul></li>
-<li><p><strong>质押 LP 代币，获得 CRV 奖励</strong>：</p>
+</ul>
+</li>
+<li>
+<p><strong>质押 LP 代币，获得 CRV 奖励</strong>：</p>
 <ul>
 <li>将 LP 代币质押到 Curve DAO 中，开始获得 CRV 代币的奖励。</li>
-</ul></li>
+</ul>
+</li>
 </ol>
-<h4 id="收益来源">2）收益来源</h4>
-<h5 id="平台交易手续费">① 平台交易手续费</h5>
+<h4 id="2）收益来源">2）收益来源</h4>
+<h5 id="①-平台交易手续费">① 平台交易手续费</h5>
 <ul>
-<li><strong>来源</strong>：Curve 平台的交易手续费，通常为每笔交易的
-0.04%。</li>
+<li><strong>来源</strong>：Curve 平台的交易手续费，通常为每笔交易的 0.04%。</li>
 <li><strong>分配</strong>：
 <ul>
 <li><strong>50%</strong> 分配给流动性提供者。</li>
 <li><strong>50%</strong> 分配给 veCRV 持有者。</li>
-</ul></li>
 </ul>
-<h5 id="lp-挖矿奖励crv-代币">② LP 挖矿奖励（CRV 代币）</h5>
+</li>
+</ul>
+<h5 id="②-LP-挖矿奖励（CRV-代币）">② LP 挖矿奖励（CRV 代币）</h5>
 <ul>
-<li><strong>CRV 代币</strong>：Curve
-的治理代币，持有者可以参与协议治理和收益分配。</li>
+<li><strong>CRV 代币</strong>：Curve 的治理代币，持有者可以参与协议治理和收益分配。</li>
 <li><strong>锁仓 veCRV</strong>：
 <ul>
-<li><strong>锁仓 CRV</strong>：用户可以将 CRV 锁仓，获得
-veCRV（vote-escrowed CRV）。</li>
+<li><strong>锁仓 CRV</strong>：用户可以将 CRV 锁仓，获得 veCRV（vote-escrowed CRV）。</li>
 <li><strong>收益</strong>：
 <ul>
-<li><strong>协议手续费分成</strong>：享受全平台交易手续费的 50%
-分成。</li>
-<li><strong>Boost 奖励</strong>：通过 Boost 功能，提高做市获得的 CRV
-奖励，最高可提升至 2.5 倍。</li>
+<li><strong>协议手续费分成</strong>：享受全平台交易手续费的 50% 分成。</li>
+<li><strong>Boost 奖励</strong>：通过 Boost 功能，提高做市获得的 CRV 奖励，最高可提升至 2.5 倍。</li>
 <li><strong>治理权</strong>：参与协议参数调整、新池添加等治理活动。</li>
-</ul></li>
-</ul></li>
 </ul>
-<h5 id="其他项目激励">③ 其他项目激励</h5>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="③-其他项目激励">③ 其他项目激励</h5>
 <ul>
-<li><strong>合作项目</strong>：如 Synthetix、Ren
-等项目方，会提供自家代币（如 SNX、REN）激励用户参与特定的流动性池。</li>
+<li><strong>合作项目</strong>：如 Synthetix、Ren 等项目方，会提供自家代币（如 SNX、REN）激励用户参与特定的流动性池。</li>
 </ul>
-<h4 id="矿池种类">3）矿池种类</h4>
-<h5 id="稳定币矿池">① 稳定币矿池</h5>
+<h4 id="3）矿池种类">3）矿池种类</h4>
+<h5 id="①-稳定币矿池">① 稳定币矿池</h5>
 <ul>
 <li><strong>Base APY</strong>：来自交易手续费收益。</li>
 <li><strong>Rewards APY</strong>：来自 CRV 代币的挖矿奖励。</li>
 </ul>
-<h5 id="第三方协议矿池">② 第三方协议矿池</h5>
+<h5 id="②-第三方协议矿池">② 第三方协议矿池</h5>
 <ul>
 <li><strong>示例</strong>：YFI 池、Compound 池等。</li>
-<li><strong>Base APY</strong>：来自交易手续费和第三方协议的存款利息（如
-Yearn 的收益）。</li>
-<li><strong>Rewards APY</strong>：来自 CRV
-代币的挖矿奖励，以及第三方协议的代币激励。</li>
+<li><strong>Base APY</strong>：来自交易手续费和第三方协议的存款利息（如 Yearn 的收益）。</li>
+<li><strong>Rewards APY</strong>：来自 CRV 代币的挖矿奖励，以及第三方协议的代币激励。</li>
 </ul>
-<h2 id="三页面操作流程">三、页面操作流程</h2>
-<h3 id="绑定钱包">1. 绑定钱包</h3>
+<h2 id="三、页面操作流程">三、页面操作流程</h2>
+<h3 id="1-绑定钱包">1. 绑定钱包</h3>
 <ul>
-<li><strong>支持的钱包</strong>：MetaMask、Ledger、Trezor、WalletConnect
-等。</li>
+<li><strong>支持的钱包</strong>：MetaMask、Ledger、Trezor、WalletConnect 等。</li>
 <li><strong>步骤</strong>：
 <ul>
-<li>打开 Curve 网站，点击右上角的 <strong>"Connect
-Wallet"</strong>。</li>
+<li>打开 Curve 网站，点击右上角的 <strong>“Connect Wallet”</strong>。</li>
 <li>选择您的钱包类型，按照提示完成连接。</li>
-</ul></li>
 </ul>
-<h3 id="兑换资产">2. 兑换资产</h3>
+</li>
+</ul>
+<h3 id="2-兑换资产">2. 兑换资产</h3>
 <ul>
-<li><strong>选择交易对</strong>：在 <strong>"Exchange"</strong>
-页面，选择想要兑换的资产对。</li>
+<li><strong>选择交易对</strong>：在 <strong>“Exchange”</strong> 页面，选择想要兑换的资产对。</li>
 <li><strong>输入数量</strong>：输入想要兑换的资产数量，系统会自动计算可获得的目标资产数量。</li>
-<li><strong>确认交易</strong>：点击 <strong>"Swap"</strong>
-按钮，确认交易详情并提交。</li>
+<li><strong>确认交易</strong>：点击 <strong>“Swap”</strong> 按钮，确认交易详情并提交。</li>
 <li><strong>注意</strong>：首次使用某种资产时，可能需要进行授权交易。</li>
 </ul>
-<h3 id="提供流动性">3. 提供流动性</h3>
+<h3 id="3-提供流动性">3. 提供流动性</h3>
 <ul>
-<li><strong>选择流动性池</strong>：在 <strong>"Pools"</strong>
-页面，选择一个感兴趣的池。</li>
+<li><strong>选择流动性池</strong>：在 <strong>“Pools”</strong> 页面，选择一个感兴趣的池。</li>
 <li><strong>存入资产</strong>：输入想要存入的资产数量，可以是单一资产或多种资产。</li>
-<li><strong>获得 LP 代币</strong>：存入成功后，您将获得对应的 LP
-代币。</li>
-<li><strong>质押 LP 代币</strong>：前往 <strong>"Stake"</strong>
-页面，将 LP 代币质押，开始获得 CRV 奖励。</li>
+<li><strong>获得 LP 代币</strong>：存入成功后，您将获得对应的 LP 代币。</li>
+<li><strong>质押 LP 代币</strong>：前往 <strong>“Stake”</strong> 页面，将 LP 代币质押，开始获得 CRV 奖励。</li>
 </ul>
-<h3 id="提取流动性">4. 提取流动性</h3>
+<h3 id="4-提取流动性">4. 提取流动性</h3>
 <ul>
-<li><strong>解除质押</strong>：在 <strong>"Stake"</strong>
-页面，选择已质押的 LP 代币，进行解除质押操作。</li>
-<li><strong>赎回资产</strong>：在 <strong>"Withdraw"</strong>
-页面，选择要赎回的流动性池，输入要赎回的 LP
-代币数量，确认后即可取回存入的资产。</li>
+<li><strong>解除质押</strong>：在 <strong>“Stake”</strong> 页面，选择已质押的 LP 代币，进行解除质押操作。</li>
+<li><strong>赎回资产</strong>：在 <strong>“Withdraw”</strong> 页面，选择要赎回的流动性池，输入要赎回的 LP 代币数量，确认后即可取回存入的资产。</li>
 </ul>
-<h3 id="锁仓-crv-获取-vecrv">5. 锁仓 CRV 获取 veCRV</h3>
+<h3 id="5-锁仓-CRV-获取-veCRV">5. 锁仓 CRV 获取 veCRV</h3>
 <ul>
-<li><strong>前往治理页面</strong>：在 <strong>"DAO"</strong> 或
-<strong>"Vote"</strong> 页面。</li>
-<li><strong>锁定 CRV</strong>：选择锁定的 CRV 数量和期限（最长可达 4
-年）。</li>
-<li><strong>获得 veCRV</strong>：锁仓后，您将获得
-veCRV，用于提升奖励和参与治理。</li>
+<li><strong>前往治理页面</strong>：在 <strong>“DAO”</strong> 或 <strong>“Vote”</strong> 页面。</li>
+<li><strong>锁定 CRV</strong>：选择锁定的 CRV 数量和期限（最长可达 4 年）。</li>
+<li><strong>获得 veCRV</strong>：锁仓后，您将获得 veCRV，用于提升奖励和参与治理。</li>
 </ul>
-<p><em>（提示：实际操作中，请务必核对交易详情，注意 GAS
-费用，确保钱包安全）</em></p>
-<h2 id="四crv-代币与治理">四、CRV 代币与治理</h2>
-<h3 id="crv-代币基本信息">CRV 代币基本信息</h3>
+<p><em>（提示：实际操作中，请务必核对交易详情，注意 GAS 费用，确保钱包安全）</em></p>
+<h2 id="四、CRV-代币与治理">四、CRV 代币与治理</h2>
+<h3 id="CRV-代币基本信息">CRV 代币基本信息</h3>
 <ul>
 <li><strong>代币名称</strong>：Curve DAO Token</li>
 <li><strong>代币符号</strong>：CRV</li>
@@ -536,46 +531,35 @@ veCRV，用于提升奖励和参与治理。</li>
 <li><strong>社区储备</strong>：5%</li>
 <li><strong>员工激励</strong>：3%</li>
 </ul>
-<h3 id="vecrv-与治理">veCRV 与治理</h3>
+<h3 id="veCRV-与治理">veCRV 与治理</h3>
 <ul>
-<li><strong>veCRV</strong>：通过锁定 CRV
-获得，用于参与协议治理和提升奖励。</li>
-<li><strong>治理权重</strong>：锁定时间越长，获得的 veCRV
-越多，治理权重越大。</li>
+<li><strong>veCRV</strong>：通过锁定 CRV 获得，用于参与协议治理和提升奖励。</li>
+<li><strong>治理权重</strong>：锁定时间越长，获得的 veCRV 越多，治理权重越大。</li>
 <li><strong>投票事项</strong>：包括添加新池、调整参数、分配奖励等。</li>
 </ul>
-<h2 id="五curve-的优势与特点">五、Curve 的优势与特点</h2>
+<h2 id="五、Curve-的优势与特点">五、Curve 的优势与特点</h2>
 <ul>
 <li><strong>低滑点</strong>：针对稳定币和映射资产的兑换，滑点极低，适合大额交易。</li>
-<li><strong>高效率</strong>：独特的 AMM
-机制，提供了更好的价格和深度。</li>
-<li><strong>多重收益</strong>：流动性提供者可以获得交易手续费、CRV
-挖矿奖励，以及其他项目的代币激励。</li>
-<li><strong>广泛集成</strong>：Curve 已被众多 DeFi 协议集成，如
-Yearn、Convex、StakeDAO 等，扩大了其生态影响力。</li>
+<li><strong>高效率</strong>：独特的 AMM 机制，提供了更好的价格和深度。</li>
+<li><strong>多重收益</strong>：流动性提供者可以获得交易手续费、CRV 挖矿奖励，以及其他项目的代币激励。</li>
+<li><strong>广泛集成</strong>：Curve 已被众多 DeFi 协议集成，如 Yearn、Convex、StakeDAO 等，扩大了其生态影响力。</li>
 </ul>
-<h2 id="六风险与注意事项">六、风险与注意事项</h2>
+<h2 id="六、风险与注意事项">六、风险与注意事项</h2>
 <ul>
-<li><strong>智能合约风险</strong>：尽管 Curve
-合约经过审计，但仍存在潜在的漏洞风险。</li>
+<li><strong>智能合约风险</strong>：尽管 Curve 合约经过审计，但仍存在潜在的漏洞风险。</li>
 <li><strong>流动性风险</strong>：在极端市场情况下，资产价格可能出现剧烈波动，导致损失。</li>
 <li><strong>无常损失</strong>：对于非稳定币池，提供流动性可能面临无常损失。</li>
 <li><strong>治理风险</strong>：参与治理需要理解提案内容，谨慎投票。</li>
 </ul>
-<h2 id="七结论">七、结论</h2>
-<p>Curve 作为 DeFi 领域的重要稳定币兑换协议，凭借其创新的 AMM
-机制和多样化的业务模式，成为了稳定币和映射资产交易的首选平台。对于投资者和流动性提供者而言，理解
-Curve 的工作原理和操作流程，有助于更好地参与其中，获取收益。然而，参与
-DeFi 项目始终伴随着风险，建议用户在充分了解相关信息后，谨慎决策。</p>
+<h2 id="七、结论">七、结论</h2>
+<p>Curve 作为 DeFi 领域的重要稳定币兑换协议，凭借其创新的 AMM 机制和多样化的业务模式，成为了稳定币和映射资产交易的首选平台。对于投资者和流动性提供者而言，理解 Curve 的工作原理和操作流程，有助于更好地参与其中，获取收益。然而，参与 DeFi 项目始终伴随着风险，建议用户在充分了解相关信息后，谨慎决策。</p>
 <h2 id="参考资料">参考资料</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://curve.fi/">Curve 官方网站</a></li>
 <li><a target="_blank" rel="noopener" href="https://curve.readthedocs.io/">Curve 文档</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/curvefi">Curve GitHub 代码库</a></li>
 <li><a target="_blank" rel="noopener" href="https://curve.fi/audits">Curve 合约审计报告</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://consensys.github.io/smart-contract-best-practices/">DeFi
-安全最佳实践</a></li>
+<li><a target="_blank" rel="noopener" href="https://consensys.github.io/smart-contract-best-practices/">DeFi 安全最佳实践</a></li>
 <li><a target="_blank" rel="noopener" href="https://ethereum.org/developers/">以太坊开发者文档</a></li>
 </ul>
 

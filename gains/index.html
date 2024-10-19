@@ -73,7 +73,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":"G-R246FK9TNM"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -99,6 +99,20 @@
     </script>
   
 
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-R246FK9TNM", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-R246FK9TNM');
+        });
+      }
+    </script>
   
 
   
@@ -312,226 +326,248 @@
             
               <div class="markdown-body">
                 
-                <h1 id="深度解析-gains-network去中心化的多元合成资产交易平台">深度解析
-Gains Network：去中心化的多元合成资产交易平台</h1>
+                <h1>深度解析 Gains Network：去中心化的多元合成资产交易平台</h1>
 <h2 id="引言">引言</h2>
-<p><strong>Gains Network（GNS）</strong>
-是一个建立在去中心化金融（DeFi）生态系统中的合成资产交易平台，旨在提供多元化的交易资产和高杠杆交易服务。与
-<strong>GMX</strong> 类似，Gains Network 通过 <strong>gDAI
-金库</strong>（vault）作为交易者的对手方，为用户提供无滑点的交易体验。本文将深入探讨
-Gains Network 的运作机制、与 GMX
-的区别、代币经济模型、潜在风险以及用户群体等方面。</p>
-<hr />
-<h2 id="一gains-network-与-gmx-的对比">一、Gains Network 与 GMX
-的对比</h2>
-<h3 id="资产种类的差异">1. 资产种类的差异</h3>
+<p><strong>Gains Network（GNS）</strong> 是一个建立在去中心化金融（DeFi）生态系统中的合成资产交易平台，旨在提供多元化的交易资产和高杠杆交易服务。与 <strong>GMX</strong> 类似，Gains Network 通过 <strong>gDAI 金库</strong>（vault）作为交易者的对手方，为用户提供无滑点的交易体验。本文将深入探讨 Gains Network 的运作机制、与 GMX 的区别、代币经济模型、潜在风险以及用户群体等方面。</p>
+<hr>
+<h2 id="一、Gains-Network-与-GMX-的对比">一、Gains Network 与 GMX 的对比</h2>
+<h3 id="1-资产种类的差异">1. 资产种类的差异</h3>
 <ul>
-<li><p><strong>Gains Network（GNS）</strong>：</p>
+<li>
+<p><strong>Gains Network（GNS）</strong>：</p>
 <ul>
 <li>支持多种资产类别，包括加密货币、小市值代币、大宗商品、股票和外汇等合成资产。</li>
 <li>为交易者提供更广泛的市场选择，满足不同投资策略的需求。</li>
-</ul></li>
-<li><p><strong>GMX</strong>：</p>
+</ul>
+</li>
+<li>
+<p><strong>GMX</strong>：</p>
 <ul>
 <li>主要支持主流加密货币，如 BTC、ETH 等。</li>
 <li>资产种类相对有限，专注于加密货币市场。</li>
-</ul></li>
 </ul>
-<h3 id="金库结构与抵押品">2. 金库结构与抵押品</h3>
+</li>
+</ul>
+<h3 id="2-金库结构与抵押品">2. 金库结构与抵押品</h3>
 <ul>
-<li><p><strong>Gains Network</strong>：</p>
+<li>
+<p><strong>Gains Network</strong>：</p>
 <ul>
-<li>使用 <strong>gDAI 金库</strong> 作为交易对手方，所有抵押品和结算均以
-<strong>DAI</strong> 稳定币进行。</li>
+<li>使用 <strong>gDAI 金库</strong> 作为交易对手方，所有抵押品和结算均以 <strong>DAI</strong> 稳定币进行。</li>
 <li>金库中持有 DAI，为交易者提供流动性。</li>
-</ul></li>
-<li><p><strong>GMX</strong>：</p>
+</ul>
+</li>
+<li>
+<p><strong>GMX</strong>：</p>
 <ul>
-<li>使用 <strong>GLP</strong>
-作为流动性池，包含多种资产，包括稳定币、BTC、ETH 等。</li>
+<li>使用 <strong>GLP</strong> 作为流动性池，包含多种资产，包括稳定币、BTC、ETH 等。</li>
 <li>抵押品多样化，交易者的盈亏直接影响 GLP 池。</li>
-</ul></li>
 </ul>
-<h3 id="手续费分配模型">3. 手续费分配模型</h3>
+</li>
+</ul>
+<h3 id="3-手续费分配模型">3. 手续费分配模型</h3>
 <ul>
-<li><p><strong>Gains Network</strong>：</p>
+<li>
+<p><strong>Gains Network</strong>：</p>
 <ul>
-<li>手续费在 <strong>gDAI 金库、GNS 质押者（Stakers）、LP
-提供者、开发基金</strong> 之间分配。</li>
-<li>交易者的亏损除了增益金库外，还用于回购并销毁 <strong>GNS</strong>
-代币，增加了 GNS 持有者的收益。</li>
-</ul></li>
-<li><p><strong>GMX</strong>：</p>
+<li>手续费在 <strong>gDAI 金库、GNS 质押者（Stakers）、LP 提供者、开发基金</strong> 之间分配。</li>
+<li>交易者的亏损除了增益金库外，还用于回购并销毁 <strong>GNS</strong> 代币，增加了 GNS 持有者的收益。</li>
+</ul>
+</li>
+<li>
+<p><strong>GMX</strong>：</p>
 <ul>
-<li>手续费主要分配给 <strong>GLP 持有者</strong> 和 <strong>GMX
-代币质押者</strong>。</li>
+<li>手续费主要分配给 <strong>GLP 持有者</strong> 和 <strong>GMX 代币质押者</strong>。</li>
 <li>交易者的盈亏直接影响 GLP 池，GMX 代币持有者主要获得手续费收入。</li>
-</ul></li>
 </ul>
-<hr />
-<h2 id="二gains-network-的代币经济模型">二、Gains Network
-的代币经济模型</h2>
-<h3 id="代币类型">1. 代币类型</h3>
+</li>
+</ul>
+<hr>
+<h2 id="二、Gains-Network-的代币经济模型">二、Gains Network 的代币经济模型</h2>
+<h3 id="1-代币类型">1. 代币类型</h3>
 <ul>
-<li><p><strong>GNS 代币</strong>：</p>
+<li>
+<p><strong>GNS 代币</strong>：</p>
 <ul>
 <li>类似于 GMX 的治理代币，持有者可以参与平台治理和获取收益。</li>
 <li>通过交易者的亏损进行回购和销毁，增加代币价值。</li>
-</ul></li>
-<li><p><strong>gDAI</strong>：</p>
+</ul>
+</li>
+<li>
+<p><strong>gDAI</strong>：</p>
 <ul>
 <li>类似于 GMX 的 GLP，作为流动性提供者的权益证明。</li>
 <li>可以通过铸造和销毁来维持平台的平衡。</li>
-</ul></li>
 </ul>
-<h3 id="代币机制与交易者盈亏的关系">2. 代币机制与交易者盈亏的关系</h3>
-<ul>
-<li><p><strong>交易者盈亏影响</strong>：</p>
-<ul>
-<li>交易者的亏损增加金库的 DAI 余额，部分用于回购 GNS 并销毁，提高 GNS
-代币的稀缺性。</li>
-<li>交易者的盈利减少金库的 DAI 余额，当抵押率低于一定阈值时，可能触发
-GNS 的增发，稀释代币价值。</li>
-</ul></li>
-<li><p><strong>机制设计</strong>：</p>
-<ul>
-<li><strong>抵押率维护</strong>：平台设定了抵押率阈值（如
-130%），当高于此值时，会回购 GNS 并销毁；当低于 100% 时，可能增发
-GNS。</li>
-<li><strong>交易限制</strong>：为了防止交易者过度盈利，平台对交易盈利设定了上限（如盈利超过
-900% 时强制平仓）。</li>
-</ul></li>
+</li>
 </ul>
-<h3 id="风险与潜在问题">3. 风险与潜在问题</h3>
+<h3 id="2-代币机制与交易者盈亏的关系">2. 代币机制与交易者盈亏的关系</h3>
 <ul>
-<li><p><strong>死亡螺旋风险</strong>：</p>
+<li>
+<p><strong>交易者盈亏影响</strong>：</p>
 <ul>
-<li>在交易者大幅盈利的情况下，金库的 DAI 余额减少，LP
-可能撤出资金，抵押率下降。</li>
-<li>当抵押率低于 100% 时，需要增发 GNS
-代币，可能导致代币价格下跌，形成类似 <strong>LUNA</strong>
-的死亡螺旋。</li>
-</ul></li>
-<li><p><strong>单边市场风险</strong>：</p>
+<li>交易者的亏损增加金库的 DAI 余额，部分用于回购 GNS 并销毁，提高 GNS 代币的稀缺性。</li>
+<li>交易者的盈利减少金库的 DAI 余额，当抵押率低于一定阈值时，可能触发 GNS 的增发，稀释代币价值。</li>
+</ul>
+</li>
+<li>
+<p><strong>机制设计</strong>：</p>
+<ul>
+<li><strong>抵押率维护</strong>：平台设定了抵押率阈值（如 130%），当高于此值时，会回购 GNS 并销毁；当低于 100% 时，可能增发 GNS。</li>
+<li><strong>交易限制</strong>：为了防止交易者过度盈利，平台对交易盈利设定了上限（如盈利超过 900% 时强制平仓）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-风险与潜在问题">3. 风险与潜在问题</h3>
+<ul>
+<li>
+<p><strong>死亡螺旋风险</strong>：</p>
+<ul>
+<li>在交易者大幅盈利的情况下，金库的 DAI 余额减少，LP 可能撤出资金，抵押率下降。</li>
+<li>当抵押率低于 100% 时，需要增发 GNS 代币，可能导致代币价格下跌，形成类似 <strong>LUNA</strong> 的死亡螺旋。</li>
+</ul>
+</li>
+<li>
+<p><strong>单边市场风险</strong>：</p>
 <ul>
 <li>在单边行情中，如市场持续上涨或下跌，交易者可能集中盈利或亏损，增加平台的风险敞口。</li>
-</ul></li>
 </ul>
-<hr />
-<h2 id="三gains-network-的风险分析">三、Gains Network 的风险分析</h2>
-<h3 id="合成资产交易的风险">1. 合成资产交易的风险</h3>
+</li>
+</ul>
+<hr>
+<h2 id="三、Gains-Network-的风险分析">三、Gains Network 的风险分析</h2>
+<h3 id="1-合成资产交易的风险">1. 合成资产交易的风险</h3>
 <ul>
-<li><p><strong>合成资产的复杂性</strong>：</p>
+<li>
+<p><strong>合成资产的复杂性</strong>：</p>
 <ul>
-<li>GNS 支持股票、外汇等合成资产，依赖 <strong>Chainlink</strong>
-预言机和链下机器人执行清算和限价单。</li>
+<li>GNS 支持股票、外汇等合成资产，依赖 <strong>Chainlink</strong> 预言机和链下机器人执行清算和限价单。</li>
 <li>预言机价格可能受到攻击或操纵，存在安全隐患。</li>
-</ul></li>
-<li><p><strong>平台对赌机制</strong>：</p>
-<ul>
-<li>GNS
-作为交易者的对手方，交易者盈利即平台亏损，风险直接暴露在平台上。</li>
-</ul></li>
 </ul>
-<h3 id="资金安全与清算机制">2. 资金安全与清算机制</h3>
+</li>
+<li>
+<p><strong>平台对赌机制</strong>：</p>
 <ul>
-<li><p><strong>最小仓位限制与持仓费用</strong>：</p>
+<li>GNS 作为交易者的对手方，交易者盈利即平台亏损，风险直接暴露在平台上。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-资金安全与清算机制">2. 资金安全与清算机制</h3>
 <ul>
-<li>GNS
-设定了最小仓位限制和持仓费用（如点差、过夜费），鼓励用户进行高杠杆交易。</li>
+<li>
+<p><strong>最小仓位限制与持仓费用</strong>：</p>
+<ul>
+<li>GNS 设定了最小仓位限制和持仓费用（如点差、过夜费），鼓励用户进行高杠杆交易。</li>
 <li>高杠杆交易增加了清算风险，可能导致金库资金快速波动。</li>
-</ul></li>
-<li><p><strong>清算与流动性风险</strong>：</p>
+</ul>
+</li>
+<li>
+<p><strong>清算与流动性风险</strong>：</p>
 <ul>
 <li>在极端市场条件下，清算速度和流动性可能不足，导致资金无法及时周转。</li>
-</ul></li>
 </ul>
-<h3 id="对现实资产价格的影响">3. 对现实资产价格的影响</h3>
+</li>
+</ul>
+<h3 id="3-对现实资产价格的影响">3. 对现实资产价格的影响</h3>
 <ul>
-<li><p><strong>资金费率机制</strong>：</p>
+<li>
+<p><strong>资金费率机制</strong>：</p>
 <ul>
-<li>GNS
-为了维持多空平衡，引入了类似中心化交易所永续合约的资金费率。</li>
+<li>GNS 为了维持多空平衡，引入了类似中心化交易所永续合约的资金费率。</li>
 <li>当平台上某资产的多头或空头过多时，资金费率会调整，吸引套利者参与。</li>
-</ul></li>
-<li><p><strong>套利者的影响</strong>：</p>
+</ul>
+</li>
+<li>
+<p><strong>套利者的影响</strong>：</p>
 <ul>
 <li>套利者可能在 GNS 上做空（或做多）某资产，同时在现实市场中对冲。</li>
 <li>这种行为可能对现实世界的资产价格产生影响，增加市场复杂性。</li>
-</ul></li>
 </ul>
-<h3 id="与-gmx-的机制比较">4. 与 GMX 的机制比较</h3>
+</li>
+</ul>
+<h3 id="4-与-GMX-的机制比较">4. 与 GMX 的机制比较</h3>
 <ul>
-<li><p><strong>GLP 的风险管理</strong>：</p>
+<li>
+<p><strong>GLP 的风险管理</strong>：</p>
 <ul>
 <li>GMX 的 GLP 机制类似于加密货币指数，包含多种资产，风险相对分散。</li>
-<li>在牛市单边行情下，GLP 作为被动 LP 风险较小，因交易者主要做多，GLP
-收取的借贷费用增加。</li>
-</ul></li>
-<li><p><strong>GNS 的集中风险</strong>：</p>
+<li>在牛市单边行情下，GLP 作为被动 LP 风险较小，因交易者主要做多，GLP 收取的借贷费用增加。</li>
+</ul>
+</li>
+<li>
+<p><strong>GNS 的集中风险</strong>：</p>
 <ul>
 <li>GNS 的金库主要以 DAI 为抵押品，风险相对集中。</li>
 <li>在交易者集中盈利的情况下，金库资金可能快速消耗，风险较高。</li>
-</ul></li>
 </ul>
-<hr />
-<h2 id="四用户群体与交易行为分析">四、用户群体与交易行为分析</h2>
-<h3 id="用户画像与动机">1. 用户画像与动机</h3>
+</li>
+</ul>
+<hr>
+<h2 id="四、用户群体与交易行为分析">四、用户群体与交易行为分析</h2>
+<h3 id="1-用户画像与动机">1. 用户画像与动机</h3>
 <ul>
-<li><p><strong>交易者类型</strong>：</p>
+<li>
+<p><strong>交易者类型</strong>：</p>
 <ul>
 <li>对高杠杆、高风险交易感兴趣的用户，可能更倾向于在 GNS 平台交易。</li>
 <li>由于 GNS 提供多种资产类别，吸引无法在传统市场交易的用户。</li>
-</ul></li>
-<li><p><strong>交易成本与体验</strong>：</p>
+</ul>
+</li>
+<li>
+<p><strong>交易成本与体验</strong>：</p>
 <ul>
 <li>GNS 的交易成本相对较高，包括滑点、点差、持仓费用等。</li>
 <li>交易体验可能不如中心化交易所，吸引的用户可能更在意去中心化和资产多样性。</li>
-</ul></li>
 </ul>
-<h3 id="交易者与平台的关系">2. 交易者与平台的关系</h3>
+</li>
+</ul>
+<h3 id="2-交易者与平台的关系">2. 交易者与平台的关系</h3>
 <ul>
-<li><p><strong>交易成本的影响</strong>：</p>
+<li>
+<p><strong>交易成本的影响</strong>：</p>
 <ul>
 <li>高交易成本可能抑制部分理性交易者的参与，平台需要平衡手续费和用户增长。</li>
-</ul></li>
-<li><p><strong>用户教育与风险提示</strong>：</p>
+</ul>
+</li>
+<li>
+<p><strong>用户教育与风险提示</strong>：</p>
 <ul>
 <li>平台应加强对用户的教育，提示高杠杆交易的风险，避免用户过度交易导致损失。</li>
-</ul></li>
 </ul>
-<hr />
-<h2 id="五团队背景与社区治理">五、团队背景与社区治理</h2>
-<h3 id="团队背景">1. 团队背景</h3>
+</li>
+</ul>
+<hr>
+<h2 id="五、团队背景与社区治理">五、团队背景与社区治理</h2>
+<h3 id="1-团队背景">1. 团队背景</h3>
 <ul>
 <li><strong>匿名团队</strong>：
 <ul>
 <li>Gains Network 的开发团队目前保持匿名状态。</li>
 <li>匿名团队可能影响用户对平台的信任度，但在 DeFi 领域并不罕见。</li>
-</ul></li>
 </ul>
-<h3 id="社区治理与发展">2. 社区治理与发展</h3>
+</li>
+</ul>
+<h3 id="2-社区治理与发展">2. 社区治理与发展</h3>
 <ul>
-<li><p><strong>去中心化治理</strong>：</p>
+<li>
+<p><strong>去中心化治理</strong>：</p>
 <ul>
-<li>GNS
-代币持有者可以参与平台治理，提出和投票决策，提高社区参与度。</li>
-</ul></li>
-<li><p><strong>开发基金的作用</strong>：</p>
+<li>GNS 代币持有者可以参与平台治理，提出和投票决策，提高社区参与度。</li>
+</ul>
+</li>
+<li>
+<p><strong>开发基金的作用</strong>：</p>
 <ul>
 <li>手续费的一部分用于开发基金，支持平台的持续发展和功能改进。</li>
-</ul></li>
 </ul>
-<hr />
-<h2 id="六总结">六、总结</h2>
-<p><strong>Gains Network</strong>
-作为一个去中心化的多元合成资产交易平台，通过支持多种资产类别和高杠杆交易，为用户提供了丰富的交易机会。其独特的代币经济模型和机制设计，旨在在交易者和流动性提供者之间建立平衡。然而，平台也面临着诸如
-<strong>死亡螺旋风险、预言机安全、资金流动性</strong> 等挑战。</p>
-<p>与 <strong>GMX</strong> 相比，Gains Network
-在资产支持和机制设计上有明显的差异。GMX 的 GLP
-机制和资产多样化，可能在风险管理上更为稳健。对于用户而言，选择哪个平台取决于其风险偏好和交易需求。</p>
+</li>
+</ul>
+<hr>
+<h2 id="六、总结">六、总结</h2>
+<p><strong>Gains Network</strong> 作为一个去中心化的多元合成资产交易平台，通过支持多种资产类别和高杠杆交易，为用户提供了丰富的交易机会。其独特的代币经济模型和机制设计，旨在在交易者和流动性提供者之间建立平衡。然而，平台也面临着诸如 <strong>死亡螺旋风险、预言机安全、资金流动性</strong> 等挑战。</p>
+<p>与 <strong>GMX</strong> 相比，Gains Network 在资产支持和机制设计上有明显的差异。GMX 的 GLP 机制和资产多样化，可能在风险管理上更为稳健。对于用户而言，选择哪个平台取决于其风险偏好和交易需求。</p>
 <p><strong>风险提示</strong>：高杠杆交易具有极高的风险，可能导致本金的快速损失。用户在参与交易前应充分了解相关风险，谨慎决策。</p>
-<hr />
+<hr>
 <h2 id="参考资料">参考资料</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://gains.trade/">Gains Network 官方网站</a></li>
@@ -540,10 +576,9 @@ GNS。</li>
 <li><a target="_blank" rel="noopener" href="https://gmxio.gitbook.io/gmx/">GMX 白皮书</a></li>
 <li><a target="_blank" rel="noopener" href="https://chain.link/">Chainlink 预言机机制</a></li>
 <li><a target="_blank" rel="noopener" href="https://defirate.com/lending/">DeFi 借贷协议分析</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://research.binance.com/">区块链预言机安全性研究</a></li>
+<li><a target="_blank" rel="noopener" href="https://research.binance.com/">区块链预言机安全性研究</a></li>
 </ul>
-<hr />
+<hr>
 <p><strong>免责声明</strong>：本文仅供信息交流，不构成任何投资建议。数字货币交易具有高风险，投资者应充分了解风险，自行承担责任。</p>
 
                 

@@ -73,7 +73,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":"G-R246FK9TNM"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -99,6 +99,20 @@
     </script>
   
 
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-R246FK9TNM", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-R246FK9TNM');
+        });
+      }
+    </script>
   
 
   
@@ -312,178 +326,167 @@
             
               <div class="markdown-body">
                 
-                <h1 id="lyra-深度解析去中心化期权-amm-协议">Lyra 深度解析：去中心化期权
-AMM 协议</h1>
+                <h1>Lyra 深度解析：去中心化期权 AMM 协议</h1>
 <h2 id="引言">引言</h2>
-<p><strong>Lyra</strong> 是建立在以太坊二层网络 Optimism
-上的首个去中心化期权自动做市商（AMM）协议，旨在为用户提供高效、低滑点的期权交易。通过利用
-Black-Scholes 期权定价模型和动态调整的隐含波动率（Implied Volatility,
-IV），Lyra
-实现了对期权价格的合理定价，同时为流动性提供者（LP）和交易者提供了参与市场的机会。</p>
-<p>本文将深入探讨 Lyra 的工作原理、期权定价机制、市场做市商金库（Market
-Maker
-Vaults）、风险管理策略、收益与激励机制，以及其在去中心化金融（DeFi）生态系统中的角色。</p>
-<h2 id="一期权定价机制">一、期权定价机制</h2>
-<h3 id="black-scholes-期权定价模型">1. Black-Scholes 期权定价模型</h3>
-<p>Lyra 使用经典的 <strong>Black-Scholes 模型</strong>
-来定价期权。该模型基于以下五个关键输入：</p>
-<ol type="1">
+<p><strong>Lyra</strong> 是建立在以太坊二层网络 Optimism 上的首个去中心化期权自动做市商（AMM）协议，旨在为用户提供高效、低滑点的期权交易。通过利用 Black-Scholes 期权定价模型和动态调整的隐含波动率（Implied Volatility, IV），Lyra 实现了对期权价格的合理定价，同时为流动性提供者（LP）和交易者提供了参与市场的机会。</p>
+<p>本文将深入探讨 Lyra 的工作原理、期权定价机制、市场做市商金库（Market Maker Vaults）、风险管理策略、收益与激励机制，以及其在去中心化金融（DeFi）生态系统中的角色。</p>
+<h2 id="一、期权定价机制">一、期权定价机制</h2>
+<h3 id="1-Black-Scholes-期权定价模型">1. Black-Scholes 期权定价模型</h3>
+<p>Lyra 使用经典的 <strong>Black-Scholes 模型</strong> 来定价期权。该模型基于以下五个关键输入：</p>
+<ol>
 <li><strong>标的资产价格</strong>：当前市场价格。</li>
 <li><strong>执行价格</strong>：期权合同中约定的买入或卖出价格。</li>
 <li><strong>无风险利率</strong>：通常设定为接近零。</li>
 <li><strong>到期时间</strong>：期权距离到期的时间长度。</li>
 <li><strong>隐含波动率（IV）</strong>：市场对标的资产未来波动性的预期。</li>
 </ol>
-<p>在这五个输入中，前四个都是已知或可观测的，唯有
-<strong>隐含波动率</strong>
-是不可直接观测的，需要通过市场价格反推。实际上，交易者在交易中真正关注和交易的是隐含波动率。</p>
-<h3 id="lyra-对隐含波动率的处理">2. Lyra 对隐含波动率的处理</h3>
-<p>为了使期权 AMM 的定价合理，Lyra
-需要动态调整隐含波动率，使其收敛到市场的出清价格。Lyra 的方法是：</p>
+<p>在这五个输入中，前四个都是已知或可观测的，唯有 <strong>隐含波动率</strong> 是不可直接观测的，需要通过市场价格反推。实际上，交易者在交易中真正关注和交易的是隐含波动率。</p>
+<h3 id="2-Lyra-对隐含波动率的处理">2. Lyra 对隐含波动率的处理</h3>
+<p>为了使期权 AMM 的定价合理，Lyra 需要动态调整隐含波动率，使其收敛到市场的出清价格。Lyra 的方法是：</p>
 <ul>
-<li><p><strong>隐含波动率的计算</strong>：</p>
-<p><span class="math display">\[
-\text{IV Input} = \text{Baseline IV} \times \text{Strike Volatility
-Ratio}
-\]</span></p></li>
-<li><p><strong>基准隐含波动率（Baseline
-IV）</strong>：在每个期权系列（Board）初始化时设定，通常根据历史波动率得出。</p></li>
-<li><p><strong>行权价波动率比率（Strike Volatility
-Ratio）</strong>：在每个期权合约（Listing）创建时设定，用于调整不同执行价格的隐含波动率。</p></li>
+<li>
+<p><strong>隐含波动率的计算</strong>：</p>
+<p>$$<br>
+\text{IV Input} = \text{Baseline IV} \times \text{Strike Volatility Ratio}<br>
+$$</p>
+</li>
+<li>
+<p><strong>基准隐含波动率（Baseline IV）</strong>：在每个期权系列（Board）初始化时设定，通常根据历史波动率得出。</p>
+</li>
+<li>
+<p><strong>行权价波动率比率（Strike Volatility Ratio）</strong>：在每个期权合约（Listing）创建时设定，用于调整不同执行价格的隐含波动率。</p>
+</li>
 </ul>
-<p>当交易发生时，Lyra 会根据交易的方向和规模，对 Baseline IV 和 Strike
-Volatility Ratio 进行调整，从而使期权价格反映市场供需情况。</p>
-<h2
-id="二市场做市商金库market-maker-vaults-mmv">二、市场做市商金库（Market
-Maker Vaults, MMV）</h2>
-<h3 id="mmv-的作用">1. MMV 的作用</h3>
-<p>MMV 是 Lyra
-协议中的核心组成部分，充当期权交易的流动性池。用户可以通过存入
-<strong>sUSD</strong>（Synthetix 的美元稳定币）来为 MMV 提供流动性。每个
-MMV 只针对单一的标的资产。目前，Lyra 支持 <strong>ETH</strong>
-期权，未来将推出
-<strong>BTC</strong>、<strong>AVAX</strong>、<strong>SOL</strong>
-等资产的期权。</p>
-<h3 id="lp-的参与方式">2. LP 的参与方式</h3>
+<p>当交易发生时，Lyra 会根据交易的方向和规模，对 Baseline IV 和 Strike Volatility Ratio 进行调整，从而使期权价格反映市场供需情况。</p>
+<h2 id="二、市场做市商金库（Market-Maker-Vaults-MMV）">二、市场做市商金库（Market Maker Vaults, MMV）</h2>
+<h3 id="1-MMV-的作用">1. MMV 的作用</h3>
+<p>MMV 是 Lyra 协议中的核心组成部分，充当期权交易的流动性池。用户可以通过存入 <strong>sUSD</strong>（Synthetix 的美元稳定币）来为 MMV 提供流动性。每个 MMV 只针对单一的标的资产。目前，Lyra 支持 <strong>ETH</strong> 期权，未来将推出 <strong>BTC</strong>、<strong>AVAX</strong>、<strong>SOL</strong> 等资产的期权。</p>
+<h3 id="2-LP-的参与方式">2. LP 的参与方式</h3>
 <ul>
-<li><p><strong>存款与取款</strong>：</p>
+<li>
+<p><strong>存款与取款</strong>：</p>
 <ul>
-<li>LP 可以在签署后 <strong>3 天或 7
-天</strong>（视具体情况而定）将资金存入或提取出金库。</li>
+<li>LP 可以在签署后 <strong>3 天或 7 天</strong>（视具体情况而定）将资金存入或提取出金库。</li>
 <li>流程：
-<ol type="1">
+<ol>
 <li><strong>签名</strong>：LP 表示他们计划存入或提取资金。</li>
-<li><strong>等待期</strong>：3/7 天后，协议计算金库的净资产价值（NAV）和
-LP 代币的总流通量。</li>
-<li><strong>铸造/销毁 LP 代币</strong>：根据 NAV，铸造或销毁相应数量的
-LP 代币。</li>
-</ol></li>
-</ul></li>
-<li><p><strong>保护机制</strong>：</p>
+<li><strong>等待期</strong>：3/7 天后，协议计算金库的净资产价值（NAV）和 LP 代币的总流通量。</li>
+<li><strong>铸造/销毁 LP 代币</strong>：根据 NAV，铸造或销毁相应数量的 LP 代币。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>保护机制</strong>：</p>
 <p>为了保护现有的 LP，Lyra 实施了以下措施：</p>
-<ol type="1">
-<li><strong>流动性保护</strong>：确保金库至少有 <strong>5%</strong>
-的净资产价值是流动的，以满足交易需求。</li>
+<ol>
+<li><strong>流动性保护</strong>：确保金库至少有 <strong>5%</strong> 的净资产价值是流动的，以满足交易需求。</li>
 <li><strong>波动性保护</strong>：确保期权价格合理，接近市场价值。当市场出现剧烈波动时，可能冻结存款或取款。</li>
 </ol>
-<p>如果上述任何一个条件不满足，存款或取款将被冻结。条件恢复正常后，存款或取款会有一个冷却期（流动性问题为
-<strong>3 天</strong>，波动性问题为 <strong>1.5 天</strong>）。</p>
+<p>如果上述任何一个条件不满足，存款或取款将被冻结。条件恢复正常后，存款或取款会有一个冷却期（流动性问题为 <strong>3 天</strong>，波动性问题为 <strong>1.5 天</strong>）。</p>
 <ul>
-<li><strong>守护者组织</strong>：为了避免资金长期冻结，Lyra 设立了一个由
-<strong>7 个多签成员</strong>
-组成的守护者组织，可以批准已经等待足够长时间的资金操作。</li>
-</ul></li>
+<li><strong>守护者组织</strong>：为了避免资金长期冻结，Lyra 设立了一个由 <strong>7 个多签成员</strong> 组成的守护者组织，可以批准已经等待足够长时间的资金操作。</li>
 </ul>
-<h3 id="lp-面临的风险">3. LP 面临的风险</h3>
-<ul>
-<li><p><strong>Delta
-风险</strong>：与标的资产价格变化相关的风险。当标的资产价格波动时，金库的资产价值会受到影响。</p></li>
-<li><p><strong>Vega
-风险</strong>：与隐含波动率变化相关的风险。期权价格对隐含波动率敏感，波动率的变化会影响期权的定价。</p></li>
+</li>
 </ul>
-<h3 id="风险管理策略">4. 风险管理策略</h3>
+<h3 id="3-LP-面临的风险">3. LP 面临的风险</h3>
 <ul>
-<li><p><strong>Delta 中性策略</strong>：Lyra 旨在使 AMM 接近
-<strong>Delta 中性</strong>，以减少标的资产价格波动带来的风险。当在 Lyra
-上发生交易时，协议会通过 <strong>Synthetix</strong>
-平台自动对冲相关资产。</p>
-<ul>
-<li><strong>对冲频率</strong>：为了平衡对冲成本和风险，Lyra 每 <strong>6
-小时</strong> 进行一次对冲操作。这也防止了过度对冲。</li>
-</ul></li>
-<li><p><strong>Vega 风险管理</strong>：对于增加 Vega 风险的交易，Lyra
-会收取额外的费用，以抑制此类交易的过度发生。</p></li>
-<li><p><strong>交易限制</strong>：</p>
-<ol type="1">
-<li><strong>到期时间限制</strong>：交易者不允许交易距离到期时间小于
-<strong>12 小时</strong> 的期权，防止 Gamma 风险过高。</li>
-<li><strong>Delta 限制</strong>：交易者不允许交易 Delta
-超过指定阈值的期权，防止过度暴露于标的资产价格变动。</li>
-</ol></li>
+<li>
+<p><strong>Delta 风险</strong>：与标的资产价格变化相关的风险。当标的资产价格波动时，金库的资产价值会受到影响。</p>
+</li>
+<li>
+<p><strong>Vega 风险</strong>：与隐含波动率变化相关的风险。期权价格对隐含波动率敏感，波动率的变化会影响期权的定价。</p>
+</li>
 </ul>
-<h2 id="三lyra-的依赖与潜在风险">三、Lyra 的依赖与潜在风险</h2>
-<h3 id="依赖性">1. 依赖性</h3>
+<h3 id="4-风险管理策略">4. 风险管理策略</h3>
 <ul>
-<li><p><strong>Optimism（OP）链</strong>：Lyra 建立在 Optimism
-二层网络上，依赖其性能和稳定性。</p></li>
-<li><p><strong>Chainlink</strong>：作为预言机，提供标的资产价格和其他关键数据。</p></li>
-<li><p><strong>Synthetix</strong>：用于实现自动对冲和获得合成资产。</p></li>
+<li>
+<p><strong>Delta 中性策略</strong>：Lyra 旨在使 AMM 接近 <strong>Delta 中性</strong>，以减少标的资产价格波动带来的风险。当在 Lyra 上发生交易时，协议会通过 <strong>Synthetix</strong> 平台自动对冲相关资产。</p>
+<ul>
+<li><strong>对冲频率</strong>：为了平衡对冲成本和风险，Lyra 每 <strong>6 小时</strong> 进行一次对冲操作。这也防止了过度对冲。</li>
 </ul>
-<h3 id="潜在风险">2. 潜在风险</h3>
-<ol type="1">
-<li><p><strong>依赖性风险</strong>：对 Optimism、Chainlink 和 Synthetix
-的依赖，可能导致在这些平台出现问题时，Lyra 的功能受到影响。</p></li>
-<li><p><strong>机制和技术错误</strong>：任何协议设计上的缺陷或技术实现错误都可能导致资金损失。</p></li>
-<li><p><strong>智能合约风险</strong>：智能合约可能存在漏洞，可能被恶意攻击者利用。</p></li>
-<li><p><strong>结算风险</strong>：在极端市场条件下，可能出现无法及时结算或对冲失败的情况。</p></li>
+</li>
+<li>
+<p><strong>Vega 风险管理</strong>：对于增加 Vega 风险的交易，Lyra 会收取额外的费用，以抑制此类交易的过度发生。</p>
+</li>
+<li>
+<p><strong>交易限制</strong>：</p>
+<ol>
+<li><strong>到期时间限制</strong>：交易者不允许交易距离到期时间小于 <strong>12 小时</strong> 的期权，防止 Gamma 风险过高。</li>
+<li><strong>Delta 限制</strong>：交易者不允许交易 Delta 超过指定阈值的期权，防止过度暴露于标的资产价格变动。</li>
 </ol>
-<h2 id="四收益与激励机制">四、收益与激励机制</h2>
-<h3 id="流动性提供者lp的收益">1. 流动性提供者（LP）的收益</h3>
-<ul>
-<li><p><strong>存入 sUSD</strong>：LP 通过存入
-sUSD，为期权交易提供流动性。</p></li>
-<li><p><strong>年化收益率（APY）</strong>：约 <strong>18%</strong>，由
-<strong>LYRA</strong> 和 <strong>OP</strong> 代币奖励组成。</p></li>
-<li><p><strong>奖励发放</strong>：赚取的 LYRA 将在每个纪元结束时以
-<strong>stkLYRA</strong> 的形式分配。</p></li>
+</li>
 </ul>
-<h3 id="质押者的收益">2. 质押者的收益</h3>
+<h2 id="三、Lyra-的依赖与潜在风险">三、Lyra 的依赖与潜在风险</h2>
+<h3 id="1-依赖性">1. 依赖性</h3>
 <ul>
-<li><p><strong>质押 LYRA</strong>：持有 LYRA
-的用户可以质押代币，获得奖励。</p></li>
-<li><p><strong>年化收益率（APY）</strong>：约
-<strong>18%</strong>，同样由 LYRA 和 OP 代币奖励组成。</p></li>
-<li><p><strong>奖励托管</strong>：赚取的 LYRA 将被托管 <strong>182
-天</strong>，然后以 stkLYRA 的形式发放。</p></li>
+<li>
+<p><strong>Optimism（OP）链</strong>：Lyra 建立在 Optimism 二层网络上，依赖其性能和稳定性。</p>
+</li>
+<li>
+<p><strong>Chainlink</strong>：作为预言机，提供标的资产价格和其他关键数据。</p>
+</li>
+<li>
+<p><strong>Synthetix</strong>：用于实现自动对冲和获得合成资产。</p>
+</li>
 </ul>
-<h3 id="流动性提供lp激励">3. 流动性提供（LP）激励</h3>
+<h3 id="2-潜在风险">2. 潜在风险</h3>
+<ol>
+<li>
+<p><strong>依赖性风险</strong>：对 Optimism、Chainlink 和 Synthetix 的依赖，可能导致在这些平台出现问题时，Lyra 的功能受到影响。</p>
+</li>
+<li>
+<p><strong>机制和技术错误</strong>：任何协议设计上的缺陷或技术实现错误都可能导致资金损失。</p>
+</li>
+<li>
+<p><strong>智能合约风险</strong>：智能合约可能存在漏洞，可能被恶意攻击者利用。</p>
+</li>
+<li>
+<p><strong>结算风险</strong>：在极端市场条件下，可能出现无法及时结算或对冲失败的情况。</p>
+</li>
+</ol>
+<h2 id="四、收益与激励机制">四、收益与激励机制</h2>
+<h3 id="1-流动性提供者（LP）的收益">1. 流动性提供者（LP）的收益</h3>
 <ul>
-<li><strong>LYRA-ETH 池子</strong>：在 Uniswap v3 上提供 LYRA-ETH
-的流动性，可以获得额外的收益。</li>
+<li>
+<p><strong>存入 sUSD</strong>：LP 通过存入 sUSD，为期权交易提供流动性。</p>
+</li>
+<li>
+<p><strong>年化收益率（APY）</strong>：约 <strong>18%</strong>，由 <strong>LYRA</strong> 和 <strong>OP</strong> 代币奖励组成。</p>
+</li>
+<li>
+<p><strong>奖励发放</strong>：赚取的 LYRA 将在每个纪元结束时以 <strong>stkLYRA</strong> 的形式分配。</p>
+</li>
 </ul>
-<h2 id="五总结">五、总结</h2>
-<p>Lyra 作为去中心化期权 AMM
-协议，通过引入动态调整的隐含波动率和自动对冲机制，实现了期权的合理定价和风险管理。其市场做市商金库（MMV）为
-LP 提供了参与期权市场的机会，同时通过各种保护措施和激励机制，保障了 LP
-的利益。</p>
-<p>然而，Lyra
-也面临着一定的挑战，包括对外部协议的依赖、技术和智能合约风险等。对于投资者和用户而言，了解
-Lyra 的工作原理、收益机制和潜在风险，能够帮助他们做出更明智的决策。</p>
+<h3 id="2-质押者的收益">2. 质押者的收益</h3>
+<ul>
+<li>
+<p><strong>质押 LYRA</strong>：持有 LYRA 的用户可以质押代币，获得奖励。</p>
+</li>
+<li>
+<p><strong>年化收益率（APY）</strong>：约 <strong>18%</strong>，同样由 LYRA 和 OP 代币奖励组成。</p>
+</li>
+<li>
+<p><strong>奖励托管</strong>：赚取的 LYRA 将被托管 <strong>182 天</strong>，然后以 stkLYRA 的形式发放。</p>
+</li>
+</ul>
+<h3 id="3-流动性提供（LP）激励">3. 流动性提供（LP）激励</h3>
+<ul>
+<li><strong>LYRA-ETH 池子</strong>：在 Uniswap v3 上提供 LYRA-ETH 的流动性，可以获得额外的收益。</li>
+</ul>
+<h2 id="五、总结">五、总结</h2>
+<p>Lyra 作为去中心化期权 AMM 协议，通过引入动态调整的隐含波动率和自动对冲机制，实现了期权的合理定价和风险管理。其市场做市商金库（MMV）为 LP 提供了参与期权市场的机会，同时通过各种保护措施和激励机制，保障了 LP 的利益。</p>
+<p>然而，Lyra 也面临着一定的挑战，包括对外部协议的依赖、技术和智能合约风险等。对于投资者和用户而言，了解 Lyra 的工作原理、收益机制和潜在风险，能够帮助他们做出更明智的决策。</p>
 <h2 id="参考资料">参考资料</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.lyra.finance/">Lyra 官方网站</a></li>
 <li><a target="_blank" rel="noopener" href="https://docs.lyra.finance/">Lyra 文档</a></li>
-<li><a target="_blank" rel="noopener" href="https://docs.lyra.finance/overview/whitepaper">Lyra
-白皮书</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.lyra.finance/overview/whitepaper">Lyra 白皮书</a></li>
 <li><a target="_blank" rel="noopener" href="https://synthetix.io/">Synthetix 官方网站</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.optimism.io/">Optimism 官方网站</a></li>
 <li><a target="_blank" rel="noopener" href="https://chain.link/">Chainlink 官方网站</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model">Black-Scholes
-期权定价模型</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://consensys.github.io/smart-contract-best-practices/">DeFi
-安全最佳实践</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model">Black-Scholes 期权定价模型</a></li>
+<li><a target="_blank" rel="noopener" href="https://consensys.github.io/smart-contract-best-practices/">DeFi 安全最佳实践</a></li>
 </ul>
 
                 

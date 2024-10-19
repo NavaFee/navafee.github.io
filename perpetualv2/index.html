@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":"G-R246FK9TNM"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -101,6 +101,20 @@
     </script>
   
 
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-R246FK9TNM", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-R246FK9TNM');
+        });
+      }
+    </script>
   
 
   
@@ -314,220 +328,156 @@
             
               <div class="markdown-body">
                 
-                <h1 id="perpetual-protocol-v2-深度解析">Perpetual Protocol V2
-深度解析</h1>
+                <h1>Perpetual Protocol V2 深度解析</h1>
 <h2 id="引言">引言</h2>
-<p>Perpetual Protocol
-是一个去中心化的永续合约交易平台，与中心化交易所不同，它
-<strong>不保管用户的资金</strong>，用户始终对自己的资产拥有完全的控制权。最重要的是，Perpetual
-Protocol 允许用户以 <strong>无需许可</strong> 且
-<strong>完全透明</strong> 的方式进行交易。目前，Perpetual Protocol 使用
-<strong>USDC 稳定币</strong>
-作为主要的抵押品，未来将扩展到其他类型的抵押品。</p>
-<p>Perpetual Protocol V2
-对初始设计进行了迭代，引入了一种新的管理头寸和执行交易的模型，该模型利用了
-<strong>Uniswap V3</strong> 及其
-<strong>集中的流动性</strong>。本文将深入探讨 Perpetual Protocol V2
-的核心机制、与 V1 的主要区别，以及常见的三种交易场景。</p>
-<h2 id="一perpetual-protocol-v2-的核心机制">一、Perpetual Protocol V2
-的核心机制</h2>
-<h3 id="集成-uniswap-v3-的集中流动性">1. 集成 Uniswap V3
-的集中流动性</h3>
-<p>Perpetual Protocol V2 利用了 Uniswap V3
-的集中流动性特性，使得资金的利用率大大提高。V1
-中使用的虚拟自动做市商（vAMM）逻辑现在在 Uniswap V3
-上运行，提供了更高效的交易体验。</p>
-<h3 id="杠杆流动性提供者leveraged-lps">2. 杠杆流动性提供者（Leveraged
-LPs）</h3>
-<p>在 V2 中，引入了 <strong>杠杆流动性提供者（Leveraged LPs）</strong>
-的概念，允许 LP 在提供一定数量的抵押品（如 USDC）的基础上，获得最高达
-<strong>10 倍杠杆</strong> 的虚拟资产。这使得 LP
-可以在系统内放置更多的流动性，提高资金利用率。</p>
-<h4 id="示例">示例：</h4>
+<p>Perpetual Protocol 是一个去中心化的永续合约交易平台，与中心化交易所不同，它 <strong>不保管用户的资金</strong>，用户始终对自己的资产拥有完全的控制权。最重要的是，Perpetual Protocol 允许用户以 <strong>无需许可</strong> 且 <strong>完全透明</strong> 的方式进行交易。目前，Perpetual Protocol 使用 <strong>USDC 稳定币</strong> 作为主要的抵押品，未来将扩展到其他类型的抵押品。</p>
+<p>Perpetual Protocol V2 对初始设计进行了迭代，引入了一种新的管理头寸和执行交易的模型，该模型利用了 <strong>Uniswap V3</strong> 及其 <strong>集中的流动性</strong>。本文将深入探讨 Perpetual Protocol V2 的核心机制、与 V1 的主要区别，以及常见的三种交易场景。</p>
+<h2 id="一、Perpetual-Protocol-V2-的核心机制">一、Perpetual Protocol V2 的核心机制</h2>
+<h3 id="1-集成-Uniswap-V3-的集中流动性">1. 集成 Uniswap V3 的集中流动性</h3>
+<p>Perpetual Protocol V2 利用了 Uniswap V3 的集中流动性特性，使得资金的利用率大大提高。V1 中使用的虚拟自动做市商（vAMM）逻辑现在在 Uniswap V3 上运行，提供了更高效的交易体验。</p>
+<h3 id="2-杠杆流动性提供者（Leveraged-LPs）">2. 杠杆流动性提供者（Leveraged LPs）</h3>
+<p>在 V2 中，引入了 <strong>杠杆流动性提供者（Leveraged LPs）</strong> 的概念，允许 LP 在提供一定数量的抵押品（如 USDC）的基础上，获得最高达 <strong>10 倍杠杆</strong> 的虚拟资产。这使得 LP 可以在系统内放置更多的流动性，提高资金利用率。</p>
+<h4 id="示例：">示例：</h4>
 <ul>
-<li><strong>初始资金</strong>：LP 向清算所（Clearing House）提供
-<strong>1,000 USDC</strong> 作为抵押品。</li>
-<li><strong>杠杆倍数</strong>：使用 <strong>10 倍杠杆</strong>，LP 获得
-<strong>10,000 vUSDC</strong> 的信用额度。</li>
-<li><strong>资产分配</strong>：LP 可以将这 <strong>10,000 vUSDC</strong>
-分配到不同的资产和价格区间。例如：
+<li><strong>初始资金</strong>：LP 向清算所（Clearing House）提供 <strong>1,000 USDC</strong> 作为抵押品。</li>
+<li><strong>杠杆倍数</strong>：使用 <strong>10 倍杠杆</strong>，LP 获得 <strong>10,000 vUSDC</strong> 的信用额度。</li>
+<li><strong>资产分配</strong>：LP 可以将这 <strong>10,000 vUSDC</strong> 分配到不同的资产和价格区间。例如：
 <ul>
 <li><strong>5,000 vUSDC</strong> 保持为 vUSDC。</li>
-<li><strong>5,000 vUSDC</strong> 按照预言机价格兑换为
-<strong>vETH</strong>（假设 ETH 价格为 2,500 USDC，则获得 2
-vETH）。</li>
-</ul></li>
-<li><strong>添加流动性</strong>：LP 可以根据自己的做市策略，将这些
-v-token 分配到 Uniswap V3 上的相应价格区间。</li>
+<li><strong>5,000 vUSDC</strong> 按照预言机价格兑换为 <strong>vETH</strong>（假设 ETH 价格为 2,500 USDC，则获得 2 vETH）。</li>
 </ul>
-<h2 id="二v2-相较于-v1-的主要变动">二、V2 相较于 V1 的主要变动</h2>
-<p><img src="../img/perpetualv2/image.png" srcset="/img/loading.gif" lazyload /></p>
-<h3 id="流动性来源的变化">1. 流动性来源的变化</h3>
+</li>
+<li><strong>添加流动性</strong>：LP 可以根据自己的做市策略，将这些 v-token 分配到 Uniswap V3 上的相应价格区间。</li>
+</ul>
+<h2 id="二、V2-相较于-V1-的主要变动">二、V2 相较于 V1 的主要变动</h2>
+<p><img src="../img/perpetualv2/image.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<h3 id="1-流动性来源的变化">1. 流动性来源的变化</h3>
 <ul>
-<li><strong>V1：</strong> 使用内部的
-vAMM，为交易者提供流动性，价格由内部算法决定。</li>
-<li><strong>V2：</strong> 利用 Uniswap V3 的真实 AMM，交易者的订单直接在
-Uniswap V3 上执行，价格更具市场性。</li>
+<li><strong>V1：</strong> 使用内部的 vAMM，为交易者提供流动性，价格由内部算法决定。</li>
+<li><strong>V2：</strong> 利用 Uniswap V3 的真实 AMM，交易者的订单直接在 Uniswap V3 上执行，价格更具市场性。</li>
 </ul>
-<h3 id="资金效率的提升">2. 资金效率的提升</h3>
+<h3 id="2-资金效率的提升">2. 资金效率的提升</h3>
 <ul>
-<li><strong>V1：</strong>
-流动性提供者无法获得交易手续费，且资金利用率较低。</li>
-<li><strong>V2：</strong> 引入杠杆 LP，LP
-可以获得交易手续费，并且通过杠杆机制提高资金利用率。</li>
+<li><strong>V1：</strong> 流动性提供者无法获得交易手续费，且资金利用率较低。</li>
+<li><strong>V2：</strong> 引入杠杆 LP，LP 可以获得交易手续费，并且通过杠杆机制提高资金利用率。</li>
 </ul>
-<h3 id="风险管理的改进">3. 风险管理的改进</h3>
+<h3 id="3-风险管理的改进">3. 风险管理的改进</h3>
 <ul>
-<li><strong>价格风险：</strong> 由于 V2 直接与 Uniswap V3
-集成，价格更为准确，减少了价格操纵的可能性。</li>
-<li><strong>清算机制：</strong> V2
-引入了更严格的清算机制，保护系统的安全性。</li>
+<li><strong>价格风险：</strong> 由于 V2 直接与 Uniswap V3 集成，价格更为准确，减少了价格操纵的可能性。</li>
+<li><strong>清算机制：</strong> V2 引入了更严格的清算机制，保护系统的安全性。</li>
 </ul>
-<h2 id="三交易场景解析">三、交易场景解析</h2>
-<h3
-id="场景一交易者开立多头头寸"><strong>场景一：交易者开立多头头寸</strong></h3>
-<p><img src="../img/perpetualv2/image-1.png" srcset="/img/loading.gif" lazyload /></p>
-<h4 id="步骤">步骤：</h4>
-<ol type="1">
-<li><strong>抵押 USDC</strong>：交易者将 USDC 存入 Perpetual Protocol
-作为初始保证金。</li>
-<li><strong>选择杠杆倍数</strong>：交易者选择所需的杠杆倍数（例如 5
-倍）。</li>
-<li><strong>开立多头头寸</strong>：交易者在 Perpetual Protocol 上开立
-ETH 的多头头寸。</li>
-<li><strong>订单执行</strong>：协议在 Uniswap V3
-上为交易者执行订单，购买相应数量的 vETH。</li>
+<h2 id="三、交易场景解析">三、交易场景解析</h2>
+<h3 id="场景一：交易者开立多头头寸"><strong>场景一：交易者开立多头头寸</strong></h3>
+<p><img src="../img/perpetualv2/image-1.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<h4 id="步骤：">步骤：</h4>
+<ol>
+<li><strong>抵押 USDC</strong>：交易者将 USDC 存入 Perpetual Protocol 作为初始保证金。</li>
+<li><strong>选择杠杆倍数</strong>：交易者选择所需的杠杆倍数（例如 5 倍）。</li>
+<li><strong>开立多头头寸</strong>：交易者在 Perpetual Protocol 上开立 ETH 的多头头寸。</li>
+<li><strong>订单执行</strong>：协议在 Uniswap V3 上为交易者执行订单，购买相应数量的 vETH。</li>
 <li><strong>头寸管理</strong>：交易者的头寸由清算所管理，实时监控保证金和杠杆率。</li>
 </ol>
-<h4 id="关键点">关键点：</h4>
+<h4 id="关键点：">关键点：</h4>
 <ul>
-<li><strong>价格执行</strong>：交易价格基于 Uniswap V3
-的价格，提高了价格的透明度和准确性。</li>
+<li><strong>价格执行</strong>：交易价格基于 Uniswap V3 的价格，提高了价格的透明度和准确性。</li>
 <li><strong>保证金要求</strong>：系统会根据杠杆倍数和头寸大小，计算所需的初始保证金。</li>
 <li><strong>风险控制</strong>：如果头寸的未实现损益导致保证金率低于维持保证金要求，可能会触发清算。</li>
 </ul>
-<h3
-id="场景二在标记价格之上提供流动性"><strong>场景二：在标记价格之上提供流动性</strong></h3>
-<p><img src="../img/perpetualv2/image-2.png" srcset="/img/loading.gif" lazyload /></p>
-<h4 id="背景">背景：</h4>
+<h3 id="场景二：在标记价格之上提供流动性"><strong>场景二：在标记价格之上提供流动性</strong></h3>
+<p><img src="../img/perpetualv2/image-2.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<h4 id="背景：">背景：</h4>
 <ul>
-<li><strong>标记价格（Mark Price）</strong>：当前市场上 ETH 的价格，例如
-2,500 USDC。</li>
-<li>LP 认为 ETH 的价格将会上涨，想要在价格区间 <strong>[2,500 USDC,
-3,000 USDC]</strong> 提供流动性。</li>
+<li><strong>标记价格（Mark Price）</strong>：当前市场上 ETH 的价格，例如 2,500 USDC。</li>
+<li>LP 认为 ETH 的价格将会上涨，想要在价格区间 <strong>[2,500 USDC, 3,000 USDC]</strong> 提供流动性。</li>
 </ul>
-<h4 id="步骤-1">步骤：</h4>
-<ol type="1">
-<li><strong>抵押 USDC</strong>：LP 存入 <strong>1,000 USDC</strong>
-作为抵押品。</li>
-<li><strong>选择杠杆倍数</strong>：LP 选择 <strong>5
-倍杠杆</strong>，获得 <strong>5,000 vUSDC</strong> 的信用额度。</li>
+<h4 id="步骤：-2">步骤：</h4>
+<ol>
+<li><strong>抵押 USDC</strong>：LP 存入 <strong>1,000 USDC</strong> 作为抵押品。</li>
+<li><strong>选择杠杆倍数</strong>：LP 选择 <strong>5 倍杠杆</strong>，获得 <strong>5,000 vUSDC</strong> 的信用额度。</li>
 <li><strong>资产配置</strong>：
 <ul>
-<li><strong>5,000 vUSDC</strong> 全部兑换为 vETH，按照当前价格获得
-<strong>2 vETH</strong>。</li>
-</ul></li>
-<li><strong>设置价格区间</strong>：LP 将 <strong>2 vETH</strong> 放置在
-<strong>[2,500 USDC, 3,000 USDC]</strong> 的价格区间内。</li>
-<li><strong>添加流动性</strong>：LP 在 Uniswap V3
-上的相应价格区间内提供流动性。</li>
+<li><strong>5,000 vUSDC</strong> 全部兑换为 vETH，按照当前价格获得 <strong>2 vETH</strong>。</li>
+</ul>
+</li>
+<li><strong>设置价格区间</strong>：LP 将 <strong>2 vETH</strong> 放置在 <strong>[2,500 USDC, 3,000 USDC]</strong> 的价格区间内。</li>
+<li><strong>添加流动性</strong>：LP 在 Uniswap V3 上的相应价格区间内提供流动性。</li>
 </ol>
-<h4 id="预期结果">预期结果：</h4>
+<h4 id="预期结果：">预期结果：</h4>
 <ul>
-<li><strong>价格上涨获利</strong>：如果 ETH 价格上涨到 3,000 USDC，LP
-可以赚取交易手续费和价差收益。</li>
-<li><strong>价格下跌风险</strong>：如果价格下跌，LP
-的头寸价值减少，但由于是在标记价格之上提供流动性，初始时 LP 并未持有
-vUSDC，因此风险相对可控。</li>
+<li><strong>价格上涨获利</strong>：如果 ETH 价格上涨到 3,000 USDC，LP 可以赚取交易手续费和价差收益。</li>
+<li><strong>价格下跌风险</strong>：如果价格下跌，LP 的头寸价值减少，但由于是在标记价格之上提供流动性，初始时 LP 并未持有 vUSDC，因此风险相对可控。</li>
 </ul>
-<h3
-id="场景三围绕标记价格添加流动性"><strong>场景三：围绕标记价格添加流动性</strong></h3>
-<p><img src="../img/perpetualv2/image-3.png" srcset="/img/loading.gif" lazyload /></p>
-<h4 id="背景-1">背景：</h4>
+<h3 id="场景三：围绕标记价格添加流动性"><strong>场景三：围绕标记价格添加流动性</strong></h3>
+<p><img src="../img/perpetualv2/image-3.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<h4 id="背景：-2">背景：</h4>
 <ul>
-<li>LP 想要在 ETH
-的当前价格附近提供流动性，以赚取更多的交易手续费。</li>
+<li>LP 想要在 ETH 的当前价格附近提供流动性，以赚取更多的交易手续费。</li>
 </ul>
-<h4 id="步骤-2">步骤：</h4>
-<ol type="1">
-<li><strong>抵押 USDC</strong>：LP 存入 <strong>2,000 USDC</strong>
-作为抵押品。</li>
-<li><strong>选择杠杆倍数</strong>：LP 选择 <strong>10
-倍杠杆</strong>，获得 <strong>20,000 vUSDC</strong> 的信用额度。</li>
+<h4 id="步骤：-3">步骤：</h4>
+<ol>
+<li><strong>抵押 USDC</strong>：LP 存入 <strong>2,000 USDC</strong> 作为抵押品。</li>
+<li><strong>选择杠杆倍数</strong>：LP 选择 <strong>10 倍杠杆</strong>，获得 <strong>20,000 vUSDC</strong> 的信用额度。</li>
 <li><strong>资产配置</strong>：
 <ul>
 <li><strong>10,000 vUSDC</strong> 保持为 vUSDC。</li>
-<li><strong>10,000 vUSDC</strong> 按照当前价格兑换为 <strong>4
-vETH</strong>（假设 ETH 价格为 2,500 USDC）。</li>
-</ul></li>
-<li><strong>设置价格区间</strong>：LP 将 <strong>vUSDC</strong> 和
-<strong>vETH</strong> 在价格区间 <strong>[2,400 USDC, 2,600
-USDC]</strong> 内提供流动性。</li>
-<li><strong>添加流动性</strong>：LP 在 Uniswap V3
-上的该价格区间内提供流动性。</li>
+<li><strong>10,000 vUSDC</strong> 按照当前价格兑换为 <strong>4 vETH</strong>（假设 ETH 价格为 2,500 USDC）。</li>
+</ul>
+</li>
+<li><strong>设置价格区间</strong>：LP 将 <strong>vUSDC</strong> 和 <strong>vETH</strong> 在价格区间 <strong>[2,400 USDC, 2,600 USDC]</strong> 内提供流动性。</li>
+<li><strong>添加流动性</strong>：LP 在 Uniswap V3 上的该价格区间内提供流动性。</li>
 </ol>
-<h4 id="预期结果-1">预期结果：</h4>
+<h4 id="预期结果：-2">预期结果：</h4>
 <ul>
-<li><strong>高手续费收益</strong>：由于交易量通常集中在当前价格附近，LP
-可以获得更多的交易手续费。</li>
-<li><strong>价格波动风险</strong>：价格向任一方向剧烈波动，可能导致无常损失，LP
-需要密切监控头寸。</li>
+<li><strong>高手续费收益</strong>：由于交易量通常集中在当前价格附近，LP 可以获得更多的交易手续费。</li>
+<li><strong>价格波动风险</strong>：价格向任一方向剧烈波动，可能导致无常损失，LP 需要密切监控头寸。</li>
 </ul>
-<h2 id="四技术细节">四、技术细节</h2>
-<h3 id="虚拟资产v-token">1. 虚拟资产（v-token）</h3>
+<h2 id="四、技术细节">四、技术细节</h2>
+<h3 id="1-虚拟资产（v-token）">1. 虚拟资产（v-token）</h3>
 <ul>
-<li><strong>vUSDC 和
-vETH</strong>：系统通过抵押品和杠杆倍数，铸造相应的虚拟资产。</li>
-<li><strong>用途</strong>：v-token 用于在 Uniswap V3 上提供流动性，代表
-LP 的头寸。</li>
+<li><strong>vUSDC 和 vETH</strong>：系统通过抵押品和杠杆倍数，铸造相应的虚拟资产。</li>
+<li><strong>用途</strong>：v-token 用于在 Uniswap V3 上提供流动性，代表 LP 的头寸。</li>
 </ul>
-<h3 id="清算所clearing-house">2. 清算所（Clearing House）</h3>
+<h3 id="2-清算所（Clearing-House）">2. 清算所（Clearing House）</h3>
 <ul>
 <li><strong>功能</strong>：管理用户的头寸和抵押品，计算风险和保证金要求。</li>
 <li><strong>风险控制</strong>：当用户的保证金率低于维持保证金要求时，清算所可以触发清算，防止系统损失。</li>
 </ul>
-<h3 id="预言机价格">3. 预言机价格</h3>
+<h3 id="3-预言机价格">3. 预言机价格</h3>
 <ul>
-<li><strong>价格来源</strong>：Perpetual Protocol
-使用预言机获取资产的标记价格，确保价格的准确性。</li>
+<li><strong>价格来源</strong>：Perpetual Protocol 使用预言机获取资产的标记价格，确保价格的准确性。</li>
 <li><strong>用途</strong>：用于头寸的估值、保证金计算和清算触发。</li>
 </ul>
-<h2 id="五风险与注意事项">五、风险与注意事项</h2>
-<h3 id="杠杆风险">1. 杠杆风险</h3>
+<h2 id="五、风险与注意事项">五、风险与注意事项</h2>
+<h3 id="1-杠杆风险">1. 杠杆风险</h3>
 <ul>
 <li><strong>高杠杆放大风险</strong>：杠杆倍数越高，价格波动对头寸的影响越大，可能导致快速爆仓。</li>
 <li><strong>谨慎选择杠杆</strong>：用户应根据自身风险承受能力，谨慎选择杠杆倍数。</li>
 </ul>
-<h3 id="价格波动风险">2. 价格波动风险</h3>
+<h3 id="2-价格波动风险">2. 价格波动风险</h3>
 <ul>
 <li><strong>市场风险</strong>：加密资产价格波动剧烈，可能导致头寸价值大幅变化。</li>
 <li><strong>风险管理</strong>：建议用户密切关注市场行情，及时调整头寸。</li>
 </ul>
-<h3 id="清算风险">3. 清算风险</h3>
+<h3 id="3-清算风险">3. 清算风险</h3>
 <ul>
 <li><strong>保证金不足</strong>：如果未实现损益导致保证金率低于维持保证金要求，头寸可能被清算。</li>
 <li><strong>避免清算</strong>：用户应保持足够的保证金，或及时追加资金。</li>
 </ul>
-<h3 id="系统风险">4. 系统风险</h3>
+<h3 id="4-系统风险">4. 系统风险</h3>
 <ul>
 <li><strong>智能合约风险</strong>：虽然合约经过审计，但仍可能存在漏洞。</li>
 <li><strong>预言机风险</strong>：价格数据可能受到攻击或异常波动，影响系统正常运行。</li>
 </ul>
-<h2 id="六总结">六、总结</h2>
-<p>Perpetual Protocol V2 通过引入 Uniswap V3 的集中流动性和杠杆 LP
-机制，大幅提高了资金利用率和交易效率。用户可以在无需许可和完全透明的环境下，进行永续合约交易和流动性提供。然而，高杠杆同时也带来了更高的风险，用户在参与前应充分了解其机制和潜在风险，谨慎决策。</p>
-<h2 id="七参考资料">七、参考资料</h2>
+<h2 id="六、总结">六、总结</h2>
+<p>Perpetual Protocol V2 通过引入 Uniswap V3 的集中流动性和杠杆 LP 机制，大幅提高了资金利用率和交易效率。用户可以在无需许可和完全透明的环境下，进行永续合约交易和流动性提供。然而，高杠杆同时也带来了更高的风险，用户在参与前应充分了解其机制和潜在风险，谨慎决策。</p>
+<h2 id="七、参考资料">七、参考资料</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://perp.com/">Perpetual Protocol 官方网站</a></li>
 <li><a target="_blank" rel="noopener" href="https://docs.perp.com/">Perpetual Protocol 文档</a></li>
 <li><a target="_blank" rel="noopener" href="https://uniswap.org/docs/v3/">Uniswap V3 官方文档</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://medium.com/perpetual-protocol/perpetual-protocol-v2-curie-is-live-on-mainnet-4b51c8b9d52d">Perpetual
-Protocol V2 发布公告</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/perpetual-protocol/perpetual-protocol-v2-curie-is-live-on-mainnet-4b51c8b9d52d">Perpetual Protocol V2 发布公告</a></li>
 <li><a target="_blank" rel="noopener" href="https://ethereum.org/developers/">以太坊开发者文档</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://consensys.github.io/smart-contract-best-practices/">DeFi
-安全最佳实践</a></li>
+<li><a target="_blank" rel="noopener" href="https://consensys.github.io/smart-contract-best-practices/">DeFi 安全最佳实践</a></li>
 </ul>
 
                 

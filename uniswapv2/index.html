@@ -75,7 +75,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"navafee.github.io.","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"e345a937271eff2c296fd61722e26396","google":{"measurement_id":"G-R246FK9TNM"},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"mEN8CgTmhUaBxq7znUAPTFGF-gzGzoHsz","app_key":"KCyhOEOuPNXKuepvfXeG8zG3","server_url":"https://navafee.github.io/","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -101,6 +101,20 @@
     </script>
   
 
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=G-R246FK9TNM", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-R246FK9TNM');
+        });
+      }
+    </script>
   
 
   
@@ -314,21 +328,17 @@
             
               <div class="markdown-body">
                 
-                <h1 id="uniswap-v2-深度解析">Uniswap V2 深度解析</h1>
+                <h1>Uniswap V2 深度解析</h1>
 <h2 id="引言">引言</h2>
-<p>Uniswap V2
-是以太坊区块链上最受欢迎的去中心化交易协议之一。它通过自动做市商（AMM）模型，允许用户无需订单簿即可进行代币交换。本篇文章将深入探讨
-Uniswap V2 的工作原理、核心数学模型、智能合约实现以及其独特的功能。</p>
-<h2 id="uniswap-v2-的工作原理">Uniswap V2 的工作原理</h2>
-<h3 id="自动做市商amm模型">自动做市商（AMM）模型</h3>
-<p>Uniswap V2 使用了 AMM 模型，通过流动性池（Liquidity
-Pool）来提供交易对。每个流动性池都包含两种 ERC20
-代币，用户可以在两者之间进行交换。</p>
+<p>Uniswap V2 是以太坊区块链上最受欢迎的去中心化交易协议之一。它通过自动做市商（AMM）模型，允许用户无需订单簿即可进行代币交换。本篇文章将深入探讨 Uniswap V2 的工作原理、核心数学模型、智能合约实现以及其独特的功能。</p>
+<h2 id="Uniswap-V2-的工作原理">Uniswap V2 的工作原理</h2>
+<h3 id="自动做市商（AMM）模型">自动做市商（AMM）模型</h3>
+<p>Uniswap V2 使用了 AMM 模型，通过流动性池（Liquidity Pool）来提供交易对。每个流动性池都包含两种 ERC20 代币，用户可以在两者之间进行交换。</p>
 <h3 id="恒定乘积公式">恒定乘积公式</h3>
 <p>Uniswap V2 的核心是恒定乘积公式：</p>
-<p><span class="math display">\[
-x \times y = k
-\]</span></p>
+<p>$$<br>
+x \times y = k<br>
+$$</p>
 <p>其中：</p>
 <ul>
 <li>( x ) 和 ( y ) 分别代表流动性池中两种代币的数量。</li>
@@ -336,31 +346,30 @@ x \times y = k
 </ul>
 <h4 id="交易曲线">交易曲线</h4>
 <p>恒定乘积公式描绘了一条双曲线，表示不同代币数量下的价格关系。</p>
-<p><img src="../img/defi/image-4.png" srcset="/img/loading.gif" lazyload /></p>
+<p><img src="../img/defi/image-4.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p><em>（图 1：Uniswap V2 恒定乘积曲线示意图）</em></p>
 <h3 id="流动性池">流动性池</h3>
-<p>用户可以通过添加等值的两种代币来提供流动性，获得流动性代币（LP
-Tokens），以此来分享交易手续费。</p>
+<p>用户可以通过添加等值的两种代币来提供流动性，获得流动性代币（LP Tokens），以此来分享交易手续费。</p>
 <h2 id="数学公式详解">数学公式详解</h2>
 <h3 id="价格计算">价格计算</h3>
 <p>交易后的代币数量可以通过以下公式计算：</p>
-<p><span class="math display">\[
-\Delta x = -\frac{k}{y + \Delta y} + x
-\]</span></p>
+<p>$$<br>
+\Delta x = -\frac{k}{y + \Delta y} + x<br>
+$$</p>
 <p>其中：</p>
 <ul>
-<li>( x ) 是交易后 x 代币的变化量。</li>
-<li>( y ) 是用户输入的 y 代币数量。</li>
+<li>( \Delta x ) 是交易后 x 代币的变化量。</li>
+<li>( \Delta y ) 是用户输入的 y 代币数量。</li>
 </ul>
 <h3 id="滑点与价格影响">滑点与价格影响</h3>
 <p>滑点（Slippage）是交易过程中价格变动带来的影响，计算方式为：</p>
-<p><span class="math display">\[
-\text{Slippage} = \left(1 - \frac{x}{x + \Delta x}\right) \times 100\%
-\]</span></p>
+<p>$$<br>
+\text{Slippage} = \left(1 - \frac{x}{x + \Delta x}\right) \times 100%<br>
+$$</p>
 <p>其中：</p>
 <ul>
 <li>( x ) 是交易前 x 代币的数量。</li>
-<li>( x ) 是交易后 x 代币的变化量。</li>
+<li>( \Delta x ) 是交易后 x 代币的变化量。</li>
 </ul>
 <h2 id="智能合约与代码示例">智能合约与代码示例</h2>
 <p>下面是一个使用 Solidity 与 Uniswap V2 进行交互的简单示例：</p>
@@ -368,35 +377,30 @@ Tokens），以此来分享交易手续费。</p>
 <p>该合约允许用户将 ETH 交换为指定的 ERC20 代币。</p>
 <h3 id="部署与测试">部署与测试</h3>
 <p>以下是在 Remix IDE 中部署合约的步骤：</p>
-<ol type="1">
+<ol>
 <li>编译合约，确保 Solidity 编译器版本为 0.6.6。</li>
-<li>部署合约时，传入 Uniswap V2 Router 的地址，例如
-<code>0x7a250d5630B4cF539739df2C5dAcb4c659F2488D</code>。</li>
-<li>调用 <code>swapExactETHForTokens</code>
-函数，传入目标代币地址和最小输出量。</li>
+<li>部署合约时，传入 Uniswap V2 Router 的地址，例如 <code>0x7a250d5630B4cF539739df2C5dAcb4c659F2488D</code>。</li>
+<li>调用 <code>swapExactETHForTokens</code> 函数，传入目标代币地址和最小输出量。</li>
 </ol>
-<h2 id="uniswap-v2-的特色功能">Uniswap V2 的特色功能</h2>
-<h3 id="闪电交换flash-swaps">闪电交换（Flash Swaps）</h3>
-<p>Uniswap V2
-支持闪电交换，允许用户无需预先提供资金即可借出任意数量的代币，只要在交易结束前偿还即可。</p>
+<h2 id="Uniswap-V2-的特色功能">Uniswap V2 的特色功能</h2>
+<h3 id="闪电交换（Flash-Swaps）">闪电交换（Flash Swaps）</h3>
+<p>Uniswap V2 支持闪电交换，允许用户无需预先提供资金即可借出任意数量的代币，只要在交易结束前偿还即可。</p>
 <h4 id="闪电交换的工作流程">闪电交换的工作流程</h4>
-<ol type="1">
+<ol>
 <li>用户指定想要借出的代币和数量。</li>
 <li>合约将代币发送给用户，用户可以在交易中任意使用。</li>
 <li>在交易结束前，用户必须偿还借出的代币，否则交易将回滚。</li>
 </ol>
-<h3 id="支持-erc20erc20-交易对">支持 ERC20/ERC20 交易对</h3>
-<p>与 V1 版本不同，Uniswap V2 支持任意两个 ERC20
-代币之间的直接交换，无需经过 ETH 作为中介。</p>
+<h3 id="支持-ERC20-ERC20-交易对">支持 ERC20/ERC20 交易对</h3>
+<p>与 V1 版本不同，Uniswap V2 支持任意两个 ERC20 代币之间的直接交换，无需经过 ETH 作为中介。</p>
 <h3 id="价格预言机">价格预言机</h3>
-<p>Uniswap V2
-提供了更加可靠的价格预言机，通过时间加权平均价格（TWAP）来防止操纵。</p>
+<p>Uniswap V2 提供了更加可靠的价格预言机，通过时间加权平均价格（TWAP）来防止操纵。</p>
 <h4 id="价格预言机的实现">价格预言机的实现</h4>
 <p>价格预言机利用区块时间和累计价格来计算平均价格：</p>
-<p><span class="math display">\[
-\text{TWAP} = \frac{\text{累计价格差}}{\text{时间差}}
-\]</span></p>
-<h2 id="与-uniswap-v1-的比较">与 Uniswap V1 的比较</h2>
+<p>$$<br>
+\text{TWAP} = \frac{\text{累计价格差}}{\text{时间差}}<br>
+$$</p>
+<h2 id="与-Uniswap-V1-的比较">与 Uniswap V1 的比较</h2>
 <table>
 <thead>
 <tr>
@@ -436,34 +440,29 @@ Tokens），以此来分享交易手续费。</p>
 <h2 id="实际应用案例">实际应用案例</h2>
 <h3 id="添加流动性">添加流动性</h3>
 <p>用户可以通过以下步骤向 Uniswap V2 添加流动性：</p>
-<ol type="1">
+<ol>
 <li>选择想要提供的交易对，例如 DAI/USDC。</li>
 <li>确保钱包中有等值的两种代币。</li>
 <li>在 Uniswap 界面中输入添加的数量，确认交易。</li>
 </ol>
 <h3 id="进行代币交换">进行代币交换</h3>
-<ol type="1">
+<ol>
 <li>选择要交换的代币对。</li>
 <li>输入交换的数量，注意滑点和最小接受数量。</li>
 <li>确认交易，等待链上确认。</li>
 </ol>
 <h2 id="安全注意事项">安全注意事项</h2>
 <ul>
-<li><strong>审计合约</strong>：在与 Uniswap
-交互时，确保使用官方或经过审计的合约。</li>
+<li><strong>审计合约</strong>：在与 Uniswap 交互时，确保使用官方或经过审计的合约。</li>
 <li><strong>防止滑点过大</strong>：设置合理的滑点容忍度，防止交易价格偏离过多。</li>
-<li><strong>监控交易手续费</strong>：高峰期的 Gas
-费用可能较高，注意控制交易成本。</li>
+<li><strong>监控交易手续费</strong>：高峰期的 Gas 费用可能较高，注意控制交易成本。</li>
 </ul>
 <h2 id="结论">结论</h2>
-<p>Uniswap V2 通过改进的 AMM
-模型和新功能，进一步提升了去中心化交易的效率和安全性。对于开发者和用户而言，理解其工作原理和特点有助于更好地参与
-DeFi 生态。</p>
+<p>Uniswap V2 通过改进的 AMM 模型和新功能，进一步提升了去中心化交易的效率和安全性。对于开发者和用户而言，理解其工作原理和特点有助于更好地参与 DeFi 生态。</p>
 <h2 id="参考资料">参考资料</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://uniswap.org/docs/v2/">Uniswap V2 官方文档</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/Uniswap/uniswap-v2-core">Uniswap V2
-智能合约源码</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Uniswap/uniswap-v2-core">Uniswap V2 智能合约源码</a></li>
 <li><a target="_blank" rel="noopener" href="https://docs.soliditylang.org">Solidity 文档</a></li>
 </ul>
 
