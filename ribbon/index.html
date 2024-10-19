@@ -328,217 +328,227 @@
             
               <div class="markdown-body">
                 
-                <h1>Ribbon Finance 深度解析：Theta Vaults 架构</h1>
+                <h1 id="ribbon-finance-深度解析theta-vaults-架构">Ribbon Finance
+深度解析：Theta Vaults 架构</h1>
 <h2 id="引言">引言</h2>
-<p><strong>Ribbon Finance</strong> 是一个建立在以太坊上的去中心化金融（DeFi）协议，旨在通过结构化的产品为用户提供更高的收益。其核心产品之一是 <strong>Theta Vaults</strong>，这是一种自动化的欧式期权销售策略。用户可以简单地存入资产，Vault 将自动运行特定的期权策略，通过卖出期权并收取溢价来赚取收益。</p>
-<p>本文将深入探讨 Ribbon 的 Theta Vaults 架构，包括其工作原理、期权策略、拍卖机制、风险概况、费用结构，以及整体的运作流程。</p>
-<h2 id="一、Theta-Vault-简介">一、Theta Vault 简介</h2>
-<h3 id="1-什么是-Theta-Vault？">1. 什么是 Theta Vault？</h3>
-<p>Theta Vault 是一种 <strong>自动化的欧式期权销售策略</strong>，旨在通过每周卖出货币期权并收取溢价来赚取收益。Vault 的名称源于将资产存入保险库（Vault）并从中获得收益的概念。</p>
-<h3 id="2-核心特点">2. 核心特点</h3>
+<p><strong>Ribbon Finance</strong>
+是一个建立在以太坊上的去中心化金融（DeFi）协议，旨在通过结构化的产品为用户提供更高的收益。其核心产品之一是
+<strong>Theta
+Vaults</strong>，这是一种自动化的欧式期权销售策略。用户可以简单地存入资产，Vault
+将自动运行特定的期权策略，通过卖出期权并收取溢价来赚取收益。</p>
+<p>本文将深入探讨 Ribbon 的 Theta Vaults
+架构，包括其工作原理、期权策略、拍卖机制、风险概况、费用结构，以及整体的运作流程。</p>
+<h2 id="一theta-vault-简介">一、Theta Vault 简介</h2>
+<h3 id="什么是-theta-vault">1. 什么是 Theta Vault？</h3>
+<p>Theta Vault 是一种
+<strong>自动化的欧式期权销售策略</strong>，旨在通过每周卖出货币期权并收取溢价来赚取收益。Vault
+的名称源于将资产存入保险库（Vault）并从中获得收益的概念。</p>
+<h3 id="核心特点">2. 核心特点</h3>
 <ul>
-<li><strong>自动化策略</strong>：用户只需存款，Vault 将自动运行特定的期权策略，无需用户手动操作。</li>
-<li><strong>成本分摊</strong>：Vault 将所有存款人的 Gas 成本分摊，降低了个人参与的成本。</li>
+<li><strong>自动化策略</strong>：用户只需存款，Vault
+将自动运行特定的期权策略，无需用户手动操作。</li>
+<li><strong>成本分摊</strong>：Vault 将所有存款人的 Gas
+成本分摊，降低了个人参与的成本。</li>
 <li><strong>暂停与恢复功能</strong>：用户可以选择何时参与或暂停每周的策略，灵活管理资产。</li>
 </ul>
-<h3 id="3-Vault-类型">3. Vault 类型</h3>
+<h3 id="vault-类型">3. Vault 类型</h3>
 <p>当前主要有两种 Vault 类型：</p>
-<ol>
-<li><strong>Covered Call Selling（备兑看涨期权销售）</strong>：Vault 对所持有的资产发行 <strong>虚值（OTM）</strong> 的看涨期权。</li>
-<li><strong>Put Selling（卖出看跌期权）</strong>：Vault 对存入的抵押品发行 <strong>虚值（OTM）</strong> 的看跌期权。</li>
+<ol type="1">
+<li><strong>Covered Call Selling（备兑看涨期权销售）</strong>：Vault
+对所持有的资产发行 <strong>虚值（OTM）</strong> 的看涨期权。</li>
+<li><strong>Put Selling（卖出看跌期权）</strong>：Vault
+对存入的抵押品发行 <strong>虚值（OTM）</strong> 的看跌期权。</li>
 </ol>
-<h2 id="二、行权价选择与到期日">二、行权价选择与到期日</h2>
-<h3 id="1-行权价的选择">1. 行权价的选择</h3>
+<h2 id="二行权价选择与到期日">二、行权价选择与到期日</h2>
+<h3 id="行权价的选择">1. 行权价的选择</h3>
 <ul>
-<li><strong>算法决定</strong>：行权价在期权拍卖前的最后一分钟由算法选择，目标是固定在 <strong>10 Delta</strong>，即期权的 Delta 值为 10%。</li>
+<li><strong>算法决定</strong>：行权价在期权拍卖前的最后一分钟由算法选择，目标是固定在
+<strong>10 Delta</strong>，即期权的 Delta 值为 10%。</li>
 <li><strong>关键因素</strong>：波动性是行权价选择的关键因素，而非现货价格。</li>
-<li><strong>模型基础</strong>：基于 Black-Scholes 模型，并进行了适当的调整。</li>
+<li><strong>模型基础</strong>：基于 Black-Scholes
+模型，并进行了适当的调整。</li>
 </ul>
-<h3 id="2-波动率的获取">2. 波动率的获取</h3>
+<h3 id="波动率的获取">2. 波动率的获取</h3>
 <ul>
-<li><strong>历史波动率</strong>：来自 Uniswap 等去中心化交易所的数据。</li>
-<li><strong>隐含波动率</strong>：对于 ETH/BTC 等主要资产，使用 Deribit 的 10 Delta 隐含波动率。对于其他资产，使用自定义算法。</li>
+<li><strong>历史波动率</strong>：来自 Uniswap
+等去中心化交易所的数据。</li>
+<li><strong>隐含波动率</strong>：对于 ETH/BTC 等主要资产，使用 Deribit
+的 10 Delta 隐含波动率。对于其他资产，使用自定义算法。</li>
 </ul>
-<h3 id="3-到期日">3. 到期日</h3>
+<h3 id="到期日">3. 到期日</h3>
 <ul>
-<li><strong>每周到期</strong>：Vault 出售 <strong>每周到期</strong> 的期权，能够更频繁地调整策略和复利收益。</li>
+<li><strong>每周到期</strong>：Vault 出售 <strong>每周到期</strong>
+的期权，能够更频繁地调整策略和复利收益。</li>
 <li><strong>欧式期权</strong>：期权只能在到期时行权，增加了策略的可控性。</li>
 </ul>
-<h2 id="三、Options-架构">三、Options 架构</h2>
-<h3 id="1-Opyn-oToken">1. Opyn oToken</h3>
+<h2 id="三options-架构">三、Options 架构</h2>
+<h3 id="opyn-otoken">1. Opyn oToken</h3>
 <ul>
-<li><strong>定义</strong>：oToken 是 Opyn 协议发行的 ERC-20 标准的期权代币。</li>
-<li><strong>特点</strong>：每个 oToken 代表一个特定执行价和到期日的期权合约。</li>
-<li><strong>权利</strong>：持有 oToken 的用户有权在到期时以执行价格兑换一定数量的标的资产。</li>
+<li><strong>定义</strong>：oToken 是 Opyn 协议发行的 ERC-20
+标准的期权代币。</li>
+<li><strong>特点</strong>：每个 oToken
+代表一个特定执行价和到期日的期权合约。</li>
+<li><strong>权利</strong>：持有 oToken
+的用户有权在到期时以执行价格兑换一定数量的标的资产。</li>
 </ul>
-<h3 id="2-Vault-如何运行期权策略">2. Vault 如何运行期权策略</h3>
+<h3 id="vault-如何运行期权策略">2. Vault 如何运行期权策略</h3>
 <ul>
-<li>
-<p><strong>铸造并卖出期权</strong>：</p>
+<li><p><strong>铸造并卖出期权</strong>：</p>
 <ul>
 <li>Vault 使用用户存入的资金作为抵押品，锁定在 Opyn 协议中。</li>
 <li>铸造相应数量的 oToken（即卖出期权）。</li>
 <li>将 oToken 在市场上出售，收取期权溢价。</li>
-</ul>
-</li>
-<li>
-<p><strong>抵押品管理</strong>：</p>
+</ul></li>
+<li><p><strong>抵押品管理</strong>：</p>
 <ul>
 <li>抵押品在期权到期前被锁定，确保有足够的资产应对潜在的行权。</li>
 <li>到期后，根据期权是否被行权，解锁相应的抵押品。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="3-期权的结算">3. 期权的结算</h3>
+<h3 id="期权的结算">3. 期权的结算</h3>
 <ul>
-<li><strong>现金结算</strong>：Opyn 期权是现金结算的，如果期权在到期时 <strong>价内（ITM）</strong>，Vault 将根据行权价与市场价的差额，以现金形式支付给期权持有人。</li>
-<li><strong>自动行权</strong>：ITM 的期权在到期时会被自动行权，简化了结算过程。</li>
+<li><strong>现金结算</strong>：Opyn 期权是现金结算的，如果期权在到期时
+<strong>价内（ITM）</strong>，Vault
+将根据行权价与市场价的差额，以现金形式支付给期权持有人。</li>
+<li><strong>自动行权</strong>：ITM
+的期权在到期时会被自动行权，简化了结算过程。</li>
 </ul>
-<h2 id="四、拍卖机制">四、拍卖机制</h2>
-<h3 id="1-Paradigm-拍卖">1. Paradigm 拍卖</h3>
+<h2 id="四拍卖机制">四、拍卖机制</h2>
+<h3 id="paradigm-拍卖">1. Paradigm 拍卖</h3>
 <ul>
-<li><strong>转变原因</strong>：Ribbon 最初使用 Gnosis 进行公开拍卖，但由于其结构性限制（如结算价格偏低），转而与 <strong>Paradigm</strong> 合作。</li>
+<li><strong>转变原因</strong>：Ribbon 最初使用 Gnosis
+进行公开拍卖，但由于其结构性限制（如结算价格偏低），转而与
+<strong>Paradigm</strong> 合作。</li>
 <li><strong>拍卖特点</strong>：
 <ul>
 <li><strong>盲拍</strong>：投标人无法看到其他人的报价，减少了博弈行为。</li>
 <li><strong>全有或全无</strong>：有助于创造更激烈的价格竞争，提高溢价收入。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="2-拍卖流程">2. 拍卖流程</h3>
+<h3 id="拍卖流程">2. 拍卖流程</h3>
 <ul>
 <li><strong>拍卖前准备</strong>：
 <ul>
 <li>Vault 铸造 oToken，准备好待售的期权合约。</li>
-</ul>
-</li>
+</ul></li>
 <li><strong>投标过程</strong>：
 <ul>
 <li>注册用户可以参与拍卖，提交购买 oToken 的报价。</li>
-</ul>
-</li>
+</ul></li>
 <li><strong>结算</strong>：
 <ul>
 <li>拍卖结束后，根据报价和数量，确定最终的成交价格和数量。</li>
 <li>未售出的 oToken 将被销毁，抵押品解锁。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="3-拍卖费用">3. 拍卖费用</h3>
+<h3 id="拍卖费用">3. 拍卖费用</h3>
 <ul>
-<li><strong>费用结构</strong>：Ribbon 完成的名义交易量的 <strong>4 个基点（bps）</strong> 作为费用支付给 Paradigm。</li>
+<li><strong>费用结构</strong>：Ribbon 完成的名义交易量的 <strong>4
+个基点（bps）</strong> 作为费用支付给 Paradigm。</li>
 </ul>
-<h2 id="五、风险概况">五、风险概况</h2>
-<h3 id="1-主要风险">1. 主要风险</h3>
+<h2 id="五风险概况">五、风险概况</h2>
+<h3 id="主要风险">1. 主要风险</h3>
 <ul>
 <li><strong>期权被行权风险</strong>：
 <ul>
-<li>如果 Vault 出售的看涨期权在到期时 <strong>价内（ITM）</strong>，意味着标的资产价格高于执行价，Vault 需要支付差额。</li>
+<li>如果 Vault 出售的看涨期权在到期时
+<strong>价内（ITM）</strong>，意味着标的资产价格高于执行价，Vault
+需要支付差额。</li>
 <li>对于看跌期权，如果标的资产价格低于执行价，也会面临损失。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="2-风险管理">2. 风险管理</h3>
+<h3 id="风险管理">2. 风险管理</h3>
 <ul>
-<li><strong>虚值期权</strong>：Vault 出售 OTM 期权，降低了被行权的概率。</li>
+<li><strong>虚值期权</strong>：Vault 出售 OTM
+期权，降低了被行权的概率。</li>
 <li><strong>定期调整</strong>：每周调整策略，根据市场变化重新设定行权价和到期日。</li>
-<li><strong>多样化</strong>：提供不同类型的 Vault，满足不同风险偏好的用户需求。</li>
+<li><strong>多样化</strong>：提供不同类型的
+Vault，满足不同风险偏好的用户需求。</li>
 </ul>
-<h2 id="六、费用结构">六、费用结构</h2>
-<h3 id="1-管理费">1. 管理费</h3>
+<h2 id="六费用结构">六、费用结构</h2>
+<h3 id="管理费">1. 管理费</h3>
 <ul>
-<li><strong>年化 2% 的管理费</strong>：基于 Vault 管理的总资产（AUM），按周计算并收取。</li>
+<li><strong>年化 2% 的管理费</strong>：基于 Vault
+管理的总资产（AUM），按周计算并收取。</li>
 </ul>
-<h3 id="2-绩效费">2. 绩效费</h3>
+<h3 id="绩效费">2. 绩效费</h3>
 <ul>
-<li><strong>10% 的绩效费</strong>：基于每周策略所赚取的期权溢价收入，按周计算并收取。</li>
+<li><strong>10%
+的绩效费</strong>：基于每周策略所赚取的期权溢价收入，按周计算并收取。</li>
 </ul>
-<h3 id="3-收费原则">3. 收费原则</h3>
+<h3 id="收费原则">3. 收费原则</h3>
 <ul>
 <li><strong>有利可图时收费</strong>：只有当每周策略盈利时，才收取绩效费和管理费。</li>
 <li><strong>亏损时不收费</strong>：如果策略无利可图，则不收取任何费用。</li>
 </ul>
-<h3 id="4-费用计算示例">4. 费用计算示例</h3>
+<h3 id="费用计算示例">4. 费用计算示例</h3>
 <ul>
-<li>
-<p><strong>假设</strong>：</p>
+<li><p><strong>假设</strong>：</p>
 <ul>
 <li>Vault 管理的资产：100 ETH</li>
 <li>本周赚取的期权溢价：1 ETH</li>
-</ul>
-</li>
-<li>
-<p><strong>管理费</strong>：</p>
+</ul></li>
+<li><p><strong>管理费</strong>：</p>
 <ul>
-<li>周管理费 = ( \frac{2%}{52} \times 100 ) ETH ≈ 0.0385 ETH</li>
-</ul>
-</li>
-<li>
-<p><strong>绩效费</strong>：</p>
+<li>周管理费 = ( ) ETH ≈ 0.0385 ETH</li>
+</ul></li>
+<li><p><strong>绩效费</strong>：</p>
 <ul>
 <li>绩效费 = 10% × 1 ETH = 0.1 ETH</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h2 id="七、Vault-整体流程">七、Vault 整体流程</h2>
+<h2 id="七vault-整体流程">七、Vault 整体流程</h2>
 <h3 id="流程图">流程图</h3>
-<p><img src="../img/ribbon/image.png" srcset="/img/loading.gif" lazyload alt=""></p>
-<ol>
-<li>
-<p><strong>用户存款</strong></p>
+<p><img src="../img/ribbon/image.png" srcset="/img/loading.gif" lazyload /></p>
+<ol type="1">
+<li><p><strong>用户存款</strong></p>
 <ul>
-<li>用户将 <strong>100 ETH</strong> 存入 <strong>T-ETH-C（ETH 看涨期权）</strong> Vault。</li>
-</ul>
-</li>
-<li>
-<p><strong>策略启动（周五 8 AM UTC）</strong></p>
+<li>用户将 <strong>100 ETH</strong> 存入 <strong>T-ETH-C（ETH
+看涨期权）</strong> Vault。</li>
+</ul></li>
+<li><p><strong>策略启动（周五 8 AM UTC）</strong></p>
 <ul>
 <li>Vault 关闭前一周的策略。</li>
-<li>使用存款铸造 <strong>100 个 oToken</strong>，对应的 <strong>100 ETH</strong> 被锁定在 Opyn 协议中一周。</li>
-</ul>
-</li>
-<li>
-<p><strong>拍卖期权</strong></p>
+<li>使用存款铸造 <strong>100 个 oToken</strong>，对应的 <strong>100
+ETH</strong> 被锁定在 Opyn 协议中一周。</li>
+</ul></li>
+<li><p><strong>拍卖期权</strong></p>
 <ul>
-<li>Vault 将 100 个 oToken 在 <strong>Paradigm</strong> 平台上进行拍卖。</li>
-<li>投标人以 ETH 支付期权溢价，假设共收取 <strong>1 ETH</strong> 的溢价。</li>
+<li>Vault 将 100 个 oToken 在 <strong>Paradigm</strong>
+平台上进行拍卖。</li>
+<li>投标人以 ETH 支付期权溢价，假设共收取 <strong>1 ETH</strong>
+的溢价。</li>
 <li>未售出的 oToken 将被销毁，对应的抵押品解锁。</li>
-</ul>
-</li>
-<li>
-<p><strong>期权到期（下周五 8 AM UTC）</strong></p>
+</ul></li>
+<li><p><strong>期权到期（下周五 8 AM UTC）</strong></p>
 <ul>
 <li><strong>情况一：期权 OTM 到期</strong>
 <ul>
-<li>期权未被行权，Vault 收回原始的 <strong>100 ETH</strong> 抵押品。</li>
-</ul>
-</li>
+<li>期权未被行权，Vault 收回原始的 <strong>100 ETH</strong>
+抵押品。</li>
+</ul></li>
 <li><strong>情况二：期权 ITM 到期</strong>
 <ul>
 <li>Vault 需要支付差额，可能收回少于 100 ETH 的抵押品。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>策略重复</strong></p>
+</ul></li>
+</ul></li>
+<li><p><strong>策略重复</strong></p>
 <ul>
-<li>假设期权 OTM 到期，Vault 现在持有 <strong>101 ETH</strong>（100 ETH 原始资产 + 1 ETH 溢价）。</li>
-<li>Vault 重复步骤 2，以 <strong>101 ETH</strong> 继续下一周的策略。</li>
-</ul>
-</li>
+<li>假设期权 OTM 到期，Vault 现在持有 <strong>101 ETH</strong>（100 ETH
+原始资产 + 1 ETH 溢价）。</li>
+<li>Vault 重复步骤 2，以 <strong>101 ETH</strong>
+继续下一周的策略。</li>
+</ul></li>
 </ol>
-<h2 id="八、数学模型与收益计算">八、数学模型与收益计算</h2>
-<h3 id="1-期权溢价的计算">1. 期权溢价的计算</h3>
+<h2 id="八数学模型与收益计算">八、数学模型与收益计算</h2>
+<h3 id="期权溢价的计算">1. 期权溢价的计算</h3>
 <ul>
-<li>
-<p><strong>基于 Black-Scholes 模型</strong>：</p>
+<li><p><strong>基于 Black-Scholes 模型</strong>：</p>
 <ul>
-<li>
-<p>期权溢价 ( C ) 计算公式：</p>
-<p>$$<br>
-C = S_0 N(d_1) - Ke^{-rT} N(d_2)<br>
-$$</p>
+<li><p>期权溢价 ( C ) 计算公式：</p>
+<p><span class="math display">\[
+C = S_0 N(d_1) - Ke^{-rT} N(d_2)
+\]</span></p>
 <p>其中：</p>
 <ul>
 <li>( S_0 )：当前标的资产价格</li>
@@ -546,69 +556,66 @@ $$</p>
 <li>( T )：到期时间（以年计）</li>
 <li>( r )：无风险利率</li>
 <li>( N(d) )：标准正态分布函数</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>Delta 为 10%</strong>：</p>
+</ul></li>
+</ul></li>
+<li><p><strong>Delta 为 10%</strong>：</p>
 <ul>
-<li>( \Delta = N(d_1) )，设置 ( \Delta = 0.1 )，反解行权价 ( K )。</li>
+<li>( = N(d_1) )，设置 ( = 0.1 )，反解行权价 ( K )。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="2-收益计算">2. 收益计算</h3>
+<h3 id="收益计算">2. 收益计算</h3>
 <ul>
-<li>
-<p><strong>总收益</strong>：</p>
-<p>$$<br>
-\text{总收益} = \text{期权溢价} - \text{可能的行权损失} - \text{费用}<br>
-$$</p>
-</li>
-<li>
-<p><strong>每周复利</strong>：</p>
+<li><p><strong>总收益</strong>：</p>
+<p><span class="math display">\[
+\text{总收益} = \text{期权溢价} - \text{可能的行权损失} - \text{费用}
+\]</span></p></li>
+<li><p><strong>每周复利</strong>：</p>
 <ul>
 <li>由于策略是每周执行，收益可以进行复利计算，提高年化收益率。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="3-风险敞口">3. 风险敞口</h3>
+<h3 id="风险敞口">3. 风险敞口</h3>
 <ul>
 <li><strong>最大损失</strong>：
 <ul>
-<li>对于看涨期权，最大损失为标的资产价格无限上涨时的损失，但由于出售的是 OTM 期权，且有抵押品限制，实际风险可控。</li>
-</ul>
-</li>
+<li>对于看涨期权，最大损失为标的资产价格无限上涨时的损失，但由于出售的是
+OTM 期权，且有抵押品限制，实际风险可控。</li>
+</ul></li>
 <li><strong>盈亏平衡点</strong>：
 <ul>
 <li>期权的行权价 + 收取的期权溢价。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h2 id="九、优势与特点">九、优势与特点</h2>
+<h2 id="九优势与特点">九、优势与特点</h2>
 <ul>
 <li><strong>自动化策略</strong>：用户无需手动管理期权交易，降低了参与门槛。</li>
-<li><strong>分摊成本</strong>：Gas 费用在所有用户之间分摊，降低了个人成本。</li>
+<li><strong>分摊成本</strong>：Gas
+费用在所有用户之间分摊，降低了个人成本。</li>
 <li><strong>灵活性</strong>：用户可以随时选择参与或退出策略。</li>
 <li><strong>收益潜力</strong>：通过每周复利和策略调整，有机会获得高于市场平均水平的收益。</li>
 </ul>
-<h2 id="十、风险与注意事项">十、风险与注意事项</h2>
+<h2 id="十风险与注意事项">十、风险与注意事项</h2>
 <ul>
 <li><strong>市场风险</strong>：标的资产价格剧烈波动可能导致期权被行权，导致损失。</li>
 <li><strong>智能合约风险</strong>：涉及多个合约交互，可能存在技术漏洞。</li>
 <li><strong>流动性风险</strong>：在极端市场情况下，期权的流动性可能不足，影响策略执行。</li>
 </ul>
 <h2 id="结论">结论</h2>
-<p>Ribbon Finance 的 Theta Vaults 为用户提供了一种自动化、高收益潜力的投资工具。通过结构化的期权策略、专业的拍卖机制和风险管理，用户可以在降低操作复杂度的同时，获得稳定的收益。然而，任何投资都伴随着风险，建议用户在参与之前，充分了解策略的原理和潜在风险，谨慎决策。</p>
+<p>Ribbon Finance 的 Theta Vaults
+为用户提供了一种自动化、高收益潜力的投资工具。通过结构化的期权策略、专业的拍卖机制和风险管理，用户可以在降低操作复杂度的同时，获得稳定的收益。然而，任何投资都伴随着风险，建议用户在参与之前，充分了解策略的原理和潜在风险，谨慎决策。</p>
 <h2 id="参考资料">参考资料</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://ribbon.finance/">Ribbon Finance 官方网站</a></li>
 <li><a target="_blank" rel="noopener" href="https://docs.ribbon.finance/">Ribbon Finance 文档</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.opyn.co/">Opyn 官方网站</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.paradigm.co/">Paradigm 拍卖平台</a></li>
-<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model">Black-Scholes 期权定价模型</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Black%E2%80%93Scholes_model">Black-Scholes
+期权定价模型</a></li>
 <li><a target="_blank" rel="noopener" href="https://ethereum.org/developers/">以太坊开发者文档</a></li>
-<li><a target="_blank" rel="noopener" href="https://consensys.github.io/smart-contract-best-practices/">DeFi 安全最佳实践</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://consensys.github.io/smart-contract-best-practices/">DeFi
+安全最佳实践</a></li>
 </ul>
 
                 
@@ -827,6 +834,10 @@ $$</p>
 
   <footer>
     <div class="footer-inner">
+  
+    <div class="footer-content">
+      Naveen's Blog
+    </div>
   
   
     <div class="statistics">

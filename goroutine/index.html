@@ -327,41 +327,56 @@
             
               <div class="markdown-body">
                 
-                <h1>Golang 并发编程入门</h1>
-<p>Go（又称 Golang）是一种开源的编程语言，因其内置的并发特性而备受关注。在这篇博客中，我们将介绍 Go 的并发编程模型，并通过代码示例来展示如何在 Go 中实现并发。</p>
-<h2 id="什么是并发？">什么是并发？</h2>
+                <h1 id="golang-并发编程入门">Golang 并发编程入门</h1>
+<p>Go（又称
+Golang）是一种开源的编程语言，因其内置的并发特性而备受关注。在这篇博客中，我们将介绍
+Go 的并发编程模型，并通过代码示例来展示如何在 Go 中实现并发。</p>
+<h2 id="什么是并发">什么是并发？</h2>
 <p>并发是指在同一时间段内处理多件事情。在编程中，并发允许我们同时执行多个任务，从而提高程序的效率和性能。</p>
-<h2 id="Go-中的并发">Go 中的并发</h2>
-<p>Go 提供了轻量级的协程（goroutine）和通道（channel）来实现并发。goroutine 是由 Go 运行时管理的轻量线程，而 channel 则用于 goroutine 之间的通信。</p>
-<h3 id="Goroutine">Goroutine</h3>
-<p>要启动一个新的 goroutine，只需在函数调用前加上 <code>go</code> 关键字：</p>
+<h2 id="go-中的并发">Go 中的并发</h2>
+<p>Go
+提供了轻量级的协程（goroutine）和通道（channel）来实现并发。goroutine
+是由 Go 运行时管理的轻量线程，而 channel 则用于 goroutine
+之间的通信。</p>
+<h3 id="goroutine">Goroutine</h3>
+<p>要启动一个新的 goroutine，只需在函数调用前加上 <code>go</code>
+关键字：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">&quot;fmt&quot;</span><br>    <span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sayHello</span><span class="hljs-params">()</span></span> &#123;<br>    fmt.Println(<span class="hljs-string">&quot;Hello, World!&quot;</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-keyword">go</span> sayHello()<br>    time.Sleep(time.Second)<br>    fmt.Println(<span class="hljs-string">&quot;Main function ends&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
 <p><strong>输出：</strong></p>
 <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ada">Hello, World!<br>Main <span class="hljs-keyword">function</span> <span class="hljs-title">ends</span><br></code></pre></td></tr></table></figure>
-<p>在上述代码中，<code>sayHello()</code> 函数在一个新的 goroutine 中执行，而主函数会等待一秒钟，然后打印 “Main function ends”。</p>
-<h3 id="Channel">Channel</h3>
-<p>Channel 是 Go 中用于 goroutine 之间通信的管道。它可以发送和接收特定类型的值。</p>
-<h4 id="创建一个-Channel">创建一个 Channel</h4>
+<p>在上述代码中，<code>sayHello()</code> 函数在一个新的 goroutine
+中执行，而主函数会等待一秒钟，然后打印 "Main function ends"。</p>
+<h3 id="channel">Channel</h3>
+<p>Channel 是 Go 中用于 goroutine
+之间通信的管道。它可以发送和接收特定类型的值。</p>
+<h4 id="创建一个-channel">创建一个 Channel</h4>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">ch := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)<br></code></pre></td></tr></table></figure>
 <h4 id="发送和接收数据">发送和接收数据</h4>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 发送数据到 channel</span><br>ch &lt;- <span class="hljs-number">42</span><br><br><span class="hljs-comment">// 从 channel 接收数据</span><br>value := &lt;-ch<br></code></pre></td></tr></table></figure>
-<h3 id="使用-Goroutine-和-Channel-的示例">使用 Goroutine 和 Channel 的示例</h3>
+<h3 id="使用-goroutine-和-channel-的示例">使用 Goroutine 和 Channel
+的示例</h3>
 <p>下面是一个使用 goroutine 和 channel 计算数字之和的示例：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">&quot;fmt&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">sum</span><span class="hljs-params">(numbers []<span class="hljs-type">int</span>, result <span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)</span></span> &#123;<br>    total := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> _, num := <span class="hljs-keyword">range</span> numbers &#123;<br>        total += num<br>    &#125;<br>    result &lt;- total<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    numbers := []<span class="hljs-type">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;<br>    result := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>)<br><br>    <span class="hljs-keyword">go</span> sum(numbers[:<span class="hljs-built_in">len</span>(numbers)/<span class="hljs-number">2</span>], result)<br>    <span class="hljs-keyword">go</span> sum(numbers[<span class="hljs-built_in">len</span>(numbers)/<span class="hljs-number">2</span>:], result)<br><br>    sum1, sum2 := &lt;-result, &lt;-result<br><br>    fmt.Println(<span class="hljs-string">&quot;Total Sum:&quot;</span>, sum1+sum2)<br>&#125;<br></code></pre></td></tr></table></figure>
 <p><strong>输出：</strong></p>
 <figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mathematica"><span class="hljs-built_in">Total</span> <span class="hljs-built_in">Sum</span><span class="hljs-operator">:</span> <span class="hljs-number">15</span><br></code></pre></td></tr></table></figure>
-<p>在这个示例中，我们将数字列表拆分为两部分，并在两个 goroutine 中分别计算其和。最终，将结果相加得到总和。</p>
-<h2 id="使用-WaitGroup-同步-Goroutine">使用 WaitGroup 同步 Goroutine</h2>
-<p><code>sync.WaitGroup</code> 是 Go 标准库中用于等待一组 goroutine 完成的工具。</p>
+<p>在这个示例中，我们将数字列表拆分为两部分，并在两个 goroutine
+中分别计算其和。最终，将结果相加得到总和。</p>
+<h2 id="使用-waitgroup-同步-goroutine">使用 WaitGroup 同步
+Goroutine</h2>
+<p><code>sync.WaitGroup</code> 是 Go 标准库中用于等待一组 goroutine
+完成的工具。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">&quot;fmt&quot;</span><br>    <span class="hljs-string">&quot;sync&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">worker</span><span class="hljs-params">(id <span class="hljs-type">int</span>, wg *sync.WaitGroup)</span></span> &#123;<br>    <span class="hljs-keyword">defer</span> wg.Done()<br>    fmt.Printf(<span class="hljs-string">&quot;Worker %d starting\n&quot;</span>, id)<br>    <span class="hljs-comment">// 模拟工作</span><br>    fmt.Printf(<span class="hljs-string">&quot;Worker %d done\n&quot;</span>, id)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-keyword">var</span> wg sync.WaitGroup<br><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">5</span>; i++ &#123;<br>        wg.Add(<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">go</span> worker(i, &amp;wg)<br>    &#125;<br><br>    wg.Wait()<br>    fmt.Println(<span class="hljs-string">&quot;All workers done&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
 <p><strong>输出：</strong></p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Worker</span> <span class="hljs-number">1</span> starting<br><span class="hljs-attribute">Worker</span> <span class="hljs-number">2</span> starting<br><span class="hljs-attribute">Worker</span> <span class="hljs-number">3</span> starting<br><span class="hljs-attribute">Worker</span> <span class="hljs-number">4</span> starting<br><span class="hljs-attribute">Worker</span> <span class="hljs-number">5</span> starting<br><span class="hljs-attribute">Worker</span> <span class="hljs-number">1</span> done<br><span class="hljs-attribute">Worker</span> <span class="hljs-number">2</span> done<br><span class="hljs-attribute">Worker</span> <span class="hljs-number">3</span> done<br><span class="hljs-attribute">Worker</span> <span class="hljs-number">4</span> done<br><span class="hljs-attribute">Worker</span> <span class="hljs-number">5</span> done<br><span class="hljs-attribute">All</span> workers done<br></code></pre></td></tr></table></figure>
 <h2 id="结论">结论</h2>
-<p>Go 的并发特性使其在处理多任务和高性能应用时表现出色。通过 goroutine 和 channel，可以轻松地编写并发程序。希望这篇博客能帮助你入门 Go 的并发编程。</p>
+<p>Go 的并发特性使其在处理多任务和高性能应用时表现出色。通过 goroutine
+和 channel，可以轻松地编写并发程序。希望这篇博客能帮助你入门 Go
+的并发编程。</p>
 <h2 id="参考资料">参考资料</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://golang.org/doc/">Go 官方文档</a></li>
-<li><a target="_blank" rel="noopener" href="https://golang.org/doc/effective_go.html#concurrency">Go 并发编程</a></li>
+<li><a target="_blank" rel="noopener" href="https://golang.org/doc/effective_go.html#concurrency">Go
+并发编程</a></li>
 </ul>
 
                 
@@ -565,6 +580,10 @@
 
   <footer>
     <div class="footer-inner">
+  
+    <div class="footer-content">
+      Naveen's Blog
+    </div>
   
   
     <div class="statistics">

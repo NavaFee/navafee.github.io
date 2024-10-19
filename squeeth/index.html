@@ -19,12 +19,12 @@
   <meta name="author" content="Naveen">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Squeeth 深度解析 引言 Squeeth 是由 Opyn 团队推出的一款新型金融衍生品，其名称源自 “Squared ETH” 的缩写，旨在为用户提供一种与 ETH 价格平方相关的投资工具。Squeeth 与杠杆代币类似，交易者通过持有特定的 ERC-20 代币（oSQTH）来跟踪标的资产的价格，而无需承担被强制平仓的风险。然而，与传统的杠杆产品不同，Squeeth 的收益曲线是非线性的，具">
+    <meta name="description" content="Squeeth 深度解析 引言 Squeeth 是由 Opyn 团队推出的一款新型金融衍生品，其名称源自 &quot;Squared ETH&quot; 的缩写，旨在为用户提供一种与 ETH 价格平方相关的投资工具。Squeeth 与杠杆代币类似，交易者通过持有特定的 ERC-20 代币（oSQTH）来跟踪标的资产的价格，而无需承担被强制平仓的风险。然而，与传统的杠杆产品不同，Squeeth 的收益曲线是非线性的，具">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Squeeth 深度解析">
 <meta property="og:url" content="http://navafee.github.io./squeeth/index.html">
 <meta property="og:site_name" content="Naveen&#39;s Blog">
-<meta property="og:description" content="Squeeth 深度解析 引言 Squeeth 是由 Opyn 团队推出的一款新型金融衍生品，其名称源自 “Squared ETH” 的缩写，旨在为用户提供一种与 ETH 价格平方相关的投资工具。Squeeth 与杠杆代币类似，交易者通过持有特定的 ERC-20 代币（oSQTH）来跟踪标的资产的价格，而无需承担被强制平仓的风险。然而，与传统的杠杆产品不同，Squeeth 的收益曲线是非线性的，具">
+<meta property="og:description" content="Squeeth 深度解析 引言 Squeeth 是由 Opyn 团队推出的一款新型金融衍生品，其名称源自 &quot;Squared ETH&quot; 的缩写，旨在为用户提供一种与 ETH 价格平方相关的投资工具。Squeeth 与杠杆代币类似，交易者通过持有特定的 ERC-20 代币（oSQTH）来跟踪标的资产的价格，而无需承担被强制平仓的风险。然而，与传统的杠杆产品不同，Squeeth 的收益曲线是非线性的，具">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuK3uq_qK1w6kSar4YrdCFQk9rbNu5q9hXZg&s">
 <meta property="article:published_time" content="2024-01-08T02:23:36.000Z">
@@ -328,264 +328,280 @@
             
               <div class="markdown-body">
                 
-                <h1>Squeeth 深度解析</h1>
+                <h1 id="squeeth-深度解析">Squeeth 深度解析</h1>
 <h2 id="引言">引言</h2>
-<p><strong>Squeeth</strong> 是由 Opyn 团队推出的一款新型金融衍生品，其名称源自 “Squared ETH” 的缩写，旨在为用户提供一种与 ETH 价格平方相关的投资工具。Squeeth 与杠杆代币类似，交易者通过持有特定的 ERC-20 代币（oSQTH）来跟踪标的资产的价格，而无需承担被强制平仓的风险。然而，与传统的杠杆产品不同，Squeeth 的收益曲线是非线性的，具有独特的优势和特点。</p>
-<p>本文将深入探讨 Squeeth 的产品机制、资金费用收取机制、投资策略，以及其在去中心化金融（DeFi）生态系统中的应用。</p>
+<p><strong>Squeeth</strong> 是由 Opyn
+团队推出的一款新型金融衍生品，其名称源自 "Squared ETH"
+的缩写，旨在为用户提供一种与 ETH 价格平方相关的投资工具。Squeeth
+与杠杆代币类似，交易者通过持有特定的 ERC-20
+代币（oSQTH）来跟踪标的资产的价格，而无需承担被强制平仓的风险。然而，与传统的杠杆产品不同，Squeeth
+的收益曲线是非线性的，具有独特的优势和特点。</p>
+<p>本文将深入探讨 Squeeth
+的产品机制、资金费用收取机制、投资策略，以及其在去中心化金融（DeFi）生态系统中的应用。</p>
 <h2 id="产品机制">产品机制</h2>
-<h3 id="1-Squeeth-的特点">1. Squeeth 的特点</h3>
+<h3 id="squeeth-的特点">1. Squeeth 的特点</h3>
 <ul>
-<li><strong>非线性收益</strong>：Squeeth 的收益曲线遵循 ( y = x^2 ) 的函数关系，当 ETH 价格上涨时，收益呈加速增长。</li>
-<li><strong>无强平风险的多头</strong>：用户可以通过购买 oSQTH 来做多 Squeeth，无需担心被强制平仓。</li>
-<li><strong>杠杆效应</strong>：当 ETH 价格上涨 5 倍时，Squeeth 的价值上涨 25 倍，提供了放大的收益。</li>
-<li><strong>资金费用机制</strong>：通过类似资金费率的机制，将 Squeeth 的价格锚定到 ETH 价格的平方。</li>
-<li><strong>无到期日</strong>：与期权不同，Squeeth 没有到期日，流动性更好。</li>
+<li><strong>非线性收益</strong>：Squeeth 的收益曲线遵循 ( y = x^2 )
+的函数关系，当 ETH 价格上涨时，收益呈加速增长。</li>
+<li><strong>无强平风险的多头</strong>：用户可以通过购买 oSQTH 来做多
+Squeeth，无需担心被强制平仓。</li>
+<li><strong>杠杆效应</strong>：当 ETH 价格上涨 5 倍时，Squeeth
+的价值上涨 25 倍，提供了放大的收益。</li>
+<li><strong>资金费用机制</strong>：通过类似资金费率的机制，将 Squeeth
+的价格锚定到 ETH 价格的平方。</li>
+<li><strong>无到期日</strong>：与期权不同，Squeeth
+没有到期日，流动性更好。</li>
 </ul>
 <p>下图是 Squeeth、杠杆、永续合约、期权四类金融衍生品的特点对比：</p>
-<p><img src="../img/squeeth/image.png" srcset="/img/loading.gif" lazyload alt="alt text"></p>
-<h3 id="2-参与者类型">2. 参与者类型</h3>
+<figure>
+<img src="../img/squeeth/image.png" srcset="/img/loading.gif" lazyload alt="alt text" />
+<figcaption aria-hidden="true">alt text</figcaption>
+</figure>
+<h3 id="参与者类型">2. 参与者类型</h3>
 <p>Squeeth 合约有三种主要参与者：</p>
-<ol>
-<li><strong>做多者</strong>：购买 oSQTH，看涨 ETH 价格，无强平风险。</li>
-<li><strong>做空者</strong>：抵押 ETH，铸造并出售 oSQTH，押注 ETH 价格下跌，需保持足够的抵押品以防清算。</li>
-<li><strong>流动性提供者（LP）</strong>：提供 oSQTH 与 ETH 的流动性，赚取交易手续费和资金费用。</li>
+<ol type="1">
+<li><strong>做多者</strong>：购买 oSQTH，看涨 ETH
+价格，无强平风险。</li>
+<li><strong>做空者</strong>：抵押 ETH，铸造并出售 oSQTH，押注 ETH
+价格下跌，需保持足够的抵押品以防清算。</li>
+<li><strong>流动性提供者（LP）</strong>：提供 oSQTH 与 ETH
+的流动性，赚取交易手续费和资金费用。</li>
 </ol>
-<p><img src="../img/squeeth/image-1.png" srcset="/img/loading.gif" lazyload alt=""></p>
-<h3 id="3-做多与做空机制">3. 做多与做空机制</h3>
-<h4 id="做多（购买-oSQTH）">做多（购买 oSQTH）</h4>
+<p><img src="../img/squeeth/image-1.png" srcset="/img/loading.gif" lazyload /></p>
+<h3 id="做多与做空机制">3. 做多与做空机制</h3>
+<h4 id="做多购买-osqth">做多（购买 oSQTH）</h4>
 <ul>
-<li><strong>操作方式</strong>：直接在 Uniswap 或 Squeeth 平台上购买 oSQTH。</li>
-<li><strong>收益特点</strong>：无强制平仓风险，享受 ETH 价格上涨带来的放大收益。</li>
-<li><strong>风险</strong>：ETH 价格下跌会导致 oSQTH 价值下跌，但由于没有强平风险，最大损失为初始投资额。</li>
+<li><strong>操作方式</strong>：直接在 Uniswap 或 Squeeth 平台上购买
+oSQTH。</li>
+<li><strong>收益特点</strong>：无强制平仓风险，享受 ETH
+价格上涨带来的放大收益。</li>
+<li><strong>风险</strong>：ETH 价格下跌会导致 oSQTH
+价值下跌，但由于没有强平风险，最大损失为初始投资额。</li>
 </ul>
-<h4 id="做空（铸造并出售-oSQTH）">做空（铸造并出售 oSQTH）</h4>
+<h4 id="做空铸造并出售-osqth">做空（铸造并出售 oSQTH）</h4>
 <ul>
 <li><strong>操作方式</strong>：
-<ol>
+<ol type="1">
 <li>在 Squeeth 平台上抵押 ETH。</li>
 <li>铸造 oSQTH 并在市场上出售。</li>
-</ol>
-</li>
-<li><strong>收益特点</strong>：如果 ETH 价格下跌，负债（oSQTH 的价值）下降，抵押品价值下降，但降幅小于负债的降幅，获得收益。</li>
+</ol></li>
+<li><strong>收益特点</strong>：如果 ETH 价格下跌，负债（oSQTH
+的价值）下降，抵押品价值下降，但降幅小于负债的降幅，获得收益。</li>
 <li><strong>风险</strong>：
 <ul>
-<li><strong>清算风险</strong>：当抵押比例低于 <strong>150%</strong> 时，合约将触发清算，做空者将损失部分抵押品。</li>
-<li><strong>价格风险</strong>：ETH 价格上涨导致负债价值以平方倍数增加，可能导致抵押比例下降。</li>
-</ul>
-</li>
+<li><strong>清算风险</strong>：当抵押比例低于 <strong>150%</strong>
+时，合约将触发清算，做空者将损失部分抵押品。</li>
+<li><strong>价格风险</strong>：ETH
+价格上涨导致负债价值以平方倍数增加，可能导致抵押比例下降。</li>
+</ul></li>
 </ul>
 <h4 id="示例计算">示例计算</h4>
 <ul>
-<li>
-<p><strong>初始状态</strong>：</p>
+<li><p><strong>初始状态</strong>：</p>
 <ul>
-<li>
-<p>抵押品：价值 ( V_{\text{ETH}} ) 的 ETH。</p>
-</li>
-<li>
-<p>负债：铸造并出售 ( N ) 个 oSQTH，初始负债价值为 ( V_{\text{oSQTH}} )。</p>
-</li>
-<li>
-<p>初始抵押率（Collateral Ratio）：</p>
-<p>$$<br>
-CR = \frac{V_{\text{ETH}}}{V_{\text{oSQTH}}}<br>
-$$</p>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>ETH 价格翻倍时</strong>：</p>
+<li><p>抵押品：价值 ( V_{} ) 的 ETH。</p></li>
+<li><p>负债：铸造并出售 ( N ) 个 oSQTH，初始负债价值为 ( V_{}
+)。</p></li>
+<li><p>初始抵押率（Collateral Ratio）：</p>
+<p><span class="math display">\[
+CR = \frac{V_{\text{ETH}}}{V_{\text{oSQTH}}}
+\]</span></p></li>
+</ul></li>
+<li><p><strong>ETH 价格翻倍时</strong>：</p>
 <ul>
-<li>
-<p>抵押品价值：( V*{\text{ETH,new}} = 2 \times V*{\text{ETH}} )。</p>
-</li>
-<li>
-<p>负债价值：( V*{\text{oSQTH,new}} = (2)^2 \times V*{\text{oSQTH}} = 4 \times V_{\text{oSQTH}} )。</p>
-</li>
-<li>
-<p>新的抵押率：</p>
-<p>$$<br>
-CR_{\text{new}} = \frac{2 \times V_{\text{ETH}}}{4 \times V_{\text{oSQTH}}} = \frac{1}{2} \times CR<br>
-$$</p>
-</li>
-<li>
-<p>抵押率下降，可能触发清算。</p>
-</li>
+<li><p>抵押品价值：( V<em>{} = 2 V</em>{} )。</p></li>
+<li><p>负债价值：( V<em>{} = (2)^2 V</em>{} = 4 V_{} )。</p></li>
+<li><p>新的抵押率：</p>
+<p><span class="math display">\[
+CR_{\text{new}} = \frac{2 \times V_{\text{ETH}}}{4 \times
+V_{\text{oSQTH}}} = \frac{1}{2} \times CR
+\]</span></p></li>
+<li><p>抵押率下降，可能触发清算。</p></li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="4-流动性提供者（LP）">4. 流动性提供者（LP）</h3>
+<h3 id="流动性提供者lp">4. 流动性提供者（LP）</h3>
 <ul>
 <li><strong>操作方式</strong>：
 <ul>
-<li><strong>方式一</strong>：抵押 ETH，铸造 oSQTH，组建 oSQTH/ETH 的 LP。</li>
-<li><strong>方式二</strong>：直接购买 oSQTH，与 ETH 一起提供流动性。</li>
-</ul>
-</li>
+<li><strong>方式一</strong>：抵押 ETH，铸造 oSQTH，组建 oSQTH/ETH 的
+LP。</li>
+<li><strong>方式二</strong>：直接购买 oSQTH，与 ETH
+一起提供流动性。</li>
+</ul></li>
 <li><strong>收益特点</strong>：赚取交易手续费和资金费用，但面临无常损失和资金费用损失的风险。</li>
 <li><strong>风险</strong>：
 <ul>
-<li><strong>资金费用损失</strong>：持有 oSQTH 需要支付资金费用，可能导致收益减少。</li>
-<li><strong>清算风险</strong>：如果是通过铸造 oSQTH 的方式提供流动性，可能面临清算风险。</li>
-</ul>
-</li>
+<li><strong>资金费用损失</strong>：持有 oSQTH
+需要支付资金费用，可能导致收益减少。</li>
+<li><strong>清算风险</strong>：如果是通过铸造 oSQTH
+的方式提供流动性，可能面临清算风险。</li>
+</ul></li>
 </ul>
 <h2 id="资金费用收取机制">资金费用收取机制</h2>
-<h3 id="1-资金费用机制的特点">1. 资金费用机制的特点</h3>
+<h3 id="资金费用机制的特点">1. 资金费用机制的特点</h3>
 <ul>
-<li><strong>无现金流转移</strong>：与传统永续合约的资金费率机制不同，Squeeth 的资金费用收取过程不产生现金流的直接转移，减少了操作次数和复杂性。</li>
-<li><strong>标准化因子（Normalization Factor）</strong>：引入标准化因子来调整 oSQTH 的价值，使得资金费用体现在 oSQTH 的价格中。</li>
+<li><strong>无现金流转移</strong>：与传统永续合约的资金费率机制不同，Squeeth
+的资金费用收取过程不产生现金流的直接转移，减少了操作次数和复杂性。</li>
+<li><strong>标准化因子（Normalization
+Factor）</strong>：引入标准化因子来调整 oSQTH 的价值，使得资金费用体现在
+oSQTH 的价格中。</li>
 </ul>
-<h3 id="2-标准化因子的计算">2. 标准化因子的计算</h3>
+<h3 id="标准化因子的计算">2. 标准化因子的计算</h3>
 <ul>
-<li>
-<p><strong>债务价值公式</strong>：</p>
-<p>$$<br>
-\text{债务价值（以 ETH 计）} = \text{原始债务金额} \times \text{标准化因子} \times \text{ETH 价格}<br>
-$$</p>
-</li>
-<li>
-<p><strong>资金费用的体现</strong>：标准化因子随着时间变化，大部分时间为正数，导致债务价值逐渐缩水，这部分价值相当于多头支付给空头的资金费用。</p>
-</li>
+<li><p><strong>债务价值公式</strong>：</p>
+<p><span class="math display">\[
+\text{债务价值（以 ETH 计）} = \text{原始债务金额} \times
+\text{标准化因子} \times \text{ETH 价格}
+\]</span></p></li>
+<li><p><strong>资金费用的体现</strong>：标准化因子随着时间变化，大部分时间为正数，导致债务价值逐渐缩水，这部分价值相当于多头支付给空头的资金费用。</p></li>
 </ul>
-<h3 id="3-Squeeth-价格的锚定">3. Squeeth 价格的锚定</h3>
+<h3 id="squeeth-价格的锚定">3. Squeeth 价格的锚定</h3>
 <ul>
-<li>
-<p><strong>价格关系</strong>：</p>
-<p>$$<br>
-\text{Squeeth 价格} = \text{ETH 价格}^2 = \frac{10,000 \times \text{oSQTH 美元价格}}{\text{标准化因子}}<br>
-$$</p>
-</li>
-<li>
-<p><strong>调整因子</strong>：将标准化因子按 10,000 缩放，以将数字置于更自然的单位中。</p>
-</li>
+<li><p><strong>价格关系</strong>：</p>
+<p><span class="math display">\[
+\text{Squeeth 价格} = \text{ETH 价格}^2 = \frac{10,000 \times
+\text{oSQTH 美元价格}}{\text{标准化因子}}
+\]</span></p></li>
+<li><p><strong>调整因子</strong>：将标准化因子按 10,000
+缩放，以将数字置于更自然的单位中。</p></li>
 </ul>
-<h3 id="4-标准化因子的调节机制">4. 标准化因子的调节机制</h3>
+<h3 id="标准化因子的调节机制">4. 标准化因子的调节机制</h3>
 <ul>
-<li>
-<p><strong>百分比变化</strong>：</p>
-<p>$$<br>
-\text{标准化因子的百分比变化} = \text{Squeeth 价格} 与 {ETH}^2 {之间的差异百分比}<br>
-$$</p>
-</li>
-<li>
-<p><strong>市场机制</strong>：</p>
+<li><p><strong>百分比变化</strong>：</p>
+<p><span class="math display">\[
+\text{标准化因子的百分比变化} = \text{Squeeth 价格} 与 {ETH}^2
+{之间的差异百分比}
+\]</span></p></li>
+<li><p><strong>市场机制</strong>：</p>
 <ul>
-<li><strong>当 Squeeth 价格过高</strong>：偏离 ETH^2，吸引更多用户抵押 ETH 铸造 oSQTH，卖出以平抑价格。</li>
-<li><strong>当 Squeeth 价格过低</strong>：用户更倾向于回购 oSQTH 偿还债务，减少市场供给，推动价格回升。</li>
+<li><strong>当 Squeeth 价格过高</strong>：偏离 ETH^2，吸引更多用户抵押
+ETH 铸造 oSQTH，卖出以平抑价格。</li>
+<li><strong>当 Squeeth 价格过低</strong>：用户更倾向于回购 oSQTH
+偿还债务，减少市场供给，推动价格回升。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="5-实际表现">5. 实际表现</h3>
+<h3 id="实际表现">5. 实际表现</h3>
 <ul>
-<li><strong>2021 年表现</strong>：ETH 价格平方上涨了 90 倍，而 oSQTH 价格仅上涨了 50 倍，两者的差异即为资金费用的成本。<br>
-<img src="../img/squeeth/image-2.png" srcset="/img/loading.gif" lazyload alt=""></li>
+<li><strong>2021 年表现</strong>：ETH 价格平方上涨了 90 倍，而 oSQTH
+价格仅上涨了 50 倍，两者的差异即为资金费用的成本。 <img
+src="../img/squeeth/image-2.png" srcset="/img/loading.gif" lazyload /></li>
 </ul>
 <h2 id="投资策略">投资策略</h2>
-<h3 id="1-螃蟹策略（Crab-Strategy）">1. 螃蟹策略（Crab Strategy）</h3>
+<h3 id="螃蟹策略crab-strategy">1. 螃蟹策略（Crab Strategy）</h3>
 <ul>
-<li><strong>定义</strong>：螃蟹策略是一种风险中性策略，旨在稳定获取资金费用收入，对 ETH 价格波动不敏感。</li>
+<li><strong>定义</strong>：螃蟹策略是一种风险中性策略，旨在稳定获取资金费用收入，对
+ETH 价格波动不敏感。</li>
 <li><strong>操作步骤</strong>：
-<ol>
+<ol type="1">
 <li><strong>做空 oSQTH</strong>：抵押 ETH，铸造并卖出 oSQTH。</li>
-<li><strong>Delta 对冲</strong>：通过持有一定数量的 ETH，调整组合中 oSQTH 和 ETH 的头寸比例，使得组合的 Delta 风险为零。</li>
-</ol>
-</li>
-<li><strong>收益来源</strong>：主要来自做空 oSQTH 获得的资金费用收入。</li>
+<li><strong>Delta 对冲</strong>：通过持有一定数量的 ETH，调整组合中
+oSQTH 和 ETH 的头寸比例，使得组合的 Delta 风险为零。</li>
+</ol></li>
+<li><strong>收益来源</strong>：主要来自做空 oSQTH
+获得的资金费用收入。</li>
 <li><strong>风险</strong>：
 <ul>
 <li><strong>清算风险</strong>：需要定期调整头寸，保持足够的抵押比例。</li>
-<li><strong>价格剧烈波动</strong>：如果 ETH 价格单日波动超过一定范围，可能导致策略亏损。</li>
+<li><strong>价格剧烈波动</strong>：如果 ETH
+价格单日波动超过一定范围，可能导致策略亏损。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<h3 id="2-螃蟹策略的盈利条件">2. 螃蟹策略的盈利条件</h3>
+<h3 id="螃蟹策略的盈利条件">2. 螃蟹策略的盈利条件</h3>
 <ul>
-<li><strong>数据分析</strong>：根据历史数据，只要 ETH 每日价格波动在 <strong>±4.99%</strong> 范围内，螃蟹策略都可以保持盈利。</li>
+<li><strong>数据分析</strong>：根据历史数据，只要 ETH 每日价格波动在
+<strong>±4.99%</strong> 范围内，螃蟹策略都可以保持盈利。</li>
 <li><strong>适用人群</strong>：风险偏好较低，期望稳定收益的投资者。</li>
 </ul>
-<h3 id="3-其他策略">3. 其他策略</h3>
+<h3 id="其他策略">3. 其他策略</h3>
 <ul>
-<li><strong>牛市做多策略</strong>：购买 oSQTH，看涨 ETH 价格，享受平方收益。</li>
-<li><strong>熊市做空策略</strong>：做空 oSQTH，押注 ETH 价格下跌，但需承担清算风险。</li>
+<li><strong>牛市做多策略</strong>：购买 oSQTH，看涨 ETH
+价格，享受平方收益。</li>
+<li><strong>熊市做空策略</strong>：做空 oSQTH，押注 ETH
+价格下跌，但需承担清算风险。</li>
 </ul>
-<p><img src="../img/squeeth/image-3.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="../img/squeeth/image-3.png" srcset="/img/loading.gif" lazyload /></p>
 <h2 id="应用场景">应用场景</h2>
-<h3 id="1-对冲无常损失">1. 对冲无常损失</h3>
+<h3 id="对冲无常损失">1. 对冲无常损失</h3>
 <ul>
-<li><strong>背景</strong>：在 Uniswap 等 AMM 平台提供流动性时，面临无常损失（Impermanent Loss）的风险，且损失曲线是非线性的。</li>
-<li><strong>Squeeth 的作用</strong>：由于 Squeeth 的非线性收益曲线，可以通过构建组合来对冲无常损失。</li>
+<li><strong>背景</strong>：在 Uniswap 等 AMM
+平台提供流动性时，面临无常损失（Impermanent
+Loss）的风险，且损失曲线是非线性的。</li>
+<li><strong>Squeeth 的作用</strong>：由于 Squeeth
+的非线性收益曲线，可以通过构建组合来对冲无常损失。</li>
 <li><strong>对冲方式</strong>：
 <ul>
-<li><strong>建立对冲头寸</strong>：持有一定数量的 Squeeth，与 LP 头寸相匹配。</li>
-<li><strong>收益平衡</strong>：当市场波动导致 LP 产生无常损失时，Squeeth 的收益可以弥补损失。</li>
+<li><strong>建立对冲头寸</strong>：持有一定数量的 Squeeth，与 LP
+头寸相匹配。</li>
+<li><strong>收益平衡</strong>：当市场波动导致 LP 产生无常损失时，Squeeth
+的收益可以弥补损失。</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<p><img src="../img/squeeth/image-4.png" srcset="/img/loading.gif" lazyload alt=""><br>
-对冲方式详见：<a target="_blank" rel="noopener" href="https://medium.com/opyn/hedging-uniswap-v3-with-squeeth-bcaf1750ea11">https://medium.com/opyn/hedging-uniswap-v3-with-squeeth-bcaf1750ea11</a></p>
-<h3 id="2-提高投资组合的收益潜力">2. 提高投资组合的收益潜力</h3>
+<p><img src="../img/squeeth/image-4.png" srcset="/img/loading.gif" lazyload />
+对冲方式详见：https://medium.com/opyn/hedging-uniswap-v3-with-squeeth-bcaf1750ea11</p>
+<h3 id="提高投资组合的收益潜力">2. 提高投资组合的收益潜力</h3>
 <ul>
-<li><strong>放大收益</strong>：利用 Squeeth 的平方收益特性，在看涨 ETH 时，可以获得比线性工具更高的收益。</li>
+<li><strong>放大收益</strong>：利用 Squeeth 的平方收益特性，在看涨 ETH
+时，可以获得比线性工具更高的收益。</li>
 <li><strong>风险管理</strong>：通过对冲策略，控制投资组合的风险暴露。</li>
 </ul>
 <h2 id="数学模型与公式">数学模型与公式</h2>
-<h3 id="1-Squeeth-的定价公式">1. Squeeth 的定价公式</h3>
+<h3 id="squeeth-的定价公式">1. Squeeth 的定价公式</h3>
 <ul>
-<li>
-<p><strong>Squeeth 价格（以美元计）</strong>：</p>
-<p>$$<br>
-\text{Squeeth 价格} = \frac{\text{ETH 价格}^2 \times \text{标准化因子}}{10,000}<br>
-$$</p>
-</li>
-<li>
-<p><strong>标准化因子更新</strong>：</p>
-<p>$$<br>
-\text{标准化因子}_{t+1} = \text{标准化因子}_t \times \left(1 + \frac{\text{Squeeth 价格偏差}}{\text{ETH 价格}^2}\right)<br>
-$$</p>
-</li>
+<li><p><strong>Squeeth 价格（以美元计）</strong>：</p>
+<p><span class="math display">\[
+\text{Squeeth 价格} = \frac{\text{ETH 价格}^2 \times
+\text{标准化因子}}{10,000}
+\]</span></p></li>
+<li><p><strong>标准化因子更新</strong>：</p>
+<p><span class="math display">\[
+\text{标准化因子}_{t+1} = \text{标准化因子}_t \times \left(1 +
+\frac{\text{Squeeth 价格偏差}}{\text{ETH 价格}^2}\right)
+\]</span></p></li>
 </ul>
-<h3 id="2-Delta-对冲">2. Delta 对冲</h3>
+<h3 id="delta-对冲">2. Delta 对冲</h3>
 <ul>
-<li>
-<p><strong>组合的 Delta</strong>：</p>
-<p>$$<br>
-\Delta_{\text{组合}} = \Delta_{\text{ETH}} \times N_{\text{ETH}} + \Delta_{\text{oSQTH}} \times N_{\text{oSQTH}}<br>
-$$</p>
-</li>
-<li>
-<p><strong>目标</strong>：调整 ( N*{\text{ETH}} ) 和 ( N*{\text{oSQTH}} )，使得 ( \Delta_{\text{组合}} = 0 )。</p>
-</li>
+<li><p><strong>组合的 Delta</strong>：</p>
+<p><span class="math display">\[
+\Delta_{\text{组合}} = \Delta_{\text{ETH}} \times N_{\text{ETH}} +
+\Delta_{\text{oSQTH}} \times N_{\text{oSQTH}}
+\]</span></p></li>
+<li><p><strong>目标</strong>：调整 ( N<em>{} ) 和 ( N</em>{} )，使得 (
+_{} = 0 )。</p></li>
 </ul>
-<h3 id="3-清算条件">3. 清算条件</h3>
+<h3 id="清算条件">3. 清算条件</h3>
 <ul>
-<li>
-<p><strong>抵押率计算</strong>：</p>
-<p>$$<br>
-\text{抵押率（CR）} = \frac{\text{抵押品价值}}{\text{负债价值}}<br>
-$$</p>
-</li>
-<li>
-<p><strong>清算触发</strong>：当 ( CR &lt; 150% ) 时，系统将触发清算。</p>
-</li>
+<li><p><strong>抵押率计算</strong>：</p>
+<p><span class="math display">\[
+\text{抵押率（CR）} = \frac{\text{抵押品价值}}{\text{负债价值}}
+\]</span></p></li>
+<li><p><strong>清算触发</strong>：当 ( CR &lt; 150% )
+时，系统将触发清算。</p></li>
 </ul>
 <h2 id="风险与注意事项">风险与注意事项</h2>
 <ul>
 <li><strong>清算风险</strong>：做空或提供流动性时，需保持足够的抵押品，防止被清算。</li>
-<li><strong>价格波动风险</strong>：Squeeth 的非线性特性放大了价格波动的影响，需谨慎管理风险。</li>
-<li><strong>资金费用成本</strong>：长期持有 oSQTH 需要支付资金费用，可能侵蚀收益。</li>
-<li><strong>复杂性</strong>：Squeeth 的机制较为复杂，建议用户在充分理解其原理后再参与。</li>
+<li><strong>价格波动风险</strong>：Squeeth
+的非线性特性放大了价格波动的影响，需谨慎管理风险。</li>
+<li><strong>资金费用成本</strong>：长期持有 oSQTH
+需要支付资金费用，可能侵蚀收益。</li>
+<li><strong>复杂性</strong>：Squeeth
+的机制较为复杂，建议用户在充分理解其原理后再参与。</li>
 </ul>
 <h2 id="总结">总结</h2>
-<p>Squeeth 作为一种创新的 DeFi 衍生品，为用户提供了全新的投资和对冲工具。其独特的非线性收益曲线、无到期日和灵活的策略选择，使其在市场上具有独特的吸引力。然而，用户在参与时需充分了解其机制和风险，谨慎制定投资策略。</p>
+<p>Squeeth 作为一种创新的 DeFi
+衍生品，为用户提供了全新的投资和对冲工具。其独特的非线性收益曲线、无到期日和灵活的策略选择，使其在市场上具有独特的吸引力。然而，用户在参与时需充分了解其机制和风险，谨慎制定投资策略。</p>
 <h2 id="参考资料">参考资料</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.opyn.co/">Opyn 官方网站</a></li>
 <li><a target="_blank" rel="noopener" href="https://opyn.gitbook.io/squeeth/">Squeeth 白皮书</a></li>
 <li><a target="_blank" rel="noopener" href="https://opyn.substack.com/">Squeeth 产品介绍</a></li>
-<li><a target="_blank" rel="noopener" href="https://medium.com/opyn/hedging-uniswap-v3-with-squeeth-bcaf1750ea11">对冲 Uniswap V3 的无常损失</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://medium.com/opyn/hedging-uniswap-v3-with-squeeth-bcaf1750ea11">对冲
+Uniswap V3 的无常损失</a></li>
 <li><a target="_blank" rel="noopener" href="https://ethereum.org/developers/">以太坊开发者文档</a></li>
-<li><a target="_blank" rel="noopener" href="https://consensys.github.io/smart-contract-best-practices/">DeFi 安全最佳实践</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://consensys.github.io/smart-contract-best-practices/">DeFi
+安全最佳实践</a></li>
 </ul>
 
                 
@@ -804,6 +820,10 @@ $$</p>
 
   <footer>
     <div class="footer-inner">
+  
+    <div class="footer-content">
+      Naveen's Blog
+    </div>
   
   
     <div class="statistics">

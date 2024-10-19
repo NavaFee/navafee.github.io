@@ -328,96 +328,117 @@
             
               <div class="markdown-body">
                 
-                <h1>Lido（LDO）深度解析</h1>
+                <h1 id="lidoldo深度解析">Lido（LDO）深度解析</h1>
 <h2 id="引言">引言</h2>
-<p>以太坊 2.0（共识层）的质押规则对于普通用户来说存在一定的门槛和不便：</p>
-<ol>
-<li><strong>最低质押要求</strong>：节点必须质押 <strong>32 ETH</strong> 的倍数，金额较大。</li>
-<li><strong>锁定期</strong>：质押期间，ETH 不能从信标链中提取，只能等到以太坊 2.0 完全启动后才能赎回。</li>
+<p>以太坊
+2.0（共识层）的质押规则对于普通用户来说存在一定的门槛和不便：</p>
+<ol type="1">
+<li><strong>最低质押要求</strong>：节点必须质押 <strong>32 ETH</strong>
+的倍数，金额较大。</li>
+<li><strong>锁定期</strong>：质押期间，ETH
+不能从信标链中提取，只能等到以太坊 2.0 完全启动后才能赎回。</li>
 </ol>
-<p>针对这些痛点，<strong>Lido</strong> 提供了以太坊 2.0 的去中心化质押服务，允许用户以任意数量的 ETH 参与质押，并获得可交易的衍生品 <strong>stETH</strong>。本文将深入探讨 Lido 的产品机制、操作流程、代币模型，以及其在 DeFi 生态系统中的作用。</p>
-<h2 id="Lido-的产品机制">Lido 的产品机制</h2>
+<p>针对这些痛点，<strong>Lido</strong> 提供了以太坊 2.0
+的去中心化质押服务，允许用户以任意数量的 ETH
+参与质押，并获得可交易的衍生品 <strong>stETH</strong>。本文将深入探讨
+Lido 的产品机制、操作流程、代币模型，以及其在 DeFi
+生态系统中的作用。</p>
+<h2 id="lido-的产品机制">Lido 的产品机制</h2>
 <h3 id="概述">概述</h3>
-<p><img src="../img/lido/image.png" srcset="/img/loading.gif" lazyload alt=""></p>
-<p>Lido 旨在解决以太坊 2.0 质押的高门槛和流动性问题。通过 Lido，用户可以：</p>
+<p><img src="../img/lido/image.png" srcset="/img/loading.gif" lazyload /></p>
+<p>Lido 旨在解决以太坊 2.0 质押的高门槛和流动性问题。通过
+Lido，用户可以：</p>
 <ul>
-<li><strong>质押任意数量的 ETH</strong>：无需满足 32 ETH 的最低要求。</li>
-<li><strong>获得 stETH 凭证</strong>：质押 ETH 后，用户会收到等量的 stETH。</li>
-<li><strong>流动性支持</strong>：stETH 可以在二级市场交易，提供了质押期间的流动性。</li>
-<li><strong>每日收益</strong>：用户每日获得的质押奖励会反映在 stETH 的余额上。</li>
-<li><strong>低服务费</strong>：整个过程只需支付 <strong>10%</strong> 的服务费给 Lido DAO。</li>
+<li><strong>质押任意数量的 ETH</strong>：无需满足 32 ETH
+的最低要求。</li>
+<li><strong>获得 stETH 凭证</strong>：质押 ETH 后，用户会收到等量的
+stETH。</li>
+<li><strong>流动性支持</strong>：stETH
+可以在二级市场交易，提供了质押期间的流动性。</li>
+<li><strong>每日收益</strong>：用户每日获得的质押奖励会反映在 stETH
+的余额上。</li>
+<li><strong>低服务费</strong>：整个过程只需支付 <strong>10%</strong>
+的服务费给 Lido DAO。</li>
 </ul>
 <h3 id="关键角色">关键角色</h3>
 <p>Lido 系统主要由以下三个角色组成：</p>
-<ol>
-<li><strong>质押者（Stakers）</strong>：将 ETH 质押到 Lido 协议，获得 stETH。</li>
-<li><strong>节点运营商（Node Operators）</strong>：负责运行验证节点，维护网络安全。</li>
-<li><strong>验证人（Validators）</strong>：承担预言机的职责，负责以太坊 1.0 和信标链之间的通信。</li>
+<ol type="1">
+<li><strong>质押者（Stakers）</strong>：将 ETH 质押到 Lido 协议，获得
+stETH。</li>
+<li><strong>节点运营商（Node
+Operators）</strong>：负责运行验证节点，维护网络安全。</li>
+<li><strong>验证人（Validators）</strong>：承担预言机的职责，负责以太坊
+1.0 和信标链之间的通信。</li>
 </ol>
 <h3 id="奖励分配">奖励分配</h3>
 <ul>
-<li><strong>质押奖励</strong>：质押者每日获得的奖励会自动累加到 stETH 余额中。</li>
-<li><strong>服务费分配</strong>：Lido 收取的 <strong>10%</strong> 服务费，按照以下比例分配：
+<li><strong>质押奖励</strong>：质押者每日获得的奖励会自动累加到 stETH
+余额中。</li>
+<li><strong>服务费分配</strong>：Lido 收取的 <strong>10%</strong>
+服务费，按照以下比例分配：
 <ul>
 <li><strong>50%</strong> 给节点运营商。</li>
 <li><strong>50%</strong> 进入社区金库，用于项目发展。</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <h2 id="操作流程">操作流程</h2>
-<h3 id="1-质押-ETH">1. 质押 ETH</h3>
+<h3 id="质押-eth">1. 质押 ETH</h3>
 <p>用户可以通过 Lido 官方网站或支持的 DApp 进行质押：</p>
 <ul>
-<li><strong>访问 Lido 网站</strong>：点击 <strong>“Stake Now”</strong> 按钮。<br>
-<img src="../img/lido/image-1.png" srcset="/img/loading.gif" lazyload alt=""><br>
-<img src="../img/lido/image-2.png" srcset="/img/loading.gif" lazyload alt=""></li>
-<li><strong>连接钱包</strong>：使用支持的以太坊钱包（如 MetaMask）进行连接。<br>
-<img src="../img/lido/image-3.png" srcset="/img/loading.gif" lazyload alt=""></li>
+<li><strong>访问 Lido 网站</strong>：点击 <strong>"Stake Now"</strong>
+按钮。 <img src="../img/lido/image-1.png" srcset="/img/loading.gif" lazyload /> <img
+src="../img/lido/image-2.png" srcset="/img/loading.gif" lazyload /></li>
+<li><strong>连接钱包</strong>：使用支持的以太坊钱包（如
+MetaMask）进行连接。 <img src="../img/lido/image-3.png" srcset="/img/loading.gif" lazyload /></li>
 <li><strong>输入质押数量</strong>：输入想要质押的 ETH 数量。</li>
 <li><strong>确认交易</strong>：支付交易费用，完成质押。</li>
 </ul>
 <p><strong>注意事项</strong>：</p>
 <ul>
-<li><strong>不可逆性</strong>：ETH 转为 stETH 后，在以太坊 2.0 完全上线之前无法直接赎回 ETH。</li>
-<li><strong>收益累积</strong>：stETH 会每日计算利息，收益自动复利。<br>
-<img src="../img/lido/image-4.png" srcset="/img/loading.gif" lazyload alt=""></li>
+<li><strong>不可逆性</strong>：ETH 转为 stETH 后，在以太坊 2.0
+完全上线之前无法直接赎回 ETH。</li>
+<li><strong>收益累积</strong>：stETH 会每日计算利息，收益自动复利。 <img
+src="../img/lido/image-4.png" srcset="/img/loading.gif" lazyload /></li>
 </ul>
-<h3 id="2-获取-stETH">2. 获取 stETH</h3>
+<h3 id="获取-steth">2. 获取 stETH</h3>
 <ul>
-<li><strong>stETH 凭证</strong>：质押后，用户会收到等量的 stETH，代表其在 Lido 协议中的权益。</li>
-<li><strong>流动性支持</strong>：stETH 可以在二级市场交易，或用于参与 DeFi 协议。<br>
-<img src="../img/lido/image-5.png" srcset="/img/loading.gif" lazyload alt=""></li>
+<li><strong>stETH 凭证</strong>：质押后，用户会收到等量的
+stETH，代表其在 Lido 协议中的权益。</li>
+<li><strong>流动性支持</strong>：stETH 可以在二级市场交易，或用于参与
+DeFi 协议。 <img src="../img/lido/image-5.png" srcset="/img/loading.gif" lazyload /></li>
 </ul>
-<h3 id="3-参与-DeFi-生态">3. 参与 DeFi 生态</h3>
+<h3 id="参与-defi-生态">3. 参与 DeFi 生态</h3>
 <p>stETH 已与多个主流 DeFi 协议集成：</p>
 <ul>
-<li><strong>Curve</strong>：stETH/ETH 池拥有巨大的流动性，可用于流动性挖矿。</li>
+<li><strong>Curve</strong>：stETH/ETH
+池拥有巨大的流动性，可用于流动性挖矿。</li>
 <li><strong>Aave</strong>：支持使用 stETH 作为抵押品进行借贷。</li>
-<li><strong>Yearn</strong>：可以将 crvSTETH 存入 Yearn 的机枪池，实现收益复投。</li>
+<li><strong>Yearn</strong>：可以将 crvSTETH 存入 Yearn
+的机枪池，实现收益复投。</li>
 </ul>
-<h2 id="Wrap-机制">Wrap 机制</h2>
-<h3 id="wstETH-的引入">wstETH 的引入</h3>
-<p>Lido 提供了 <strong>wstETH</strong>（wrapped stETH），解决了 stETH 数量变化带来的不便：</p>
+<h2 id="wrap-机制">Wrap 机制</h2>
+<h3 id="wsteth-的引入">wstETH 的引入</h3>
+<p>Lido 提供了 <strong>wstETH</strong>（wrapped stETH），解决了 stETH
+数量变化带来的不便：</p>
 <ul>
-<li><strong>固定数量</strong>：wstETH 的数量不会因为质押奖励而变化，方便计算和使用。</li>
-<li><strong>价格增长</strong>：wstETH 的价格会随着质押奖励的累积而上涨。<br>
-<img src="../img/lido/image-6.png" srcset="/img/loading.gif" lazyload alt=""></li>
+<li><strong>固定数量</strong>：wstETH
+的数量不会因为质押奖励而变化，方便计算和使用。</li>
+<li><strong>价格增长</strong>：wstETH 的价格会随着质押奖励的累积而上涨。
+<img src="../img/lido/image-6.png" srcset="/img/loading.gif" lazyload /></li>
 </ul>
 <h3 id="转换流程">转换流程</h3>
 <ul>
-<li>
-<p><strong>stETH 转换为 wstETH</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs solidity">function wrap(uint256 _stETHAmount) external returns (uint256 wstETHAmount) &#123;<br>    // 用户将 stETH 存入合约，获得等价值的 wstETH<br>&#125;<br></code></pre></td></tr></table></figure>
-</li>
-<li>
-<p><strong>wstETH 转换为 stETH</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs solidity">function unwrap(uint256 _wstETHAmount) external returns (uint256 stETHAmount) &#123;<br>    // 用户将 wstETH 赎回，获得增加了奖励的 stETH<br>&#125;<br></code></pre></td></tr></table></figure>
-</li>
+<li><p><strong>stETH 转换为 wstETH</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs solidity">function wrap(uint256 _stETHAmount) external returns (uint256 wstETHAmount) &#123;<br>    // 用户将 stETH 存入合约，获得等价值的 wstETH<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p><strong>wstETH 转换为 stETH</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs solidity">function unwrap(uint256 _wstETHAmount) external returns (uint256 stETHAmount) &#123;<br>    // 用户将 wstETH 赎回，获得增加了奖励的 stETH<br>&#125;<br></code></pre></td></tr></table></figure></li>
 </ul>
 <h3 id="应用场景">应用场景</h3>
 <ul>
-<li><strong>DeFi 集成</strong>：wstETH 更适合与一些需要固定数量代币的 DeFi 协议集成。</li>
-<li><strong>收益优化</strong>：持有 wstETH 的用户，其价值会随着时间增长，方便长期投资。</li>
+<li><strong>DeFi 集成</strong>：wstETH 更适合与一些需要固定数量代币的
+DeFi 协议集成。</li>
+<li><strong>收益优化</strong>：持有 wstETH
+的用户，其价值会随着时间增长，方便长期投资。</li>
 </ul>
 <h2 id="平台数据">平台数据</h2>
 <p>截至 2023 年 10 月，Lido 平台的主要数据如下：</p>
@@ -452,7 +473,7 @@
 </tbody>
 </table>
 <p><em>（数据仅供参考，请以实际情况为准）</em></p>
-<h2 id="LDO-代币模型">LDO 代币模型</h2>
+<h2 id="ldo-代币模型">LDO 代币模型</h2>
 <h3 id="基本信息">基本信息</h3>
 <ul>
 <li><strong>代币名称</strong>：Lido DAO Token</li>
@@ -498,96 +519,93 @@
 </table>
 <h3 id="流动性奖励与融资">流动性奖励与融资</h3>
 <ul>
-<li>
-<p><strong>融资轮</strong>：</p>
+<li><p><strong>融资轮</strong>：</p>
 <ul>
-<li>2021 年 4 月，Lido 出售了 <strong>10%</strong>（100,000,000 枚）的 LDO，融资约 <strong>7,300 万美元</strong>。</li>
+<li>2021 年 4 月，Lido 出售了 <strong>10%</strong>（100,000,000 枚）的
+LDO，融资约 <strong>7,300 万美元</strong>。</li>
 <li><strong>锁定期</strong>：1 年后线性释放。</li>
-</ul>
-</li>
-<li>
-<p><strong>流动性奖励</strong>（24,940,000 枚）：</p>
+</ul></li>
+<li><p><strong>流动性奖励</strong>（24,940,000 枚）：</p>
 <ul>
 <li>分配给 Curve、1inch 等平台的流动性挖矿和奖励计划。</li>
 <li><strong>空投</strong>：4,000,000 枚 LDO。</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 <h3 id="解锁计划">解锁计划</h3>
 <ul>
-<li><strong>锁定期</strong>：部分代币有 1 年的锁定期，于 2021 年 12 月 17 日解锁。</li>
-<li><strong>释放方式</strong>：12 个月的线性释放期，逐步释放到市场。</li>
+<li><strong>锁定期</strong>：部分代币有 1 年的锁定期，于 2021 年 12 月
+17 日解锁。</li>
+<li><strong>释放方式</strong>：12
+个月的线性释放期，逐步释放到市场。</li>
 </ul>
 <h2 id="数学模型与收益计算">数学模型与收益计算</h2>
-<h3 id="stETH-的收益计算">stETH 的收益计算</h3>
+<h3 id="steth-的收益计算">stETH 的收益计算</h3>
 <p>stETH 的余额会根据质押奖励每日增加，其增长可以表示为：</p>
-<p>$$<br>
-\text{stETH_balance}<em>{t} = \text{stETH_balance}</em>{t-1} \times \left(1 + \frac{\text{APR}}{365}\right)<br>
-$$</p>
+<p><span class="math display">\[
+\text{stETH\_balance}_{t} = \text{stETH\_balance}_{t-1} \times \left(1 +
+\frac{\text{APR}}{365}\right)
+\]</span></p>
 <p>其中：</p>
 <ul>
-<li>( \text{APR} ) 是年化收益率。</li>
+<li>( ) 是年化收益率。</li>
 <li>( t ) 是时间（天）。</li>
 </ul>
-<h3 id="wstETH-的价格计算">wstETH 的价格计算</h3>
+<h3 id="wsteth-的价格计算">wstETH 的价格计算</h3>
 <p>wstETH 的价格会随着 stETH 的收益而增加：</p>
-<p>$$<br>
-\text{wstETH_price}<em>{t} = \text{wstETH_price}</em>{t-1} \times \left(1 + \frac{\text{APR}}{365}\right)<br>
-$$</p>
+<p><span class="math display">\[
+\text{wstETH\_price}_{t} = \text{wstETH\_price}_{t-1} \times \left(1 +
+\frac{\text{APR}}{365}\right)
+\]</span></p>
 <ul>
-<li>
-<p><strong>转换关系</strong>：</p>
-<p>$$<br>
-\text{wstETH_amount} = \frac{\text{stETH_amount}}{\text{wstETH_price}}<br>
-$$</p>
-</li>
+<li><p><strong>转换关系</strong>：</p>
+<p><span class="math display">\[
+\text{wstETH\_amount} =
+\frac{\text{stETH\_amount}}{\text{wstETH\_price}}
+\]</span></p></li>
 </ul>
 <h3 id="示例">示例</h3>
 <ul>
-<li>
-<p><strong>初始状态</strong>：</p>
+<li><p><strong>初始状态</strong>：</p>
 <ul>
 <li>质押 10 ETH，获得 10 stETH。</li>
 <li>wstETH 初始价格为 1。</li>
-</ul>
-</li>
-<li>
-<p><strong>一天后</strong>（假设 APR 为 5%）：</p>
+</ul></li>
+<li><p><strong>一天后</strong>（假设 APR 为 5%）：</p>
 <ul>
-<li>
-<p>stETH 余额：</p>
-<p>$$<br>
-10 \times \left(1 + \frac{5%}{365}\right) \approx 10.00137<br>
-$$</p>
-</li>
-<li>
-<p>wstETH 价格：</p>
-<p>$$<br>
-1 \times \left(1 + \frac{5%}{365}\right) \approx 1.000137<br>
-$$</p>
-</li>
-</ul>
-</li>
-<li>
-<p><strong>wstETH 数量</strong>：</p>
-<p>$$<br>
-\frac{10.00137}{1.000137} = 10<br>
-$$</p>
-<p>（wstETH 数量保持不变）</p>
-</li>
+<li><p>stETH 余额：</p>
+<p><span class="math display">\[
+10 \times \left(1 + \frac{5\%}{365}\right) \approx 10.00137
+\]</span></p></li>
+<li><p>wstETH 价格：</p>
+<p><span class="math display">\[
+1 \times \left(1 + \frac{5\%}{365}\right) \approx 1.000137
+\]</span></p></li>
+</ul></li>
+<li><p><strong>wstETH 数量</strong>：</p>
+<p><span class="math display">\[
+\frac{10.00137}{1.000137} = 10
+\]</span></p>
+<p>（wstETH 数量保持不变）</p></li>
 </ul>
 <h2 id="安全与风险">安全与风险</h2>
 <ul>
-<li><strong>质押风险</strong>：节点可能被罚没（Slashing），导致质押的 ETH 损失。</li>
-<li><strong>智能合约风险</strong>：尽管 Lido 的合约经过审计，但仍存在漏洞的可能性。</li>
-<li><strong>流动性风险</strong>：stETH 价格可能偏离 ETH，导致兑换损失。</li>
+<li><strong>质押风险</strong>：节点可能被罚没（Slashing），导致质押的
+ETH 损失。</li>
+<li><strong>智能合约风险</strong>：尽管 Lido
+的合约经过审计，但仍存在漏洞的可能性。</li>
+<li><strong>流动性风险</strong>：stETH 价格可能偏离
+ETH，导致兑换损失。</li>
 </ul>
 <h2 id="智能合约与代码示例">智能合约与代码示例</h2>
-<p>以下是一个使用 Solidity 与 Lido 协议交互的简单示例，展示如何质押 ETH 并获取 stETH。</p>
+<p>以下是一个使用 Solidity 与 Lido 协议交互的简单示例，展示如何质押 ETH
+并获取 stETH。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs solidity">pragma solidity ^0.7.0;<br><br>interface ILido &#123;<br>    function submit(address _referral) external payable returns (uint256 StETH);<br>&#125;<br><br>contract LidoStakingExample &#123;<br>    ILido public lido = ILido(0x7f39...); // Lido 合约地址<br><br>    function stakeETH() external payable &#123;<br>        require(msg.value &gt; 0, &quot;Must send ETH to stake&quot;);<br>        // 调用 Lido 的 submit 函数质押 ETH<br>        uint256 stETHAmount = lido.submit&#123;value: msg.value&#125;(address(0));<br>        // 将 stETH 转给用户<br>        // 注意：需要处理 stETH 的接收逻辑<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p><strong>注意</strong>：上述代码仅供参考，实际开发中需要处理代币接收、权限控制等完整逻辑。</p>
 <h2 id="总结">总结</h2>
-<p>Lido 通过提供去中心化的质押解决方案，降低了以太坊 2.0 质押的门槛，并为用户提供了质押期间的流动性。其创新的 stETH 和 wstETH 机制，以及与多个 DeFi 协议的集成，极大地丰富了用户的投资策略。然而，用户在参与之前，应充分了解相关风险，谨慎决策。</p>
+<p>Lido 通过提供去中心化的质押解决方案，降低了以太坊 2.0
+质押的门槛，并为用户提供了质押期间的流动性。其创新的 stETH 和 wstETH
+机制，以及与多个 DeFi
+协议的集成，极大地丰富了用户的投资策略。然而，用户在参与之前，应充分了解相关风险，谨慎决策。</p>
 <h2 id="参考资料">参考资料</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://lido.fi/">Lido 官方网站</a></li>
@@ -813,6 +831,10 @@ $$</p>
 
   <footer>
     <div class="footer-inner">
+  
+    <div class="footer-content">
+      Naveen's Blog
+    </div>
   
   
     <div class="statistics">
